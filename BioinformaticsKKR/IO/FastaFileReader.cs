@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -41,7 +40,8 @@ namespace BioinformaticsKKR.IO
 
                 return sequences;
             }
-            throw new Exception();
+            
+            return new List<ISequence>();
         }
     }
 }

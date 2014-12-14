@@ -1,11 +1,8 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
 using Bio;
+using BioinformaticsKKR.Core.DependencyInjection;
 using BioinformaticsKKR.Core.ViewModel;
 using BioinformaticsKKR.IO;
-using StructureMap;
 
 namespace BioinformaticsKKR.ViewModel
 {
@@ -15,7 +12,7 @@ namespace BioinformaticsKKR.ViewModel
         #region Ctor
         public MainWindowViewModel()
         {
-            _fastaFileReader = ObjectFactory.GetInstance<IFastaFileReader>();
+            _fastaFileReader = ContainerBootstrap.Container.GetInstance<IFastaFileReader>();
             ReadFile = new CommandBase
             {
                 CanExecuteMethod = o => true,

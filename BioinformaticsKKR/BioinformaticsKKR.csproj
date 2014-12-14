@@ -72,6 +72,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Core\DependencyInjection\BioRegistry.cs" />
+    <Compile Include="Core\DependencyInjection\ContainerBootstrap.cs" />
     <Compile Include="IO\FastaFileReader.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <ApplicationDefinition Include="App.xaml">
