@@ -8,7 +8,7 @@ namespace BioinformaticsKKR.Core.DependencyInjection
     {
         public BioRegistry()
         {
-            For<IFastaFileReader>().Use<FastaFileReader>();
+            For<ISequenceFileReader>().Use<SequenceFileReader>();
         }
     }
 }

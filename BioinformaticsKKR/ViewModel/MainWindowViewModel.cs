@@ -12,7 +12,7 @@ namespace BioinformaticsKKR.ViewModel
         #region Ctor
         public MainWindowViewModel()
         {
-            _fastaFileReader = ContainerBootstrap.Container.GetInstance<IFastaFileReader>();
+            _fastaFileReader = ContainerBootstrap.Container.GetInstance<ISequenceFileReader>();
             ReadFile = new CommandBase
             {
                 CanExecuteMethod = o => true,
@@ -23,7 +23,7 @@ namespace BioinformaticsKKR.ViewModel
         #endregion
 
         #region Private Fields
-        private readonly IFastaFileReader _fastaFileReader;
+        private readonly ISequenceFileReader _fastaFileReader;
         private IEnumerable<ISequence> _sequences;
         private ISequence _currentSequence;
 

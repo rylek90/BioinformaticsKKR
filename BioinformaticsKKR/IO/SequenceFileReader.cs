@@ -7,22 +7,13 @@ using Microsoft.Win32;
 
 namespace BioinformaticsKKR.IO
 {
-    public interface IFastaFileReader
-    {
-        IEnumerable<ISequence> ReadSequence();
-    }
-
-    public class FastaFileReader : IFastaFileReader
+    public class SequenceFileReader : ISequenceFileReader
     {
         private readonly OpenFileDialog _openFileDialog;
 
-        public FastaFileReader()
+        public SequenceFileReader()
         {
-            _openFileDialog = new OpenFileDialog
-            {
-                DefaultExt = "fasta",
-                Filter = "FASTA Files (.fasta)|*.fasta"
-            };
+            _openFileDialog = new OpenFileDialog();
         }
 
         public IEnumerable<ISequence> ReadSequence()

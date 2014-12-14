@@ -74,7 +74,8 @@
     </Compile>
     <Compile Include="Core\DependencyInjection\BioRegistry.cs" />
     <Compile Include="Core\DependencyInjection\ContainerBootstrap.cs" />
-    <Compile Include="IO\FastaFileReader.cs" />
+    <Compile Include="IO\SequenceFileReader.cs" />
+    <Compile Include="IO\ISequenceFileReader.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
