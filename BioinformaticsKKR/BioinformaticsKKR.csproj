@@ -48,6 +48,13 @@
     <Reference Include="Bio.Platform.Helpers">
       <HintPath>..\packages\NetBioCore.PCL.2.0.141118\lib\net45\Bio.Platform.Helpers.dll</HintPath>
     </Reference>
+    <Reference Include="FirstFloor.ModernUI">
+      <HintPath>..\packages\ModernUI.WPF.1.0.6\lib\net45\FirstFloor.ModernUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\packages\structuremap.3.1.4.143\lib\net40\StructureMap.dll</HintPath>
     </Reference>
@@ -72,11 +79,18 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Core\Definitions\SequenceType.cs" />
     <Compile Include="Core\DependencyInjection\BioRegistry.cs" />
     <Compile Include="Core\DependencyInjection\ContainerBootstrap.cs" />
+    <Compile Include="Core\Extensions\SequenceExtensions.cs" />
+    <Compile Include="IO\ISequenceFileWriter.cs" />
     <Compile Include="IO\SequenceFileReader.cs" />
     <Compile Include="IO\ISequenceFileReader.cs" />
-    <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="IO\SequenceFileWriter.cs" />
+    <Compile Include="Navigator\Loader\CurrentSequenceLoader.cs" />
+    <Compile Include="Provider\SequencesRepository.cs" />
+    <Compile Include="Service\SequenceConverter.cs" />
+    <Compile Include="ViewModel\CurrentSequenceViewModel.cs" />
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -85,8 +99,22 @@
     <Compile Include="Core\ViewModel\Converters\ReverseVisibilityConverter.cs" />
     <Compile Include="Core\ViewModel\Converters\VisibilityConverter.cs" />
     <Compile Include="Core\ViewModel\ViewModelBase.cs" />
+    <Compile Include="ViewModel\ReadFileViewModel.cs" />
+    <Compile Include="ViewModel\SequencesViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="View\ConvertView.xaml.cs">
+      <DependentUpon>ConvertView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="View\CurrentSequence.xaml.cs">
+      <DependentUpon>CurrentSequence.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ReadFileView.xaml.cs">
+      <DependentUpon>ReadFileView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -119,7 +147,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\ConvertView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CurrentSequence.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ReadFileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
