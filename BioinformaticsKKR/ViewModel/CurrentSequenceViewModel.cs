@@ -14,8 +14,8 @@ namespace BioinformaticsKKR.ViewModel
     {
         private ISequence _sequence;
         private SequenceType _currentAlphabet;
-        private ISequenceFileWriter _sequenceFileWriter;
-        private ISequenceConverter _sequenceConverter;
+        private readonly ISequenceFileWriter _sequenceFileWriter;
+        private readonly ISequenceConverter _sequenceConverter;
 
         public Array Alphabets
         {
