@@ -1,4 +1,3 @@
-using System.Windows.Documents;
 using BioinformaticsKKR.Core.DependencyInjection;
 using BioinformaticsKKR.Core.ViewModel;
 using BioinformaticsKKR.IO;
