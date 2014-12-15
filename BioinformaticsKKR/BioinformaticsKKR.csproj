@@ -89,6 +89,12 @@
     <Compile Include="IO\SequenceFileWriter.cs" />
     <Compile Include="Navigator\Loader\CurrentSequenceLoader.cs" />
     <Compile Include="Provider\SequencesRepository.cs" />
+    <Compile Include="Service\Alignement\IAlignSequences.cs" />
+    <Compile Include="Service\Alignement\MuMmerSequenceAligner.cs" />
+    <Compile Include="Service\Alignement\NeedlemanWunschSequenceAligner.cs" />
+    <Compile Include="Service\Alignement\SmithWatermanSequenceAligner.cs" />
+    <Compile Include="Service\Assembly\OverlapDeNovoAssemblerService.cs" />
+    <Compile Include="Service\Assembly\IAssembleSequences.cs" />
     <Compile Include="Service\SequenceConverter.cs" />
     <Compile Include="ViewModel\CurrentSequenceViewModel.cs" />
     <ApplicationDefinition Include="App.xaml">
