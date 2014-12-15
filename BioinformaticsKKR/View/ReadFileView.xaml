@@ -15,14 +15,14 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="100"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         
         <TextBox Grid.ColumnSpan="2" Text="{Binding FilePath,Mode=TwoWay}" />
-        <mui:ModernButton Grid.Row="0" Grid.Column="2" Content="Browse" Command="{Binding Browse}"/>
-       <mui:ModernButton Grid.Column="0" Grid.Row="1" Content="Read File" Command="{Binding ReadFile}"></mui:ModernButton>
+        <Button Grid.Row="0" Grid.Column="2" Content="Browse" Command="{Binding Browse}"/>
+        <Button Grid.Column="0" Grid.Row="1" Content="Read File" Command="{Binding ReadFile}"></Button>
         <RadioButton Grid.Column="0" Grid.Row="2" IsChecked="{Binding AppendToCollection, Mode=TwoWay}" Content="Append"/>
         <RadioButton Grid.Column="0" Grid.Row="3" IsChecked="{Binding OverwriteCollection, Mode=TwoWay}" Content="Overwrite"/>
     </Grid>
