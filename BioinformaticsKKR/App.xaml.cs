@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using BioinformaticsKKR.Core.DependencyInjection;
-using BioinformaticsKKR.IO;
 
 namespace BioinformaticsKKR
 {

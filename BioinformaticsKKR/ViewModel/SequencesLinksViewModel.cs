@@ -8,6 +8,7 @@ namespace BioinformaticsKKR.ViewModel
 {
     public interface ISequencesLinksViewModel
     {
+        void InitializeCollection();
     }
 
     public class SequencesLinksViewModel : ViewModelBase, ISequencesLinksViewModel
@@ -15,10 +16,9 @@ namespace BioinformaticsKKR.ViewModel
         #region Ctor
         public SequencesLinksViewModel()
         {
-            InitializeCollection();
         }
 
-        private void InitializeCollection()
+        public void InitializeCollection()
         {
             SequencesLinkCollection = SequencesRepository.Instance.Sequences.CreateLinks("/View/CurrentSequence.xaml", UriKind.Relative);
         }

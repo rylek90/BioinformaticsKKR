@@ -26,8 +26,6 @@ namespace BioinformaticsKKR.View
 
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)
         {
-            {
-            }
         }
 
         public CurrentSequence(string seq) : this()

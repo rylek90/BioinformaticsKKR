@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Bio;
 using FirstFloor.ModernUI.Presentation;
-using Newtonsoft.Json;
 
 namespace BioinformaticsKKR.Core.Extensions
 {

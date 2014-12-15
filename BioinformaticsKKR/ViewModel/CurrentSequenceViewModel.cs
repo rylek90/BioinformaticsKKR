@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using Bio;
-using Bio.Util;
 using BioinformaticsKKR.Core.Definitions;
+using BioinformaticsKKR.Core.IO;
 using BioinformaticsKKR.Core.ViewModel;
-using BioinformaticsKKR.IO;
-using BioinformaticsKKR.Service;
+using BioinformaticsKKR.Service.Converter;
 
 namespace BioinformaticsKKR.ViewModel
 {
@@ -20,7 +19,9 @@ namespace BioinformaticsKKR.ViewModel
         private SequenceType _currentAlphabet;
         private readonly ISequenceFileWriter _sequenceFileWriter;
         private readonly IEnumerable<ISequenceConverter> _sequenceConverters;
+        private readonly IAmFileDialog _writeFileDialog;
         private ISequenceConverter _currentSequenceConverter;
+        private string _filePath;
 
         public IEnumerable<ISequenceConverter> Alphabets
         {
@@ -48,9 +49,13 @@ namespace BioinformaticsKKR.ViewModel
             }
         }
 
-        public CurrentSequenceViewModel(ISequenceFileWriter sequenceFileWriter, IEnumerable<ISequenceConverter> sequenceConverters)
+        public CurrentSequenceViewModel(
+            ISequenceFileWriter sequenceFileWriter, 
+            IEnumerable<ISequenceConverter> sequenceConverters,
+            IAmFileDialog writeFileDialog)
         {
             _sequenceConverters = sequenceConverters;
+            _writeFileDialog = writeFileDialog;
             _sequenceFileWriter = sequenceFileWriter;
 
             ConvertSequence = new CommandBase
@@ -58,17 +63,46 @@ namespace BioinformaticsKKR.ViewModel
                 CanExecuteMethod = CanConvertSequence,
                 ExecuteMethod = ConvertMethod
             };
+
+            Browse = new CommandBase
+            {
+                CanExecuteMethod = o => true,
+                ExecuteMethod = BrowseExecuteMethod
+            };
+        }
+
+        public CommandBase Browse { get; set; }
+
+        public void BrowseExecuteMethod(object obj)
+        {
+            FilePath = _writeFileDialog.FileName;
+        }
+
+        public string FilePath
+        {
+            get { return _filePath; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    _filePath = value;
+                    ConvertSequence.UpdateCanExecuteState();
+                    OnPropertyChanged("FilePath");
+                }
+            }
         }
 
         private void ConvertMethod(object obj)
         {
-            var convertedSequence = _currentSequenceConverter.Convert(Sequence, _currentAlphabet);
-            _sequenceFileWriter.WriteSequence(convertedSequence);
+            var sequence = _currentSequenceConverter.Convert(Sequence, _currentAlphabet);
+            _sequenceFileWriter.WriteSequence(sequence, FilePath);
         }
 
         private bool CanConvertSequence(object obj)
         {
-            if (Sequence == null || _currentSequenceConverter == null)
+            if (Sequence == null 
+                || _currentSequenceConverter == null
+                || string.IsNullOrEmpty(FilePath))
             {
                 return false;
             }

@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using FirstFloor.ModernUI.Windows.Controls;
+﻿using FirstFloor.ModernUI.Windows.Controls;
 
 namespace BioinformaticsKKR.View
 {

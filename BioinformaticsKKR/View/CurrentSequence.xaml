@@ -28,6 +28,17 @@
             <ComboBox ItemsSource="{Binding Alphabets}" SelectedItem="{Binding CurrentAlphabet, Mode=TwoWay}">
             </ComboBox>
             
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBox Grid.Column="0"  Text="{Binding FilePath}"/>
+                <Button Command="{Binding Browse}" Content="Browse" Grid.Column="1" />
+                
+            </Grid>
+            
             <Button Content="Convert" Command="{Binding ConvertSequence}" />
         </StackPanel>
         
