@@ -3,15 +3,35 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="AlignView">
 
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="125"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        
         <ComboBox ItemsSource="{Binding SequencesAligners}" 
+                  Grid.ColumnSpan="2"
                   SelectedItem="{Binding CurrentAligner, Mode=TwoWay}"/>
+        
+        <Label Content="Similarity Matrix Type" Grid.Column="0" Grid.Row="1"/>
+
+        <ComboBox ItemsSource="{Binding SimilarityMatrices}" 
+                  Grid.Column="1"
+                  Grid.Row="1"
+                  SelectedItem="{Binding CurrentSimilarityMatrix, Mode=TwoWay}"/>
+
+        <Label Content="Gap Penalty" Grid.Column="0" Grid.Row="2"/>
+        <Slider Grid.Column="1" Grid.Row="2" Minimum="-10" Maximum="10"/>
     </Grid>
 </Page>

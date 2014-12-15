@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bio.SimilarityMatrices;
 using BioinformaticsKKR.Core.ViewModel;
 using BioinformaticsKKR.Service.Alignement;
 
@@ -13,10 +15,26 @@ namespace BioinformaticsKKR.ViewModel
     {
         private readonly IEnumerable<IAlignSequences> _sequencesAligners;
         private IAlignSequences _currentAligner;
+        private SimilarityMatrix.StandardSimilarityMatrix _currentSimilarityMatrix;
 
         public AlignViewModel(IEnumerable<IAlignSequences> sequencesAligners)
         {
             _sequencesAligners = sequencesAligners;
+        }
+
+        public Array SimilarityMatrices
+        {
+            get { return Enum.GetValues(typeof (SimilarityMatrix.StandardSimilarityMatrix)); }
+        }
+
+        public SimilarityMatrix.StandardSimilarityMatrix CurrentSimilarityMatrix
+        {
+            get { return _currentSimilarityMatrix; }
+            set
+            {
+                _currentSimilarityMatrix = value;
+                OnPropertyChanged("CurrentSimilarityMatrix");
+            }
         }
 
         public List<IAlignSequences> SequencesAligners
