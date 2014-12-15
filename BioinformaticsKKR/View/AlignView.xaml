@@ -11,19 +11,20 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="15"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="125"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
-        
+
+
         <ComboBox ItemsSource="{Binding SequencesAligners}" 
                   Grid.ColumnSpan="2"
                   SelectedItem="{Binding CurrentAligner, Mode=TwoWay}"/>
-        
+
         <Label Content="Similarity Matrix Type" Grid.Column="0" Grid.Row="1"/>
 
         <ComboBox ItemsSource="{Binding SimilarityMatrices}" 
@@ -31,7 +32,11 @@
                   Grid.Row="1"
                   SelectedItem="{Binding CurrentSimilarityMatrix, Mode=TwoWay}"/>
 
-        <Label Content="Gap Penalty" Grid.Column="0" Grid.Row="2"/>
-        <Slider Grid.Column="1" Grid.Row="2" Minimum="-10" Maximum="10"/>
+        <Label HorizontalAlignment="Center"  Content="Gap Penalty" Grid.Column="0" Grid.Row="2"/>
+        <Slider Name="gapSlider" Grid.Column="1" Grid.Row="3" Minimum="-100" Maximum="0" />
+        <Label Content="{Binding ElementName=gapSlider, Path=Value}" 
+               ContentStringFormat="{}{0:F2}" HorizontalAlignment="Center" 
+               Grid.Row="2" Grid.Column="1"/>
+        <Button Content="Align" Command="{Binding AlignSequence}" />
     </Grid>
 </Page>
