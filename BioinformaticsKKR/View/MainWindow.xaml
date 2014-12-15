@@ -10,8 +10,8 @@
            <mui:LinkGroup.Links>
                <mui:Link DisplayName="Read File" Source="/View/ReadFileView.xaml" />
                <mui:Link DisplayName="Converter" Source="/View/ConvertView.xaml"/>
-               <mui:Link DisplayName="Align"/>
-               <mui:Link DisplayName="Assemble"/>
+               <mui:Link DisplayName="Align" Source="/View/AlignView.xaml"/>
+               <mui:Link DisplayName="Assemble" Source="/View/AssembleView.xaml"/>
            </mui:LinkGroup.Links>
        </mui:LinkGroup>
    </mui:ModernWindow.MenuLinkGroups>

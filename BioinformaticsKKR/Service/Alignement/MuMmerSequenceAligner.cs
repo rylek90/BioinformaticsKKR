@@ -22,5 +22,10 @@ namespace BioinformaticsKKR.Service.Alignement
         public SimilarityMatrix SimilarityMatrix { get; set; }
 
         public int GapPenalty { get; set; }
+
+        public override string ToString()
+        {
+            return "MuMmerSequenceAligner";
+        }
     }
 }

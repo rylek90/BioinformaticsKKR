@@ -100,6 +100,8 @@
     <Compile Include="Service\Converter\RnaToDnaSequenceConverter.cs" />
     <Compile Include="Service\Converter\RnaToProteinConverter.cs" />
     <Compile Include="Service\Converter\ISequenceConverter.cs" />
+    <Compile Include="ViewModel\AlignViewModel.cs" />
+    <Compile Include="ViewModel\AssembleViewModel.cs" />
     <Compile Include="ViewModel\CurrentSequenceViewModel.cs" />
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -112,6 +114,12 @@
     <Compile Include="ViewModel\ReadFileViewModel.cs" />
     <Compile Include="ViewModel\SequencesLinksViewModel.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="View\AlignView.xaml.cs">
+      <DependentUpon>AlignView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AssembleView.xaml.cs">
+      <DependentUpon>AssembleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ConvertView.xaml.cs">
       <DependentUpon>ConvertView.xaml</DependentUpon>
@@ -157,6 +165,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\AlignView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AssembleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ConvertView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

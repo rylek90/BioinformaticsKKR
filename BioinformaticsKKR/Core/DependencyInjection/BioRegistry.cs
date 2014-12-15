@@ -1,4 +1,6 @@
 ﻿using BioinformaticsKKR.Core.IO;
+using BioinformaticsKKR.Service.Alignement;
+using BioinformaticsKKR.Service.Assembly;
 using BioinformaticsKKR.Service.Converter;
 using BioinformaticsKKR.ViewModel;
 using StructureMap.Configuration.DSL;
@@ -22,6 +24,9 @@ namespace BioinformaticsKKR.Core.DependencyInjection
 
             For<ISequencesLinksViewModel>().Use<SequencesLinksViewModel>();
 
+            For<IAssembleViewModel>().Use<AssembleViewModel>();
+            For<IAlignViewModel>().Use<AlignViewModel>();
+
             For<IReadFileViewModel>()
                 .Use<ReadFileViewModel>()
                 .Ctor<ISequenceFileReader>()
@@ -34,6 +39,12 @@ namespace BioinformaticsKKR.Core.DependencyInjection
                 .Use<CurrentSequenceViewModel>()
                 .Ctor<ISequenceFileReader>()
                 .Is<SequenceFileReader>();
+
+            For<IAssembleSequences>().Use<OverlapDeNovoAssemblerService>();
+
+            For<IAlignSequences>().Use<MuMmerSequenceAligner>();
+            For<IAlignSequences>().Use<NeedlemanWunschSequenceAligner>();
+            For<IAlignSequences>().Use<SmithWatermanSequenceAligner>();
         }
     }
 }

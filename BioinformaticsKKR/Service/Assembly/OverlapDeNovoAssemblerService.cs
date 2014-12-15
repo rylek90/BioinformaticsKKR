@@ -25,5 +25,10 @@ namespace BioinformaticsKKR.Service.Assembly
         public IConsensusResolver ConsensusResolver { get; set; }
 
         public bool AssumeStandardOrientation { get; set; }
+
+        public override string ToString()
+        {
+            return "OverlapDeNovoAssemblerService";
+        }
     }
 }
