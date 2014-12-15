@@ -3,15 +3,11 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      mc:Ignorable="d" 
-      xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-      xmlns:local="clr-namespace:BioinformaticsKKR.ViewModel"
-      d:DesignHeight="300" d:DesignWidth="300">
-<UserControl.Resources>
-    <local:CurrentSequenceViewModel x:Key="ViewModel" />
-</UserControl.Resources>
+      mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+
     <Grid 
-        DataContext="{StaticResource ViewModel}" 
+         
         Name="MainGrid">
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">

@@ -1,33 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Documents;
+using System.Linq;
 using Bio;
+using Bio.Util;
 using BioinformaticsKKR.Core.Definitions;
-using BioinformaticsKKR.Core.DependencyInjection;
 using BioinformaticsKKR.Core.ViewModel;
 using BioinformaticsKKR.IO;
 using BioinformaticsKKR.Service;
 
 namespace BioinformaticsKKR.ViewModel
 {
-    public class CurrentSequenceViewModel : ViewModelBase
+    public interface ICurrentSequenceViewModel
+    {
+    }
+
+    public class CurrentSequenceViewModel : ViewModelBase, ICurrentSequenceViewModel
     {
         private ISequence _sequence;
         private SequenceType _currentAlphabet;
         private readonly ISequenceFileWriter _sequenceFileWriter;
-        private readonly ISequenceConverter _sequenceConverter;
+        private readonly IEnumerable<ISequenceConverter> _sequenceConverters;
+        private ISequenceConverter _currentSequenceConverter;
 
-        public Array Alphabets
+        public IEnumerable<ISequenceConverter> Alphabets
         {
-            get { return Enum.GetValues(typeof (SequenceType)); }
+            get { return _sequenceConverters; }
         }
 
-        public SequenceType CurrentAlphabet
+        public ISequenceConverter CurrentAlphabet
         {
-            get { return _currentAlphabet; }
+            get { return _currentSequenceConverter; }
             set
             {
-                _currentAlphabet = value;
+                _currentSequenceConverter = value;
                 ConvertSequence.UpdateCanExecuteState();
                 OnPropertyChanged("CurrentAlphabet");
             }
@@ -43,10 +48,11 @@ namespace BioinformaticsKKR.ViewModel
             }
         }
 
-        public CurrentSequenceViewModel()
+        public CurrentSequenceViewModel(ISequenceFileWriter sequenceFileWriter, IEnumerable<ISequenceConverter> sequenceConverters)
         {
-            _sequenceConverter = ContainerBootstrap.Container.GetInstance<ISequenceConverter>();
-            _sequenceFileWriter = ContainerBootstrap.Container.GetInstance<ISequenceFileWriter>();
+            _sequenceConverters = sequenceConverters;
+            _sequenceFileWriter = sequenceFileWriter;
+
             ConvertSequence = new CommandBase
             {
                 CanExecuteMethod = CanConvertSequence,
@@ -56,15 +62,26 @@ namespace BioinformaticsKKR.ViewModel
 
         private void ConvertMethod(object obj)
         {
-            var convertedSequence = _sequenceConverter.Convert(Sequence, _currentAlphabet);
+            var convertedSequence = _currentSequenceConverter.Convert(Sequence, _currentAlphabet);
             _sequenceFileWriter.WriteSequence(convertedSequence);
         }
 
         private bool CanConvertSequence(object obj)
         {
-            if (Sequence == null)
+            if (Sequence == null || _currentSequenceConverter == null)
+            {
                 return false;
-            return Sequence.Alphabet.Name.ToLower() != _currentAlphabet.ToString().ToLower();
+            }
+
+            SequenceType seqType;
+            var parseResult = Enum.TryParse(Sequence.Alphabet.Name, true, out seqType);
+
+            if (!parseResult)
+            {
+                return false;
+            }
+
+            return _currentSequenceConverter.CanConvertFrom(seqType);
         }
 
         public CommandBase ConvertSequence { get; set; }

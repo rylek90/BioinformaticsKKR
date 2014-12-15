@@ -1,18 +1,19 @@
 using System;
-using BioinformaticsKKR.Core.DependencyInjection;
 using BioinformaticsKKR.Core.Extensions;
 using BioinformaticsKKR.Core.ViewModel;
-using BioinformaticsKKR.IO;
 using BioinformaticsKKR.Provider;
 using FirstFloor.ModernUI.Presentation;
-using CommandBase = BioinformaticsKKR.Core.ViewModel.CommandBase;
 
 namespace BioinformaticsKKR.ViewModel
 {
-    public class SequencesViewModel : ViewModelBase
+    public interface ISequencesLinksViewModel
+    {
+    }
+
+    public class SequencesLinksViewModel : ViewModelBase, ISequencesLinksViewModel
     {
         #region Ctor
-        public SequencesViewModel()
+        public SequencesLinksViewModel()
         {
             InitializeCollection();
         }

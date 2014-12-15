@@ -95,7 +95,10 @@
     <Compile Include="Service\Alignement\SmithWatermanSequenceAligner.cs" />
     <Compile Include="Service\Assembly\OverlapDeNovoAssemblerService.cs" />
     <Compile Include="Service\Assembly\IAssembleSequences.cs" />
-    <Compile Include="Service\SequenceConverter.cs" />
+    <Compile Include="Service\Converter\DnatoRnaSequenceConverter.cs" />
+    <Compile Include="Service\Converter\RnaToDnaSequenceConverter.cs" />
+    <Compile Include="Service\Converter\RnaToProteinConverter.cs" />
+    <Compile Include="Service\Converter\ISequenceConverter.cs" />
     <Compile Include="ViewModel\CurrentSequenceViewModel.cs" />
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -106,7 +109,7 @@
     <Compile Include="Core\ViewModel\Converters\VisibilityConverter.cs" />
     <Compile Include="Core\ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\ReadFileViewModel.cs" />
-    <Compile Include="ViewModel\SequencesViewModel.cs">
+    <Compile Include="ViewModel\SequencesLinksViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="View\ConvertView.xaml.cs">

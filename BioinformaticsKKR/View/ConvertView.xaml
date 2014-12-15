@@ -4,22 +4,17 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-      xmlns:local="clr-namespace:BioinformaticsKKR.ViewModel"
       xmlns:loader="clr-namespace:BioinformaticsKKR.Navigator.Loader"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       
 	Title="ConvertView">
-<Page.Resources>
-    <local:SequencesViewModel x:Key="ViewModel"/>
-</Page.Resources>
+
     <Grid Style="{StaticResource ContentRoot}"
-          DataContext="{StaticResource ViewModel}"
           Name="MainGrid"
           >
 
         <mui:ModernTab Layout="List"
-                       SelectedSourceChanged="ModernTab_OnSelectedSourceChanged"
                        Links="{Binding SequencesLinkCollection, Mode=TwoWay}">
             
 

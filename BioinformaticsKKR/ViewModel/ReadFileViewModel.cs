@@ -5,11 +5,16 @@ using BioinformaticsKKR.Provider;
 
 namespace BioinformaticsKKR.ViewModel
 {
-    public class ReadFileViewModel : ViewModelBase
+    public interface IReadFileViewModel
     {
-        public ReadFileViewModel()
+    }
+
+    public class ReadFileViewModel : ViewModelBase, IReadFileViewModel
+    {
+        public ReadFileViewModel(ISequenceFileReader fastaFileReader)
         {
-            _fastaFileReader = ContainerBootstrap.Container.GetInstance<ISequenceFileReader>();
+            //_fastaFileReader = ContainerBootstrap.Container.GetInstance<ISequenceFileReader>();
+            _fastaFileReader = fastaFileReader;
 
             SequencesRepository.Instance.Sequences.AddRange(_fastaFileReader.ReadSequence());
 

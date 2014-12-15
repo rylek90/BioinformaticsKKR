@@ -11,7 +11,13 @@ namespace BioinformaticsKKR
     {
         public App()
         {
-            ContainerBootstrap.Container.GetAllInstances<ISequenceFileReader>();
+            //ContainerBootstrap.Container.GetAllInstances<ISequenceFileReader>();
         }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            //App 
+        }
+
     }
 }

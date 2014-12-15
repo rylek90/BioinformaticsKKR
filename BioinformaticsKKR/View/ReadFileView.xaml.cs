@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BioinformaticsKKR.Core.DependencyInjection;
+using BioinformaticsKKR.ViewModel;
 
 namespace BioinformaticsKKR.View
 {
@@ -23,6 +25,8 @@ namespace BioinformaticsKKR.View
         public ReadFileView()
         {
             InitializeComponent();
+
+            MainGrid.DataContext = ContainerBootstrap.Container.GetInstance<IReadFileViewModel>();
         }
     }
 }

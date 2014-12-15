@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Navigation;
+using BioinformaticsKKR.Core.DependencyInjection;
 using BioinformaticsKKR.ViewModel;
 using FirstFloor.ModernUI.Windows.Controls;
 
@@ -13,11 +14,9 @@ namespace BioinformaticsKKR.View
         public ConvertView()
         {
             InitializeComponent();
+
+            MainGrid.DataContext = ContainerBootstrap.Container.GetInstance<ISequencesLinksViewModel>();
         }
 
-        private void ModernTab_OnSelectedSourceChanged(object sender, SourceEventArgs e)
-        {
-            var x = MainGrid.DataContext as CurrentSequenceViewModel;
-        }
     }
 }

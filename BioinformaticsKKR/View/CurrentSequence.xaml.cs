@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using BioinformaticsKKR.Core.DependencyInjection;
 using BioinformaticsKKR.Provider;
 using BioinformaticsKKR.ViewModel;
 using FirstFloor.ModernUI.Windows;
@@ -19,6 +20,8 @@ namespace BioinformaticsKKR.View
         public CurrentSequence()
         {
             InitializeComponent();
+
+            MainGrid.DataContext = ContainerBootstrap.Container.GetInstance<ICurrentSequenceViewModel>();
         }
 
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)

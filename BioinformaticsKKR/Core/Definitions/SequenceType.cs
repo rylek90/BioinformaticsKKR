@@ -4,5 +4,6 @@
     {
         DNA,
         RNA,
+        Protein
     }
 }
