@@ -6,7 +6,7 @@
         Title="MainWindow" Height="450" Width="800"
     ContentSource="/View/ReadFileView.xaml">
    <mui:ModernWindow.MenuLinkGroups>
-       <mui:LinkGroup DisplayName="Main">
+       <mui:LinkGroup DisplayName=".NET Bio Library Overview">
            <mui:LinkGroup.Links>
                <mui:Link DisplayName="Read File" Source="/View/ReadFileView.xaml" />
                <mui:Link DisplayName="Converter" Source="/View/ConvertView.xaml"/>

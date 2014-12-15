@@ -96,9 +96,10 @@
     <Compile Include="Service\Alignement\SmithWatermanSequenceAligner.cs" />
     <Compile Include="Service\Assembly\OverlapDeNovoAssemblerService.cs" />
     <Compile Include="Service\Assembly\IAssembleSequences.cs" />
+    <Compile Include="Service\Converter\DnaToProteinSequenceConverter.cs" />
     <Compile Include="Service\Converter\DnatoRnaSequenceConverter.cs" />
     <Compile Include="Service\Converter\RnaToDnaSequenceConverter.cs" />
-    <Compile Include="Service\Converter\RnaToProteinConverter.cs" />
+    <Compile Include="Service\Converter\RnaToProteinSequenceConverter.cs" />
     <Compile Include="Service\Converter\ISequenceConverter.cs" />
     <Compile Include="ViewModel\AlignViewModel.cs" />
     <Compile Include="ViewModel\AssembleViewModel.cs" />

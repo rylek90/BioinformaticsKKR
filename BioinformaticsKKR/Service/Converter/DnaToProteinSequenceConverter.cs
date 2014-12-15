@@ -4,26 +4,25 @@ using BioinformaticsKKR.Core.Definitions;
 
 namespace BioinformaticsKKR.Service.Converter
 {
-    public class RnaToProteinConverter : ISequenceConverter
+    public class DnaToProteinSequenceConverter : ISequenceConverter
     {
         public ISequence Convert(ISequence sequence, SequenceType destinationType)
         {
-            return ProteinTranslation.Translate(sequence);
+            var rnaSequence = Transcription.Transcribe(sequence);
+            return ProteinTranslation.Translate(rnaSequence);
         }
 
         public bool CanConvertFrom(SequenceType baseType)
         {
-            return baseType == SequenceType.RNA;
+            return baseType == SequenceType.DNA;
         }
 
         public SequenceType DestinationSequenceType
         {
-            get { return SequenceType.Protein; }
-        }
-
-        public override string ToString()
-        {
-            return DestinationSequenceType.ToString();
+            get
+            {
+                return SequenceType.Protein;
+            }
         }
     }
 }
