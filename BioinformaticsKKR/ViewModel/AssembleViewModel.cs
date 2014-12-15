@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using BioinformaticsKKR.Core.ViewModel;
@@ -8,12 +7,14 @@ namespace BioinformaticsKKR.ViewModel
 {
     public interface IAssembleViewModel
     {
+        string LastStatus { get; set; }
     }
 
     public class AssembleViewModel : ViewModelBase, IAssembleViewModel
     {
         private readonly IEnumerable<IAssembleSequences> _sequencesAssemblers;
         private IAssembleSequences _currentAssembler;
+        private string _lastStatus;
 
         public AssembleViewModel(IEnumerable<IAssembleSequences> sequencesAssemblers)
         {
@@ -33,6 +34,12 @@ namespace BioinformaticsKKR.ViewModel
                 _currentAssembler = value;
                 OnPropertyChanged("CurrentAssembler");
             }
+        }
+
+        public string LastStatus
+        {
+            get { return _lastStatus; }
+            set { _lastStatus = value; OnPropertyChanged("LastStatus"); }
         }
     }
 }

@@ -6,7 +6,7 @@ namespace BioinformaticsKKR.Service.Converter
 {
     public class DnatoRnaSequenceConverter : ISequenceConverter
     {
-        public ISequence Convert(ISequence sequence, SequenceType destinationType)
+        public ISequence Convert(ISequence sequence)
         {
             return Transcription.Transcribe(sequence);
         }

@@ -6,7 +6,7 @@ namespace BioinformaticsKKR.Service.Converter
 {
     public class RnaToDnaSequenceConverter : ISequenceConverter
     {
-        public ISequence Convert(ISequence sequence, SequenceType destinationType)
+        public ISequence Convert(ISequence sequence)
         {
             return Transcription.ReverseTranscribe(sequence);
         }

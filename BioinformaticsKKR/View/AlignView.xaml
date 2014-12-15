@@ -13,6 +13,8 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="15"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -38,5 +40,8 @@
                ContentStringFormat="{}{0:F2}" HorizontalAlignment="Center" 
                Grid.Row="2" Grid.Column="1"/>
         <Button Content="Align" Command="{Binding AlignSequence}" />
+
+        <Label Grid.Row="5" Grid.Column="0" Content="Status: " />
+        <Label Grid.Row="5" Grid.Column="1" Content="{Binding LastStatus, Mode=TwoWay}" />
     </Grid>
 </Page>

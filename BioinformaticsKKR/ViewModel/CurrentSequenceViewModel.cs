@@ -22,6 +22,7 @@ namespace BioinformaticsKKR.ViewModel
         private readonly IAmFileDialog _writeFileDialog;
         private ISequenceConverter _currentSequenceConverter;
         private string _filePath;
+        private string _lastStatus;
 
         public IEnumerable<ISequenceConverter> Alphabets
         {
@@ -94,8 +95,10 @@ namespace BioinformaticsKKR.ViewModel
 
         private void ConvertMethod(object obj)
         {
-            var sequence = _currentSequenceConverter.Convert(Sequence, _currentAlphabet);
+            var sequence = _currentSequenceConverter.Convert(Sequence);
             _sequenceFileWriter.WriteSequence(sequence, FilePath);
+            LastStatus = string.Format("Converted {0} to {1}. Written to file.", Sequence.Alphabet.Name,
+                _currentSequenceConverter.DestinationSequenceType);
         }
 
         private bool CanConvertSequence(object obj)
@@ -116,6 +119,12 @@ namespace BioinformaticsKKR.ViewModel
             }
 
             return _currentSequenceConverter.CanConvertFrom(seqType);
+        }
+
+        public string LastStatus
+        {
+            get { return _lastStatus; }
+            set { _lastStatus = value; OnPropertyChanged("LastStatus"); }
         }
 
         public CommandBase ConvertSequence { get; set; }

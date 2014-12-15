@@ -5,7 +5,7 @@ namespace BioinformaticsKKR.Service.Converter
 {
     public interface ISequenceConverter
     {
-        ISequence Convert(ISequence sequence, SequenceType destinationType);
+        ISequence Convert(ISequence sequence);
 
         bool CanConvertFrom(SequenceType baseType);
 

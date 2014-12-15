@@ -15,13 +15,14 @@ namespace BioinformaticsKKR.View
     /// </summary>
     public partial class CurrentSequence : UserControl, IContent
     {
-        private CurrentSequenceViewModel _viewModel;
+        private readonly CurrentSequenceViewModel _viewModel;
 
         public CurrentSequence()
         {
             InitializeComponent();
 
             MainGrid.DataContext = ContainerBootstrap.Container.GetInstance<ICurrentSequenceViewModel>();
+            _viewModel = MainGrid.DataContext as CurrentSequenceViewModel;
         }
 
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)
@@ -30,8 +31,6 @@ namespace BioinformaticsKKR.View
 
         public CurrentSequence(string seq) : this()
         {
-            _viewModel = MainGrid.DataContext as CurrentSequenceViewModel;
-
             var id = Int32.Parse(seq);
 
             if (_viewModel != null)
@@ -44,6 +43,7 @@ namespace BioinformaticsKKR.View
         {
             var id = int.Parse(e.Fragment);
             _viewModel.Sequence = SequencesRepository.Instance.Sequences[id];
+            _viewModel.LastStatus = string.Empty;
         }
 
         public void OnNavigatedFrom(NavigationEventArgs e)
@@ -52,7 +52,7 @@ namespace BioinformaticsKKR.View
 
         public void OnNavigatedTo(NavigationEventArgs e)
         {
-            { }
+            _viewModel.LastStatus = string.Empty;
         }
 
         public void OnNavigatingFrom(NavigatingCancelEventArgs e)

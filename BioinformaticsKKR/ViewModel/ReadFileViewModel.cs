@@ -7,6 +7,7 @@ namespace BioinformaticsKKR.ViewModel
 {
     public interface IReadFileViewModel
     {
+        string LastStatus { get; set; }
     }
 
     public class ReadFileViewModel : ViewModelBase, IReadFileViewModel
@@ -36,6 +37,7 @@ namespace BioinformaticsKKR.ViewModel
         private bool _appendToCollection;
         private bool _overwriteCollection;
         private string _filePath;
+        private string _lastStatus;
 
         #endregion
 
@@ -93,6 +95,14 @@ namespace BioinformaticsKKR.ViewModel
 
             var sequence = _fastaFileReader.ReadSequence(FilePath);
             SequencesRepository.Instance.Sequences.AddRange(sequence);
+
+            LastStatus = string.Format("Read file. {0} collection", OverwriteCollection ? "Replaced" : "Append to");
+        }
+
+        public string LastStatus
+        {
+            get { return _lastStatus; }
+            set { _lastStatus = value; OnPropertyChanged("LastStatus"); }
         }
 
         private bool CanReadFile(object obj)

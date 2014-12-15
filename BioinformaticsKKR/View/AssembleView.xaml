@@ -10,8 +10,20 @@
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
         <ComboBox ItemsSource="{Binding SequencesAssemblers}" 
-                  SelectedItem="{Binding CurrentAssembler, Mode=TwoWay}"/>
+                  SelectedItem="{Binding CurrentAssembler, Mode=TwoWay}"
+                  Grid.ColumnSpan="2"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Status: " />
+        <Label Grid.Row="2" Grid.Column="1" Content="{Binding LastStatus, Mode=TwoWay}" />
     </Grid>
 </Page>

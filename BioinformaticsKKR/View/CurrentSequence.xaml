@@ -9,7 +9,17 @@
     <Grid 
          
         Name="MainGrid">
-        <StackPanel Orientation="Vertical">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Grid.ColumnSpan="2" Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Alphabet " />
                 <Label Content="{Binding Sequence.Alphabet}" />
@@ -41,6 +51,8 @@
             
             <Button Content="Convert" Command="{Binding ConvertSequence}" />
         </StackPanel>
-        
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Status: " />
+        <Label Grid.Row="1" Grid.Column="1" Content="{Binding LastStatus, Mode=TwoWay}" />
     </Grid>
 </UserControl>

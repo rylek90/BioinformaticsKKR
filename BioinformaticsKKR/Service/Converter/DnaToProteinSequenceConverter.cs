@@ -6,7 +6,7 @@ namespace BioinformaticsKKR.Service.Converter
 {
     public class DnaToProteinSequenceConverter : ISequenceConverter
     {
-        public ISequence Convert(ISequence sequence, SequenceType destinationType)
+        public ISequence Convert(ISequence sequence)
         {
             var rnaSequence = Transcription.Transcribe(sequence);
             return ProteinTranslation.Translate(rnaSequence);
