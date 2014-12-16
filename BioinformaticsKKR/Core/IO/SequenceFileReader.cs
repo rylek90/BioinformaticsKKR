@@ -25,10 +25,10 @@ namespace BioinformaticsKKR.Core.IO
             
             using (var inputFile = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-                var parser = new FastAParser();
+                var parser = Bio.IO.SequenceParsers.FindParserByFileName(path);
                 sequences = parser.Parse(inputFile).ToList();
             }
-
+            
             return sequences;
 
         }

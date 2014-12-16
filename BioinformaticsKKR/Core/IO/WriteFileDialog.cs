@@ -1,18 +1,19 @@
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 
 namespace BioinformaticsKKR.Core.IO
 {
     public class WriteFileDialog : IAmFileDialog
     {
         private readonly SaveFileDialog _saveFileDialog;
-
+           
         public WriteFileDialog()
         {
+
+            
             _saveFileDialog = new SaveFileDialog
             {
-                DefaultExt = ".fasta",
                 AddExtension = true,
-                Filter = "Fasta files (.fasta)|*.fasta",
+                Filter = IOResources.ExtensionFilter
             };
         }
 
