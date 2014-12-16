@@ -13,11 +13,9 @@ We use .NET Framework and .NET Bio library.
 We use Modern UI template on the top of the view layer.
 
 ##Authors
-Michał Kupiec
-
-Krzysztof Korab
-
-Maciej Ryłko
+####Michał Kupiec
+####Krzysztof Korab
+####Maciej Ryłko
 
 ###For the recipent
 Bioinformatics Course - Project
