@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using BioinformaticsKKR.Core.Extensions;
 using BioinformaticsKKR.Core.ViewModel;
 using BioinformaticsKKR.Provider;
@@ -6,9 +7,15 @@ using FirstFloor.ModernUI.Presentation;
 
 namespace BioinformaticsKKR.ViewModel
 {
-   
+    public interface ISequencesLinksViewModel
+    {
+        void InitializeCollection();
+        LinkCollection SequencesLinkCollection { get; set; }
+        void OnPropertyChanged(string propertyName);
+        event PropertyChangedEventHandler PropertyChanged;
+    }
 
-    public class SequencesLinksViewModel : ViewModelBase, BioinformaticsKKR.ViewModel.ISequencesLinksViewModel
+    public class SequencesLinksViewModel : ViewModelBase, ISequencesLinksViewModel
     {
         #region Ctor
         public SequencesLinksViewModel()

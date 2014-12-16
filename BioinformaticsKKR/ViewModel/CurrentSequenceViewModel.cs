@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Bio;
@@ -10,10 +11,21 @@ using BioinformaticsKKR.Service.Converter;
 
 namespace BioinformaticsKKR.ViewModel
 {
-    
+    public interface ICurrentSequenceViewModel
+    {
+        IEnumerable<ISequenceConverter> Alphabets { get; set; }
+        ISequenceConverter CurrentAlphabet { get; set; }
+        ISequence Sequence { get; set; }
+        string Status { get; set; }
+        CommandBase Browse { get; set; }
+        string FilePath { get; set; }
+        CommandBase ConvertSequence { get; set; }
+        void BrowseExecuteMethod(object obj);
+        void OnPropertyChanged(string propertyName);
+        event PropertyChangedEventHandler PropertyChanged;
+    }
 
-    public class CurrentSequenceViewModel : ViewModelBase, 
-        BioinformaticsKKR.ViewModel.ICurrentSequenceViewModel
+    public class CurrentSequenceViewModel : ViewModelBase, ICurrentSequenceViewModel
     {
         private ISequence _sequence;
         private SequenceType _currentAlphabet;

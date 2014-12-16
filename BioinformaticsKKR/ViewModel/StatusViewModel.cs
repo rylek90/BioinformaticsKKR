@@ -8,9 +8,11 @@ using System.ComponentModel;
 
 namespace BioinformaticsKKR.ViewModel
 {
-    public interface IStatusViewModel : INotifyPropertyChanged
+    public interface IStatusViewModel
     {
         string LastStatus { get; set; }
+        void OnPropertyChanged(string propertyName);
+        event PropertyChangedEventHandler PropertyChanged;
     }
 
     public class StatusViewModel : ViewModelBase, IStatusViewModel

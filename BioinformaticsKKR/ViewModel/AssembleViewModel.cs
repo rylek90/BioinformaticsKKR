@@ -1,11 +1,21 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using BioinformaticsKKR.Core.ViewModel;
 using BioinformaticsKKR.Service.Assembly;
 
 namespace BioinformaticsKKR.ViewModel
 {
-    public class AssembleViewModel : ViewModelBase, BioinformaticsKKR.ViewModel.IAssembleViewModel
+    public interface IAssembleViewModel
+    {
+        string Status { get; set; }
+        List<IAssembleSequences> SequencesAssemblers { get; }
+        IAssembleSequences CurrentAssembler { get; set; }
+        void OnPropertyChanged(string propertyName);
+        event PropertyChangedEventHandler PropertyChanged;
+    }
+
+    public class AssembleViewModel : ViewModelBase, IAssembleViewModel
     {
         private readonly IEnumerable<IAssembleSequences> _sequencesAssemblers;
         private IAssembleSequences _currentAssembler;

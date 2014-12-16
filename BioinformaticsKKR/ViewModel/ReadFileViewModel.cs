@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.IO;
 using BioinformaticsKKR.Core.IO;
 using BioinformaticsKKR.Core.ViewModel;
@@ -5,7 +6,20 @@ using BioinformaticsKKR.Provider;
 
 namespace BioinformaticsKKR.ViewModel
 {
-    public class ReadFileViewModel : ViewModelBase, BioinformaticsKKR.ViewModel.IReadFileViewModel
+    public interface IReadFileViewModel
+    {
+        string Status { get; set; }
+        string FilePath { get; set; }
+        bool AppendToCollection { get; set; }
+        bool OverwriteCollection { get; set; }
+        CommandBase ReadFile { get; set; }
+        CommandBase Browse { get; set; }
+        void BrowseExecuteMethod(object obj);
+        void OnPropertyChanged(string propertyName);
+        event PropertyChangedEventHandler PropertyChanged;
+    }
+
+    public class ReadFileViewModel : ViewModelBase, IReadFileViewModel
     {
         private readonly IStatusViewModel _statusService;
 

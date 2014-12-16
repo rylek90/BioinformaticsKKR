@@ -104,11 +104,6 @@
     <Compile Include="Service\Converter\ISequenceConverter.cs" />
     <Compile Include="ViewModel\AlignViewModel.cs" />
     <Compile Include="ViewModel\AssembleViewModel.cs" />
-    <Compile Include="ViewModel\IAlignViewModel.cs" />
-    <Compile Include="ViewModel\IAssembleViewModel.cs" />
-    <Compile Include="ViewModel\ICurrentSequenceViewModel.cs" />
-    <Compile Include="ViewModel\IReadFileViewModel.cs" />
-    <Compile Include="ViewModel\ISequencesLinksViewModel.cs" />
     <Compile Include="ViewModel\StatusViewModel.cs" />
     <Compile Include="ViewModel\CurrentSequenceViewModel.cs" />
     <ApplicationDefinition Include="App.xaml">
