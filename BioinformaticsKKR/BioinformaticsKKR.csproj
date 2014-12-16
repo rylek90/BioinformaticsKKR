@@ -83,6 +83,7 @@
     <Compile Include="Core\DependencyInjection\BioRegistry.cs" />
     <Compile Include="Core\DependencyInjection\ContainerBootstrap.cs" />
     <Compile Include="Core\Extensions\SequenceExtensions.cs" />
+    <Compile Include="Core\IO\IOResources.cs" />
     <Compile Include="Core\IO\SequenceFileReader.cs" />
     <Compile Include="Core\IO\ReadFileDialog.cs" />
     <Compile Include="Core\IO\IAmFileDialog.cs" />

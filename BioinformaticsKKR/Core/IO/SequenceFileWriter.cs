@@ -19,7 +19,9 @@ namespace BioinformaticsKKR.Core.IO
 
             using (var outputFile = new FileStream(path, FileMode.Create, FileAccess.Write))
             {
-                var formater = new FastAFormatter();
+             
+            //    var formater = new FastAFormatter();
+                var formater = Bio.IO.SequenceFormatters.FindFormatterByFileName(path);
                 formater.Format(outputFile, new List<ISequence> { sequence });
             }
 
