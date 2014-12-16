@@ -14,7 +14,9 @@ We use Modern UI template on the top of the view layer.
 
 ##Authors
 Michał Kupiec
+
 Krzysztof Korab
+
 Maciej Ryłko
 
 ###For the recipent
