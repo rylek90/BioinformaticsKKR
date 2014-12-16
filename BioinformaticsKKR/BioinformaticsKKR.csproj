@@ -103,6 +103,8 @@
     <Compile Include="Core\IO\SequenceFileWriter.cs" />
     <Compile Include="Core\IO\WriteFileDialog.cs" />
     <Compile Include="Navigator\Loader\CurrentSequenceStatisticsLoader.cs" />
+    <Compile Include="Core\ViewModel\Converters\SequenceColorConverter.cs" />
+    <Compile Include="Core\ViewModel\Tools\ScrollSynchronizer.cs" />
     <Compile Include="Navigator\Loader\CurrentSequenceLoader.cs" />
     <Compile Include="Provider\SequencesRepository.cs" />
     <Compile Include="Service\Alignement\PairwiseOverlapSequenceAligner.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="Service\Converter\RnaToDnaSequenceConverter.cs" />
     <Compile Include="Service\Converter\RnaToProteinSequenceConverter.cs" />
     <Compile Include="Service\Converter\ISequenceConverter.cs" />
+    <Compile Include="ViewModel\AlignmentSequenceViewModel.cs" />
     <Compile Include="ViewModel\AlignViewModel.cs" />
     <Compile Include="ViewModel\AssembleViewModel.cs" />
     <Compile Include="ViewModel\SequencesStatisticsLinksViewModel.cs" />
@@ -134,8 +137,14 @@
     <Compile Include="ViewModel\SequencesLinksViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="View\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Alignment.xaml.cs">
       <DependentUpon>Alignment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AlignmentSequenceViewControl.xaml.cs">
+      <DependentUpon>AlignmentSequenceViewControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AlignView.xaml.cs">
       <DependentUpon>AlignView.xaml</DependentUpon>
@@ -193,7 +202,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Alignment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AlignmentSequenceViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
