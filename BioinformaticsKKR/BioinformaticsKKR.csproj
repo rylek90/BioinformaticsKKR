@@ -118,6 +118,9 @@
     <Compile Include="ViewModel\SequencesLinksViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="View\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Alignment.xaml.cs">
       <DependentUpon>Alignment.xaml</DependentUpon>
     </Compile>
@@ -171,6 +174,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Alignment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -1,0 +1,44 @@
+﻿<Page x:Class="BioinformaticsKKR.View.AboutView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+      mc:Ignorable="d"
+      d:DesignHeight="500" d:DesignWidth="900"
+      Title="AboutView">
+
+    <StackPanel Margin="0,0,30,0">
+        <Label FontSize="50" HorizontalAlignment="Center">NET Bio Overview Application</Label>
+        <Separator Visibility="Hidden"/>
+        <Label FontSize="40" HorizontalAlignment="Center">Sequence Manipulator</Label>
+        <Separator Visibility="Hidden"/>
+        <TextBlock FontSize="28" TextAlignment="Justify" TextWrapping="WrapWithOverflow">Sequence Manipulator The application is designed to process amino acids, DNA and RNA sequences. Main goals were to perform translations and sequences alignments without implementing algorithms themselves, but make use of functions delivered by ready-made solution. <LineBreak/><LineBreak/> Authors:</TextBlock>
+        <Separator Visibility="Hidden"/>
+        
+        
+        <BulletDecorator>
+            <BulletDecorator.Bullet>
+                <Ellipse Height="10" Width="10" Fill="Gray" />
+            </BulletDecorator.Bullet>
+            <Label FontSize="25"> Krzysztof Korab</Label>
+        </BulletDecorator>
+
+
+        <BulletDecorator>
+            <BulletDecorator.Bullet>
+                <Ellipse Height="10" Width="10" Fill="Gray" />
+            </BulletDecorator.Bullet>
+            <Label FontSize="25">Michal Kupiec</Label>
+        </BulletDecorator>
+
+        <BulletDecorator>
+            <BulletDecorator.Bullet>
+                <Ellipse Height="10" Width="10" Fill="Gray" />
+            </BulletDecorator.Bullet>
+            <Label FontSize="25">Maciej Ryłko</Label>
+        </BulletDecorator>
+
+
+    </StackPanel>
+</Page>

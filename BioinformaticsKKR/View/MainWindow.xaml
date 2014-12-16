@@ -13,6 +13,7 @@
                <mui:Link DisplayName="File" Source="/View/MainView.xaml" />
                <mui:Link DisplayName="Align" Source="/View/AlignView.xaml"/>
                <mui:Link DisplayName="Assemble" Source="/View/AssembleView.xaml"/>
+               <mui:Link DisplayName="About" Source="/View/AboutView.xaml"/>
            </mui:LinkGroup.Links>
        </mui:LinkGroup>
    </mui:ModernWindow.MenuLinkGroups>
