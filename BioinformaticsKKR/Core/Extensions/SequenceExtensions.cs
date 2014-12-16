@@ -26,5 +26,14 @@ namespace BioinformaticsKKR.Core.Extensions
 
             return linkCollection;
         }
+
+        public static char[] ToCharArray(this ISequence sequence)
+        {
+            if (sequence == null)
+                return null;
+
+            var stringifiedSequence = sequence.ToString();
+            return string.IsNullOrEmpty(stringifiedSequence) ? null : stringifiedSequence.ToCharArray();
+        }
     }
 }
