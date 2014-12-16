@@ -9,7 +9,7 @@ but make use of functions delivered by ready-made solution. We have developed an
 - align sequences using various methods and parameters
 - find edit distance
 
-We use .NET Framework and .NET Bio library in order to achieve the task.
+We use .NET Framework and .NET Bio library.
 We use Modern UI template on the top of the view layer.
 
 ##Authors
