@@ -90,6 +90,7 @@
     <Compile Include="Core\IO\WriteFileDialog.cs" />
     <Compile Include="Navigator\Loader\CurrentSequenceLoader.cs" />
     <Compile Include="Provider\SequencesRepository.cs" />
+    <Compile Include="Service\Alignement\PairwiseOverlapSequenceAligner.cs" />
     <Compile Include="Service\Alignement\IAlignSequences.cs" />
     <Compile Include="Service\Alignement\MuMmerSequenceAligner.cs" />
     <Compile Include="Service\Alignement\NeedlemanWunschSequenceAligner.cs" />
@@ -103,6 +104,12 @@
     <Compile Include="Service\Converter\ISequenceConverter.cs" />
     <Compile Include="ViewModel\AlignViewModel.cs" />
     <Compile Include="ViewModel\AssembleViewModel.cs" />
+    <Compile Include="ViewModel\IAlignViewModel.cs" />
+    <Compile Include="ViewModel\IAssembleViewModel.cs" />
+    <Compile Include="ViewModel\ICurrentSequenceViewModel.cs" />
+    <Compile Include="ViewModel\IReadFileViewModel.cs" />
+    <Compile Include="ViewModel\ISequencesLinksViewModel.cs" />
+    <Compile Include="ViewModel\StatusViewModel.cs" />
     <Compile Include="ViewModel\CurrentSequenceViewModel.cs" />
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -115,6 +122,9 @@
     <Compile Include="ViewModel\ReadFileViewModel.cs" />
     <Compile Include="ViewModel\SequencesLinksViewModel.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="View\Alignment.xaml.cs">
+      <DependentUpon>Alignment.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AlignView.xaml.cs">
       <DependentUpon>AlignView.xaml</DependentUpon>
@@ -166,6 +176,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\Alignment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AlignView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

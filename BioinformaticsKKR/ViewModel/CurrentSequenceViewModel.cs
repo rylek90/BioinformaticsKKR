@@ -9,11 +9,10 @@ using BioinformaticsKKR.Service.Converter;
 
 namespace BioinformaticsKKR.ViewModel
 {
-    public interface ICurrentSequenceViewModel
-    {
-    }
+    
 
-    public class CurrentSequenceViewModel : ViewModelBase, ICurrentSequenceViewModel
+    public class CurrentSequenceViewModel : ViewModelBase, 
+        BioinformaticsKKR.ViewModel.ICurrentSequenceViewModel
     {
         private ISequence _sequence;
         private SequenceType _currentAlphabet;
@@ -22,7 +21,7 @@ namespace BioinformaticsKKR.ViewModel
         private readonly IAmFileDialog _writeFileDialog;
         private ISequenceConverter _currentSequenceConverter;
         private string _filePath;
-        private string _lastStatus;
+        private readonly IStatusViewModel _statusService;
 
         public IEnumerable<ISequenceConverter> Alphabets
         {
@@ -50,14 +49,27 @@ namespace BioinformaticsKKR.ViewModel
             }
         }
 
+        public string Status
+        {
+            get { return _statusService.LastStatus; }
+            set
+            {
+                _statusService.LastStatus = value;
+                OnPropertyChanged("Status");
+            }
+        }
+
         public CurrentSequenceViewModel(
             ISequenceFileWriter sequenceFileWriter, 
             IEnumerable<ISequenceConverter> sequenceConverters,
-            IAmFileDialog writeFileDialog)
+            IAmFileDialog writeFileDialog,
+            IStatusViewModel statusService)
         {
             _sequenceConverters = sequenceConverters;
             _writeFileDialog = writeFileDialog;
             _sequenceFileWriter = sequenceFileWriter;
+            _statusService = statusService;
+            _statusService.PropertyChanged += (sender, e) => { OnPropertyChanged(e.ToString()); };
 
             ConvertSequence = new CommandBase
             {
@@ -97,7 +109,7 @@ namespace BioinformaticsKKR.ViewModel
         {
             var sequence = _currentSequenceConverter.Convert(Sequence);
             _sequenceFileWriter.WriteSequence(sequence, FilePath);
-            LastStatus = string.Format("Converted {0} to {1}. Written to file.", Sequence.Alphabet.Name,
+            Status = string.Format("Converted {0} to {1}. Written to file.", Sequence.Alphabet.Name,
                 _currentSequenceConverter.DestinationSequenceType);
         }
 
@@ -119,12 +131,6 @@ namespace BioinformaticsKKR.ViewModel
             }
 
             return _currentSequenceConverter.CanConvertFrom(seqType);
-        }
-
-        public string LastStatus
-        {
-            get { return _lastStatus; }
-            set { _lastStatus = value; OnPropertyChanged("LastStatus"); }
         }
 
         public CommandBase ConvertSequence { get; set; }

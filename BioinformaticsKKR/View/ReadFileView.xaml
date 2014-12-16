@@ -4,31 +4,44 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-	Title="ReadFileView">
-    <Grid Name="MainGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="200" />
-        </Grid.ColumnDefinitions>
+      xmlns:loader="clr-namespace:BioinformaticsKKR.Navigator.Loader"
+      mc:Ignorable="d"
+	Title="ReadFileView" Width="1147.593">
+
+    <Grid Name="MainGrid" Style="{StaticResource ContentRoot}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
-        <TextBox Grid.ColumnSpan="2" Text="{Binding FilePath,Mode=TwoWay}" />
-        <Button Grid.Row="0" Grid.Column="2" Content="Browse" Command="{Binding Browse}"/>
-        <Button Grid.Column="0" Grid.Row="1" Content="Read File" Command="{Binding ReadFile}"></Button>
-        <RadioButton Grid.Column="0" Grid.Row="2" IsChecked="{Binding AppendToCollection, Mode=TwoWay}" Content="Append"/>
-        <RadioButton Grid.Column="0" Grid.Row="3" IsChecked="{Binding OverwriteCollection, Mode=TwoWay}" Content="Overwrite"/>
-        
-        <Label Grid.Row="5" Grid.Column="0" Content="Status: " />
-        <Label Grid.Row="5" Grid.Column="1" Content="{Binding LastStatus, Mode=TwoWay}" />
+        <StackPanel Orientation="Horizontal">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBox Grid.ColumnSpan="2" Text="{Binding FilePath,Mode=TwoWay}" />
+            <Button Grid.Row="0" Grid.Column="2" Content="Browse" Command="{Binding Browse}"/>
+            <Button Grid.Column="0" Grid.Row="1" Content="Read File" Command="{Binding ReadFile}"></Button>
+            <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Vertical">
+            <RadioButton IsChecked="{Binding AppendToCollection, Mode=TwoWay}" Content="Append"/>
+            <RadioButton IsChecked="{Binding OverwriteCollection, Mode=TwoWay}" Content="Overwrite"/>
+            </StackPanel>
+        </Grid>
+            <mui:ModernTab Name="SequencesTab" Layout="List"
+                       Links="{Binding SequencesLinkCollection, Mode=TwoWay}">
+                <mui:ModernTab.ContentLoader>
+                    <loader:CurrentSequenceLoader />
+                </mui:ModernTab.ContentLoader>
+            </mui:ModernTab>
+
+        </StackPanel>
+        <TextBox  Grid.Row="1" Text="{Binding Status,Mode=TwoWay}" Margin="{StaticResource StatusMargin}" />
     </Grid>
 </Page>

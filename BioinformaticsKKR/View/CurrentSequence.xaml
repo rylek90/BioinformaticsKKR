@@ -6,53 +6,57 @@
       mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <Grid 
-         
-        Name="MainGrid">
+
+    <Grid Style="{StaticResource ContentRoot}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        
-        <StackPanel Grid.ColumnSpan="2" Orientation="Vertical">
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Alphabet " />
-                <Label Content="{Binding Sequence.Alphabet}" />
-            </StackPanel>
 
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Type " />
-                <Label Content="{Binding Sequence.Alphabet.Name}" />
-            </StackPanel>
-            
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Count " />
-                <Label Content="{Binding Sequence.Count}" />
-            </StackPanel>
-            
-            <ComboBox ItemsSource="{Binding Alphabets}" SelectedItem="{Binding CurrentAlphabet, Mode=TwoWay}">
-            </ComboBox>
-            
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                
-                <TextBox Grid.Column="0"  Text="{Binding FilePath}"/>
-                <Button Command="{Binding Browse}" Content="Browse" Grid.Column="1" />
-                
-            </Grid>
-            
-            <Button Content="Convert" Command="{Binding ConvertSequence}" />
-        </StackPanel>
+        <Grid Name="MainGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Status: " />
-        <Label Grid.Row="1" Grid.Column="1" Content="{Binding LastStatus, Mode=TwoWay}" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.ColumnSpan="2" Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Alphabet " />
+                    <Label Content="{Binding Sequence.Alphabet}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Type " />
+                    <Label Content="{Binding Sequence.Alphabet.Name}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Count " />
+                    <Label Content="{Binding Sequence.Count}" />
+                </StackPanel>
+
+                <ComboBox ItemsSource="{Binding Alphabets}" SelectedItem="{Binding CurrentAlphabet, Mode=TwoWay}">
+                </ComboBox>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0"  Text="{Binding FilePath}"/>
+                    <Button Command="{Binding Browse}" Content="Browse" Grid.Column="1" />
+
+                </Grid>
+
+                <Button Content="Convert" Command="{Binding ConvertSequence}" />
+            </StackPanel>
+        </Grid>
+        <TextBlock Grid.Row="1" Text="{Binding Status, Mode=TwoWay}" Margin="{StaticResource StatusMargin}" />
     </Grid>
 </UserControl>

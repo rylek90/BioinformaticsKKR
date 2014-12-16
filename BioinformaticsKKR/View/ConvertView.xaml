@@ -10,11 +10,15 @@
       
 	Title="ConvertView">
 
-    <Grid Style="{StaticResource ContentRoot}"
-          Name="MainGrid"
-          >
-
-        <mui:ModernTab Layout="List"
+    
+    
+    <Grid Style="{StaticResource ContentRoot}">
+        <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Name="MainGrid">
+            <mui:ModernTab Layout="List"
                        Links="{Binding SequencesLinkCollection, Mode=TwoWay}">
             
 
@@ -22,7 +26,9 @@
                 <loader:CurrentSequenceLoader />
             </mui:ModernTab.ContentLoader>
         </mui:ModernTab>
+        </Grid>
         
-        
+        <TextBlock Grid.Row="1" Text="{Binding Status, Mode=TwoWay}" Margin="{StaticResource StatusMargin}" />
+
     </Grid>
 </Page>

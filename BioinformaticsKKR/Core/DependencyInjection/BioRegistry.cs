@@ -26,6 +26,7 @@ namespace BioinformaticsKKR.Core.DependencyInjection
 
             For<IAssembleViewModel>().Use<AssembleViewModel>();
             For<IAlignViewModel>().Use<AlignViewModel>();
+            For<IStatusViewModel>().Use<StatusViewModel>();
 
             For<IReadFileViewModel>()
                 .Use<ReadFileViewModel>()
@@ -45,6 +46,7 @@ namespace BioinformaticsKKR.Core.DependencyInjection
             For<IAlignSequences>().Use<MuMmerSequenceAligner>();
             For<IAlignSequences>().Use<NeedlemanWunschSequenceAligner>();
             For<IAlignSequences>().Use<SmithWatermanSequenceAligner>();
+            For<IAlignSequences>().Use<PairwiseOverlapSequenceAligner>();
         }
     }
 }

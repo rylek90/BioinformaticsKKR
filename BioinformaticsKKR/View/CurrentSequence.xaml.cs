@@ -43,7 +43,6 @@ namespace BioinformaticsKKR.View
         {
             var id = int.Parse(e.Fragment);
             _viewModel.Sequence = SequencesRepository.Instance.Sequences[id];
-            _viewModel.LastStatus = string.Empty;
         }
 
         public void OnNavigatedFrom(NavigationEventArgs e)
@@ -52,7 +51,6 @@ namespace BioinformaticsKKR.View
 
         public void OnNavigatedTo(NavigationEventArgs e)
         {
-            _viewModel.LastStatus = string.Empty;
         }
 
         public void OnNavigatingFrom(NavigatingCancelEventArgs e)

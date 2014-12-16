@@ -7,20 +7,32 @@ using BioinformaticsKKR.Service.Alignement;
 
 namespace BioinformaticsKKR.ViewModel
 {
-    public interface IAlignViewModel
-    {
-        string LastStatus { get; set; }
-    }
 
-    public class AlignViewModel : ViewModelBase, IAlignViewModel
+    public class AlignViewModel : ViewModelBase, BioinformaticsKKR.ViewModel.IAlignViewModel
     {
         private readonly IEnumerable<IAlignSequences> _sequencesAligners;
         private IAlignSequences _currentAligner;
         private SimilarityMatrix.StandardSimilarityMatrix _currentSimilarityMatrix;
-        private string _lastStatus;
+        private readonly IStatusViewModel _statusService;
 
-        public AlignViewModel(IEnumerable<IAlignSequences> sequencesAligners)
+        public string Status
         {
+            get { return _statusService.LastStatus; }
+            set
+            {
+                _statusService.LastStatus = value;
+                OnPropertyChanged("Status");
+            }
+        }
+
+        public AlignViewModel(IEnumerable<IAlignSequences> sequencesAligners,
+            IStatusViewModel statusService
+            )
+        {
+            _statusService = statusService;
+            _statusService.PropertyChanged += (sender, e) => { 
+                OnPropertyChanged(e.ToString());
+            };
             _sequencesAligners = sequencesAligners;
         }
 
@@ -50,10 +62,5 @@ namespace BioinformaticsKKR.ViewModel
             set { _currentAligner = value; OnPropertyChanged("CurrentAligner"); }
         }
 
-        public string LastStatus
-        {
-            get { return _lastStatus; }
-            set { _lastStatus = value; OnPropertyChanged("LastStatus"); }
-        }
     }
 }

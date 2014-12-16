@@ -5,17 +5,33 @@ using BioinformaticsKKR.Provider;
 
 namespace BioinformaticsKKR.ViewModel
 {
-    public interface IReadFileViewModel
+    public class ReadFileViewModel : ViewModelBase, BioinformaticsKKR.ViewModel.IReadFileViewModel
     {
-        string LastStatus { get; set; }
-    }
+        private readonly IStatusViewModel _statusService;
 
-    public class ReadFileViewModel : ViewModelBase, IReadFileViewModel
-    {
-        public ReadFileViewModel(ISequenceFileReader fastaFileReader, IAmFileDialog readFileDialog)
+        public string Status
         {
+            get { return _statusService.LastStatus; }
+            set
+            {
+                _statusService.LastStatus = value;
+                OnPropertyChanged("Status");
+            }
+        }
+
+
+        public ReadFileViewModel(ISequenceFileReader fastaFileReader, 
+            IAmFileDialog readFileDialog, 
+            IStatusViewModel statusViewModel)
+        {
+
             _fastaFileReader = fastaFileReader;
             _readFileDialog = readFileDialog;
+            _statusService = statusViewModel;
+            _statusService.PropertyChanged += (sender, e) => { 
+                OnPropertyChanged(e.ToString()); 
+            };
+            Status = "Status";
 
             Browse = new CommandBase
             {
@@ -28,8 +44,8 @@ namespace BioinformaticsKKR.ViewModel
                 CanExecuteMethod = CanReadFile,
                 ExecuteMethod = ReadFileExecuteMethod
             };
+            AppendToCollection = true;
         }
-
         
         #region Fields
         private readonly ISequenceFileReader _fastaFileReader;
@@ -37,7 +53,6 @@ namespace BioinformaticsKKR.ViewModel
         private bool _appendToCollection;
         private bool _overwriteCollection;
         private string _filePath;
-        private string _lastStatus;
 
         #endregion
 
@@ -94,15 +109,12 @@ namespace BioinformaticsKKR.ViewModel
             }
 
             var sequence = _fastaFileReader.ReadSequence(FilePath);
-            SequencesRepository.Instance.Sequences.AddRange(sequence);
+            foreach (var s in sequence)
+            {
+                SequencesRepository.Instance.Sequences.Add(s);
+            }
 
-            LastStatus = string.Format("Read file. {0} collection", OverwriteCollection ? "Replaced" : "Append to");
-        }
-
-        public string LastStatus
-        {
-            get { return _lastStatus; }
-            set { _lastStatus = value; OnPropertyChanged("LastStatus"); }
+            Status = string.Format("Read file. {0} collection", OverwriteCollection ? "Replaced" : "Append to");
         }
 
         private bool CanReadFile(object obj)

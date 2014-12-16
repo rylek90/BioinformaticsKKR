@@ -7,41 +7,53 @@
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="AlignView">
 
-    <Grid Name="MainGrid">
+
+    <Grid Style="{StaticResource ContentRoot}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="15"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="125"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+        <Grid Name="MainGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="125"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
 
-        <ComboBox ItemsSource="{Binding SequencesAligners}" 
+            <ComboBox ItemsSource="{Binding SequencesAligners}" 
                   Grid.ColumnSpan="2"
                   SelectedItem="{Binding CurrentAligner, Mode=TwoWay}"/>
 
-        <Label Content="Similarity Matrix Type" Grid.Column="0" Grid.Row="1"/>
+            <Label Content="Similarity Matrix Type" Grid.Column="0" Grid.Row="1"/>
 
-        <ComboBox ItemsSource="{Binding SimilarityMatrices}" 
+            <ComboBox ItemsSource="{Binding SimilarityMatrices}" 
                   Grid.Column="1"
                   Grid.Row="1"
                   SelectedItem="{Binding CurrentSimilarityMatrix, Mode=TwoWay}"/>
 
-        <Label HorizontalAlignment="Center"  Content="Gap Penalty" Grid.Column="0" Grid.Row="2"/>
-        <Slider Name="gapSlider" Grid.Column="1" Grid.Row="3" Minimum="-100" Maximum="0" />
-        <Label Content="{Binding ElementName=gapSlider, Path=Value}" 
+            <Label HorizontalAlignment="Center"  Content="Gap Penalty" Grid.Column="0" Grid.Row="2"/>
+            <Slider Name="gapSlider" Grid.Column="1" Grid.Row="3" Minimum="-100" Maximum="0" />
+            <Label Content="{Binding ElementName=gapSlider, Path=Value}" 
                ContentStringFormat="{}{0:F2}" HorizontalAlignment="Center" 
                Grid.Row="2" Grid.Column="1"/>
-        <Button Content="Align" Command="{Binding AlignSequence}" />
+            <Button Content="Align" Grid.Column="1" Grid.Row="4" Command="{Binding AlignSequence}" />
 
-        <Label Grid.Row="5" Grid.Column="0" Content="Status: " />
-        <Label Grid.Row="5" Grid.Column="1" Content="{Binding LastStatus, Mode=TwoWay}" />
+
+
+        </Grid>
+
+        <TextBlock Grid.Row="5" Text="{Binding Status, Mode=TwoWay}" Margin="{StaticResource StatusMargin}" />
+
     </Grid>
+
 </Page>

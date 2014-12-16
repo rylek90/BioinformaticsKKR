@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Bio;
+using System.Collections.ObjectModel;
 
 namespace BioinformaticsKKR.Provider
 {
@@ -7,7 +8,7 @@ namespace BioinformaticsKKR.Provider
     {
         private static SequencesRepository _instance;
 
-        public List<ISequence> Sequences { get; private set; }
+        public ObservableCollection<ISequence> Sequences { get; private set; }
 
         public int CurrentSequenceId { get; set; }
 
@@ -19,7 +20,7 @@ namespace BioinformaticsKKR.Provider
         
         private SequencesRepository()
         {
-            Sequences = new List<ISequence>();
+            Sequences = new ObservableCollection<ISequence>();
         }
 
         public static SequencesRepository Instance

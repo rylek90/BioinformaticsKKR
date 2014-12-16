@@ -7,23 +7,31 @@
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="AssembleView">
 
-    <Grid Name="MainGrid">
+
+    <Grid Style="{StaticResource ContentRoot}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        
-        <ComboBox ItemsSource="{Binding SequencesAssemblers}" 
+
+        <Grid Name="MainGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ComboBox ItemsSource="{Binding SequencesAssemblers}" 
                   SelectedItem="{Binding CurrentAssembler, Mode=TwoWay}"
                   Grid.ColumnSpan="2"/>
+        </Grid>
 
-        <Label Grid.Row="2" Grid.Column="0" Content="Status: " />
-        <Label Grid.Row="2" Grid.Column="1" Content="{Binding LastStatus, Mode=TwoWay}" />
+        <TextBlock Grid.Row="1" Text="{Binding Status, Mode=TwoWay}" Margin="{StaticResource StatusMargin}" />
+
     </Grid>
 </Page>

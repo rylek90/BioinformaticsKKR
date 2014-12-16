@@ -6,21 +6,20 @@ using FirstFloor.ModernUI.Presentation;
 
 namespace BioinformaticsKKR.ViewModel
 {
-    public interface ISequencesLinksViewModel
-    {
-        void InitializeCollection();
-    }
+   
 
-    public class SequencesLinksViewModel : ViewModelBase, ISequencesLinksViewModel
+    public class SequencesLinksViewModel : ViewModelBase, BioinformaticsKKR.ViewModel.ISequencesLinksViewModel
     {
         #region Ctor
         public SequencesLinksViewModel()
         {
+            SequencesRepository.Instance.Sequences.CollectionChanged += (s, e) => { InitializeCollection(); };
         }
 
         public void InitializeCollection()
         {
             SequencesLinkCollection = SequencesRepository.Instance.Sequences.CreateLinks("/View/CurrentSequence.xaml", UriKind.Relative);
+            
         }
 
         #endregion

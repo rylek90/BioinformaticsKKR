@@ -5,19 +5,28 @@ using BioinformaticsKKR.Service.Assembly;
 
 namespace BioinformaticsKKR.ViewModel
 {
-    public interface IAssembleViewModel
-    {
-        string LastStatus { get; set; }
-    }
-
-    public class AssembleViewModel : ViewModelBase, IAssembleViewModel
+    public class AssembleViewModel : ViewModelBase, BioinformaticsKKR.ViewModel.IAssembleViewModel
     {
         private readonly IEnumerable<IAssembleSequences> _sequencesAssemblers;
         private IAssembleSequences _currentAssembler;
-        private string _lastStatus;
+        private readonly IStatusViewModel _statusService;
 
-        public AssembleViewModel(IEnumerable<IAssembleSequences> sequencesAssemblers)
+        public string Status
         {
+            get { return _statusService.LastStatus; }
+            set
+            {
+                _statusService.LastStatus = value;
+                OnPropertyChanged("Status");
+            }
+        }
+
+        public AssembleViewModel(IEnumerable<IAssembleSequences> sequencesAssemblers,
+             IStatusViewModel statusService
+            )
+        {
+            _statusService = statusService;
+            _statusService.PropertyChanged += (sender, e) => { OnPropertyChanged(e.ToString()); };
             _sequencesAssemblers = sequencesAssemblers;
         }
 
@@ -36,10 +45,5 @@ namespace BioinformaticsKKR.ViewModel
             }
         }
 
-        public string LastStatus
-        {
-            get { return _lastStatus; }
-            set { _lastStatus = value; OnPropertyChanged("LastStatus"); }
-        }
     }
 }
