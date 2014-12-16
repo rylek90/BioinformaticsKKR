@@ -20,6 +20,11 @@ namespace BioinformaticsKKR.Core.DependencyInjection
             For<ISequenceConverter>().Use<RnaToProteinSequenceConverter>();
             For<ISequenceConverter>().Use<DnaToProteinSequenceConverter>();
 
+            For<IAlignViewModel>().Use<AlignViewModel>();
+            For<ISequencesLinksViewModel>().Use<SequencesLinksViewModel>();
+            For<IStatusViewModel>().Use<StatusViewModel>();
+
+
             For<IAmFileDialog>().Use<ReadFileDialog>();
             For<IAmFileDialog>().Use<WriteFileDialog>();
 

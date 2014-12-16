@@ -11,6 +11,8 @@ namespace BioinformaticsKKR.Core.IO
             _saveFileDialog = new SaveFileDialog
             {
                 DefaultExt = ".fasta",
+                AddExtension = true,
+                Filter = "Fasta files (.fasta)|*.fasta",
             };
         }
 
