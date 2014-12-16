@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Bio;
 using BioinformaticsKKR.Core.Definitions;
 using BioinformaticsKKR.Core.IO;
@@ -23,9 +24,12 @@ namespace BioinformaticsKKR.ViewModel
         private string _filePath;
         private readonly IStatusViewModel _statusService;
 
+        public IEnumerable<ISequenceConverter> _currentConverters;
+
         public IEnumerable<ISequenceConverter> Alphabets
         {
-            get { return _sequenceConverters; }
+            get { return _currentConverters; }
+            set { _currentConverters = value; OnPropertyChanged("Alphabets"); }
         }
 
         public ISequenceConverter CurrentAlphabet
@@ -45,6 +49,19 @@ namespace BioinformaticsKKR.ViewModel
             set
             {
                 _sequence = value;
+                SequenceType seqType;
+                var parseStatus = Enum.TryParse(Sequence.Alphabet.Name, true, out seqType);
+
+                if (parseStatus)
+                {
+                    Alphabets = _sequenceConverters.Where(x => x.CanConvertFrom(seqType));
+                }
+                else
+                {
+                    Alphabets = _sequenceConverters;
+                }
+
+                
                 OnPropertyChanged("Sequence");
             }
         }

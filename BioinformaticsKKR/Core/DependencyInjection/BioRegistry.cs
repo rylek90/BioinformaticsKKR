@@ -18,6 +18,7 @@ namespace BioinformaticsKKR.Core.DependencyInjection
             For<ISequenceConverter>().Use<DnatoRnaSequenceConverter>();
             For<ISequenceConverter>().Use<RnaToDnaSequenceConverter>();
             For<ISequenceConverter>().Use<RnaToProteinSequenceConverter>();
+            For<ISequenceConverter>().Use<DnaToProteinSequenceConverter>();
 
             For<IAmFileDialog>().Use<ReadFileDialog>();
             For<IAmFileDialog>().Use<WriteFileDialog>();

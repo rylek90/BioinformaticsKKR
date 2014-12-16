@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="400">
 
 
     <Grid Style="{StaticResource ContentRoot}">
@@ -15,48 +15,52 @@
 
         <Grid Name="MainGrid">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition />
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.ColumnSpan="2" Orientation="Vertical">
-                <StackPanel Orientation="Horizontal">
+                <TextBlock Grid.Row="0" Grid.RowSpan="2" Text="{Binding Sequence.ID}" TextWrapping="WrapWithOverflow" />
+            <StackPanel Grid.Column="0" Grid.Row="1"  Orientation="Horizontal">
                     <Label Content="Alphabet " />
                     <Label Content="{Binding Sequence.Alphabet}" />
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
+            <StackPanel Grid.Column="0" Grid.ColumnSpan="2"  Grid.Row="2" Orientation="Horizontal">
                     <Label Content="Type " />
                     <Label Content="{Binding Sequence.Alphabet.Name}" />
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
+            <StackPanel Grid.Column="0" Grid.ColumnSpan="2"  Grid.Row="3" Orientation="Horizontal">
                     <Label Content="Count " />
                     <Label Content="{Binding Sequence.Count}" />
                 </StackPanel>
 
-                <ComboBox ItemsSource="{Binding Alphabets}" SelectedItem="{Binding CurrentAlphabet, Mode=TwoWay}">
+            <ComboBox Grid.Column="0"  Grid.Row="4" Margin="2.5" ItemsSource="{Binding Alphabets}" SelectedItem="{Binding CurrentAlphabet, Mode=TwoWay}">
                 </ComboBox>
 
-                <Grid>
+            <Grid Grid.Column="0"  Grid.Row="5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="300"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0"  Text="{Binding FilePath}"/>
-                    <Button Command="{Binding Browse}" Content="Browse" Grid.Column="1" />
+                    <TextBox Grid.Column="0" Margin="2.5"  Text="{Binding FilePath}"/>
+                    
 
                 </Grid>
-
-                <Button Content="Convert" Command="{Binding ConvertSequence}" />
-            </StackPanel>
-        </Grid>
+            <Button Grid.Column="0"  Grid.Row="6" Margin="2.5" Command="{Binding Browse}" Content="Browse" />
+            <Button Grid.Column="0"  Grid.Row="7" Margin="2.5" Content="Convert" Command="{Binding ConvertSequence}" />
+        </Grid> 
         <TextBlock Grid.Row="1" Text="{Binding Status, Mode=TwoWay}" Margin="{StaticResource StatusMargin}" />
     </Grid>
 </UserControl>

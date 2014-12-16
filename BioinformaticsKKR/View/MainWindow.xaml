@@ -3,14 +3,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-        Title="MainWindow" Height="450" Width="1110.95"
-    ContentSource="/View/ReadFileView.xaml">
+        Title="MainWindow" Height="630" Width="1200"
+    ResizeMode="CanMinimize"
+    ContentSource="/View/MainView.xaml">
     
    <mui:ModernWindow.MenuLinkGroups>
        <mui:LinkGroup DisplayName=".NET Bio Library Overview">
            <mui:LinkGroup.Links>
-               <mui:Link DisplayName="Read File" Source="/View/ReadFileView.xaml" />
-               <mui:Link DisplayName="Converter" Source="/View/ConvertView.xaml"/>
+               <mui:Link DisplayName="File" Source="/View/MainView.xaml" />
                <mui:Link DisplayName="Align" Source="/View/AlignView.xaml"/>
                <mui:Link DisplayName="Assemble" Source="/View/AssembleView.xaml"/>
            </mui:LinkGroup.Links>

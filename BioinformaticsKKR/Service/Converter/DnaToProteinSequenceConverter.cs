@@ -17,6 +17,12 @@ namespace BioinformaticsKKR.Service.Converter
             return baseType == SequenceType.DNA;
         }
 
+
+        public override string ToString()
+        {
+            return DestinationSequenceType.ToString();
+        }
+
         public SequenceType DestinationSequenceType
         {
             get
