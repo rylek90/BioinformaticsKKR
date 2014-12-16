@@ -21,6 +21,7 @@ namespace BioinformaticsKKR.Core.DependencyInjection
             For<ISequenceConverter>().Use<DnaToProteinSequenceConverter>();
 
             For<IAlignViewModel>().Use<AlignViewModel>();
+            For<ISequencesStatisticsLinksViewModel>().Use<SequencesStatisticsLinksViewModel>();
             For<ISequencesLinksViewModel>().Use<SequencesLinksViewModel>();
             For<IStatusViewModel>().Use<StatusViewModel>();
 

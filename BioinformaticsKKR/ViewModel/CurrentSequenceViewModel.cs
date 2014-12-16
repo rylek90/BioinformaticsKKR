@@ -55,6 +55,26 @@ namespace BioinformaticsKKR.ViewModel
             }
         }
 
+        public List<KeyValuePair<string, int>> StatisticsValues
+        {
+            get
+            {
+
+                var list = new List<KeyValuePair<string, int>>();
+
+                var mySequence = _sequence;
+                SequenceStatistics seqStat = new SequenceStatistics(mySequence);
+                foreach (var letter in mySequence.Alphabet)
+                {
+                    //Console.WriteLine("{0} = {1}", (char)item,
+                      int count = (int)seqStat.GetCount(letter);
+                      list.Add(new KeyValuePair<string, int>(Convert.ToChar(letter).ToString(), count));
+
+                }
+                return list;
+            }
+        }
+
         public ISequence Sequence
         {
             get { return _sequence; }

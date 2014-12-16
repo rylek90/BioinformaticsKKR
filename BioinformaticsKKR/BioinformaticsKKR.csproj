@@ -63,6 +63,16 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.Windows.Controls.DataVisualization.Toolkit.4.0.0.0\lib\net40-Client\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Layout.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -74,6 +84,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\WPFToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -89,6 +102,7 @@
     <Compile Include="Core\IO\IAmFileDialog.cs" />
     <Compile Include="Core\IO\SequenceFileWriter.cs" />
     <Compile Include="Core\IO\WriteFileDialog.cs" />
+    <Compile Include="Navigator\Loader\CurrentSequenceStatisticsLoader.cs" />
     <Compile Include="Navigator\Loader\CurrentSequenceLoader.cs" />
     <Compile Include="Provider\SequencesRepository.cs" />
     <Compile Include="Service\Alignement\PairwiseOverlapSequenceAligner.cs" />
@@ -105,6 +119,7 @@
     <Compile Include="Service\Converter\ISequenceConverter.cs" />
     <Compile Include="ViewModel\AlignViewModel.cs" />
     <Compile Include="ViewModel\AssembleViewModel.cs" />
+    <Compile Include="ViewModel\SequencesStatisticsLinksViewModel.cs" />
     <Compile Include="ViewModel\StatusViewModel.cs" />
     <Compile Include="ViewModel\CurrentSequenceViewModel.cs" />
     <ApplicationDefinition Include="App.xaml">
@@ -132,6 +147,9 @@
       <DependentUpon>ConvertView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="View\CurrentSequenceStatistics.xaml.cs">
+      <DependentUpon>CurrentSequenceStatistics.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CurrentSequence.xaml.cs">
       <DependentUpon>CurrentSequence.xaml</DependentUpon>
     </Compile>
@@ -140,6 +158,9 @@
     </Compile>
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatisticsView.xaml.cs">
+      <DependentUpon>StatisticsView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +209,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CurrentSequenceStatistics.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\CurrentSequence.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -197,6 +222,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatisticsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

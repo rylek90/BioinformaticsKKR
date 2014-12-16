@@ -1,0 +1,23 @@
+﻿<Page x:Class="BioinformaticsKKR.View.StatisticsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Custom="http://schemas.microsoft.com/wpf/2008/toolkit" 
+      xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+      xmlns:loader="clr-namespace:BioinformaticsKKR.Navigator.Loader"
+	Title="StatisticsView">
+
+    <Grid Name="MainGrid">
+        <mui:ModernTab Name="SequencesTab" Layout="List"
+                       Links="{Binding SequencesStatisticsLinkCollection, Mode=TwoWay}">
+            <mui:ModernTab.ContentLoader>
+                <loader:CurrentSequenceStatisticsLoader />
+            </mui:ModernTab.ContentLoader>
+        </mui:ModernTab>
+       
+    </Grid>
+</Page>
