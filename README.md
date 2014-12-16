@@ -19,4 +19,5 @@ Maciej Ryłko
 
 ###For the recipent
 Bioinformatics Course - Project
+
 Gdańsk University of Technology, ETI Department
