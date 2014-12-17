@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Bio;
 using FirstFloor.ModernUI.Presentation;
 
@@ -32,8 +33,7 @@ namespace BioinformaticsKKR.Core.Extensions
             if (sequence == null)
                 return null;
 
-            var stringifiedSequence = sequence.ToString();
-            return string.IsNullOrEmpty(stringifiedSequence) ? null : stringifiedSequence.ToCharArray();
+            return sequence.Select(v => (char) v).ToArray();
         }
     }
 }
