@@ -35,6 +35,7 @@ namespace BioinformaticsKKR.Core.DependencyInjection
             For<ISequenceConverter>().Use<DnaToProteinSequenceConverter>();
 
             For<IAlignViewModel>().Use<AlignViewModel>();
+            For<IManipulationViewModel>().Use<ManipulationViewModel>();
             For<ISequencesStatisticsLinksViewModel>().Use<SequencesStatisticsLinksViewModel>();
             For<ISequencesLinksViewModel>().Use<SequencesLinksViewModel>();
             For<IStatusViewModel>().Use<StatusViewModel>();
@@ -45,7 +46,7 @@ namespace BioinformaticsKKR.Core.DependencyInjection
 
             For<ISequencesLinksViewModel>().Use<SequencesLinksViewModel>();
 
-            For<IManipulationViewModel>().Use<ManipulationViewModel>();
+
             For<IAlignViewModel>().Use<AlignViewModel>();
             For<IStatusViewModel>().Use<StatusViewModel>();
 
@@ -62,6 +63,7 @@ namespace BioinformaticsKKR.Core.DependencyInjection
                 .Ctor<ISequenceFileReader>()
                 .Is<SequenceFileReader>();
 
+            For<IManipulationSequenceViewModel>().Use<ManipulationSequenceViewModel>();
             For<IAlignmentSequenceViewModel>().Use<AlignmentSequenceViewModel>();
 
             For<IAssembleSequences>().Use<OverlapDeNovoAssemblerService>();

@@ -55,24 +55,18 @@ namespace BioinformaticsKKR.ViewModel
             }
         }
 
+        private List<KeyValuePair<string, int>> _statisticsValues;
         public List<KeyValuePair<string, int>> StatisticsValues
         {
             get
             {
-
-                var list = new List<KeyValuePair<string, int>>();
-
-                var mySequence = _sequence;
-                SequenceStatistics seqStat = new SequenceStatistics(mySequence);
-                foreach (var letter in mySequence.Alphabet)
-                {
-                    //Console.WriteLine("{0} = {1}", (char)item,
-                      int count = (int)seqStat.GetCount(letter);
-                      list.Add(new KeyValuePair<string, int>(Convert.ToChar(letter).ToString(), count));
-
-                }
-                return list;
+                return _statisticsValues;
             }
+            set {
+                _statisticsValues = value;
+                OnPropertyChanged("StatisticsValues");
+            }
+
         }
 
         public ISequence Sequence
@@ -93,7 +87,19 @@ namespace BioinformaticsKKR.ViewModel
                     Alphabets = _sequenceConverters;
                 }
 
-                
+                var list = new List<KeyValuePair<string, int>>();
+
+                var mySequence = Sequence;
+                SequenceStatistics seqStat = new SequenceStatistics(mySequence);
+                foreach (var letter in mySequence.Alphabet)
+                {
+                    //Console.WriteLine("{0} = {1}", (char)item,
+                    int count = (int)seqStat.GetCount(letter);
+                    list.Add(new KeyValuePair<string, int>(Convert.ToChar(letter).ToString(), count));
+
+                }
+                StatisticsValues = list;
+
                 OnPropertyChanged("Sequence");
             }
         }
@@ -131,6 +137,7 @@ namespace BioinformaticsKKR.ViewModel
                 CanExecuteMethod = o => true,
                 ExecuteMethod = BrowseExecuteMethod
             };
+         
         }
 
         public CommandBase Browse { get; set; }

@@ -134,6 +134,7 @@
     <Compile Include="Service\Converter\ISequenceConverter.cs" />
     <Compile Include="ViewModel\AlignmentSequenceViewModel.cs" />
     <Compile Include="ViewModel\AlignViewModel.cs" />
+    <Compile Include="ViewModel\ManipulationSequenceViewModel.cs" />
     <Compile Include="ViewModel\ManipulationViewModel.cs" />
     <Compile Include="ViewModel\SequencesStatisticsLinksViewModel.cs" />
     <Compile Include="ViewModel\StatusViewModel.cs" />
@@ -165,6 +166,9 @@
     <Compile Include="View\ConvertView.xaml.cs">
       <DependentUpon>ConvertView.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="View\ManipulationSequenceViewControl.xaml.cs">
+      <DependentUpon>ManipulationSequenceViewControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CurrentSequenceStatistics.xaml.cs">
       <DependentUpon>CurrentSequenceStatistics.xaml</DependentUpon>
@@ -234,6 +238,10 @@
     <Page Include="View\ConvertView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ManipulationSequenceViewControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\CurrentSequenceStatistics.xaml">
       <Generator>MSBuild:Compile</Generator>
