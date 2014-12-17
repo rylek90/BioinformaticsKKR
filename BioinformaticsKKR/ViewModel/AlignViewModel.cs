@@ -36,6 +36,7 @@ namespace BioinformaticsKKR.ViewModel
         private IEnumerable<ISequence> _firstSequencesList;
         private ISequence _secondSequenceSelected;
         private ISequence _firstSequenceSelected;
+        private int _gapPenalty;
 
         public string Status
         {
@@ -63,6 +64,40 @@ namespace BioinformaticsKKR.ViewModel
             _sequencesAligners = sequencesAligners;
 
             _alignmentSequenceViewModel.PropertyChanged += (sender, e) => OnPropertyChanged(e.ToString());
+
+            AlignCommand = new CommandBase
+            {
+                CanExecuteMethod = CanAlign,
+                ExecuteMethod = ExecuteAlign
+            };
+        }
+
+        public CommandBase AlignCommand { get; set; }
+
+        private void ExecuteAlign(object obj)
+        {
+            _currentAligner.GapPenalty = GapPenalty;
+            _currentAligner.SimilarityMatrix = new SimilarityMatrix(_currentSimilarityMatrix);
+            var _alignedMatrix = _currentAligner.Align(FirstSequenceSelected, SecondSequenceSelected);
+        }
+
+        public int GapPenalty
+        {
+            get { return _gapPenalty; }
+            set
+            {
+                _gapPenalty = value;
+                OnPropertyChanged("GapPenalty");
+            }
+        }
+
+        private bool CanAlign(object obj)
+        {
+            if (_currentAligner == null
+                || _firstSequenceSelected == null
+                || _secondSequenceSelected == null)
+                return false;
+            return true;
         }
 
         public Array SimilarityMatrices
@@ -76,6 +111,7 @@ namespace BioinformaticsKKR.ViewModel
             set
             {
                 _currentSimilarityMatrix = value;
+                AlignCommand.UpdateCanExecuteState();
                 OnPropertyChanged("CurrentSimilarityMatrix");
             }
         }
@@ -88,7 +124,7 @@ namespace BioinformaticsKKR.ViewModel
         public IAlignSequences CurrentAligner
         {
             get { return _currentAligner; }
-            set { _currentAligner = value; OnPropertyChanged("CurrentAligner"); }
+            set { _currentAligner = value; AlignCommand.UpdateCanExecuteState(); OnPropertyChanged("CurrentAligner"); }
         }
 
         public IEnumerable<ISequence> FirstSequencesList
@@ -97,6 +133,7 @@ namespace BioinformaticsKKR.ViewModel
             set
             {
                 _firstSequencesList = value;
+                AlignCommand.UpdateCanExecuteState();
                 OnPropertyChanged("FirstSequenceList");
             }
         }
@@ -107,6 +144,7 @@ namespace BioinformaticsKKR.ViewModel
             set
             {
                 _firstSequenceSelected = value;
+                AlignCommand.UpdateCanExecuteState();
                 _alignmentSequenceViewModel.SequenceA = value;
                 OnPropertyChanged("FirstSequenceSelected");
             }
@@ -118,6 +156,7 @@ namespace BioinformaticsKKR.ViewModel
             set
             {
                 _secondSequencesList = value;
+                AlignCommand.UpdateCanExecuteState();
                 OnPropertyChanged("SecondSequenceList");
             }
         }
@@ -128,6 +167,7 @@ namespace BioinformaticsKKR.ViewModel
             set
             {
                 _secondSequenceSelected = value;
+                AlignCommand.UpdateCanExecuteState();
                 OnPropertyChanged("SecondSequenceSelected");
             }
         }

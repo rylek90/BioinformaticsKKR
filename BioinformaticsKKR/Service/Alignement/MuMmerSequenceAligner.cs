@@ -15,7 +15,6 @@ namespace BioinformaticsKKR.Service.Alignement
                 GapOpenCost = GapPenalty,
                 SimilarityMatrix = SimilarityMatrix,
             };
-
             return aligner.Align(new List<ISequence> {sequenceA, sequenceB});
         }
 

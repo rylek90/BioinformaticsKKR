@@ -42,6 +42,8 @@ namespace BioinformaticsKKR.View
 
             if(second!=null)
             _viewModel.SecondSequence = new ObservableCollection<char>(second.ToCharArray());
+
+            _viewModel.ThirdSequence = third == null ? null : new ObservableCollection<char>(third.ToCharArray());
         }
     }
 }
