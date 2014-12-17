@@ -50,7 +50,6 @@
         </Grid>
             <mui:ModernTab Name="SequencesTab" Layout="List" 
                        Links="{Binding SequencesLinkCollection, Mode=TwoWay}" Width="800">
-                
                 <mui:ModernTab.ContentLoader>
                     <loader:CurrentSequenceLoader />
                 </mui:ModernTab.ContentLoader>
