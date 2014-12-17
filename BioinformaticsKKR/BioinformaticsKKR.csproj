@@ -93,6 +93,19 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Core\Definitions\SequenceType.cs" />
+    <Compile Include="Core\Definitions\SimilarityMatrices\AmbiguousDna.cs" />
+    <Compile Include="Core\Definitions\SimilarityMatrices\AmbiguousRna.cs" />
+    <Compile Include="Core\Definitions\SimilarityMatrices\Blosum45.cs" />
+    <Compile Include="Core\Definitions\SimilarityMatrices\Blosum50.cs" />
+    <Compile Include="Core\Definitions\SimilarityMatrices\Blosum62.cs" />
+    <Compile Include="Core\Definitions\SimilarityMatrices\Blosum80.cs" />
+    <Compile Include="Core\Definitions\SimilarityMatrices\Blosum90.cs" />
+    <Compile Include="Core\Definitions\SimilarityMatrices\DiagonalScoreMatrix.cs" />
+    <Compile Include="Core\Definitions\SimilarityMatrices\EDnaFull.cs" />
+    <Compile Include="Core\Definitions\SimilarityMatrices\IAmSimilarityMatrix.cs" />
+    <Compile Include="Core\Definitions\SimilarityMatrices\Pam250.cs" />
+    <Compile Include="Core\Definitions\SimilarityMatrices\Pam30.cs" />
+    <Compile Include="Core\Definitions\SimilarityMatrices\Pam70.cs" />
     <Compile Include="Core\DependencyInjection\BioRegistry.cs" />
     <Compile Include="Core\DependencyInjection\ContainerBootstrap.cs" />
     <Compile Include="Core\Extensions\SequenceExtensions.cs" />

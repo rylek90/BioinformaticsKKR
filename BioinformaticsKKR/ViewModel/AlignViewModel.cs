@@ -6,6 +6,7 @@ using System.Windows;
 using Bio;
 using Bio.Algorithms.Alignment;
 using Bio.SimilarityMatrices;
+using BioinformaticsKKR.Core.Definitions.SimilarityMatrices;
 using BioinformaticsKKR.Core.ViewModel;
 using BioinformaticsKKR.Service.Alignement;
 using FirstFloor.ModernUI.Windows.Controls;
@@ -15,8 +16,8 @@ namespace BioinformaticsKKR.ViewModel
     public interface IAlignViewModel
     {
         string Status { get; set; }
-        Array SimilarityMatrices { get; }
-        SimilarityMatrix.StandardSimilarityMatrix CurrentSimilarityMatrix { get; set; }
+        IEnumerable<IAmSimilarityMatrix> SimilarityMatrices { get; }
+        IAmSimilarityMatrix CurrentSimilarityMatrix { get; set; }
         List<IAlignSequences> SequencesAligners { get; }
         IAlignSequences CurrentAligner { get; set; }
         ISequence FirstSequenceSelected { get; set; }
@@ -33,7 +34,7 @@ namespace BioinformaticsKKR.ViewModel
     {
         private readonly IEnumerable<IAlignSequences> _sequencesAligners;
         private IAlignSequences _currentAligner;
-        private SimilarityMatrix.StandardSimilarityMatrix _currentSimilarityMatrix;
+        private IAmSimilarityMatrix _currentSimilarityMatrix;
         private readonly IStatusViewModel _statusService;
         private readonly IAlignmentSequenceViewModel _alignmentSequenceViewModel;
         private IEnumerable<ISequence> _secondSequencesList;
@@ -43,6 +44,8 @@ namespace BioinformaticsKKR.ViewModel
         private int _gapPenalty;
         private ISequence _aligned;
         private List<IAlignSequences> _availableSequenceAligners;
+        private IEnumerable<IAmSimilarityMatrix> _availableSimilarityMatrices;
+        private readonly IEnumerable<IAmSimilarityMatrix> _similarityMatrices;
 
         public string Status
         {
@@ -71,14 +74,15 @@ namespace BioinformaticsKKR.ViewModel
 
         public AlignViewModel(IEnumerable<IAlignSequences> sequencesAligners,
             IStatusViewModel statusService,
-            IAlignmentSequenceViewModel alignmentSequenceViewModel
+            IAlignmentSequenceViewModel alignmentSequenceViewModel,
+            IEnumerable<IAmSimilarityMatrix> similarityMatrices
             )
         {
             _statusService = statusService;
             _alignmentSequenceViewModel = alignmentSequenceViewModel;
             _statusService.PropertyChanged += (sender, e) => OnPropertyChanged(e.ToString());
             _sequencesAligners = sequencesAligners;
-
+            _similarityMatrices = similarityMatrices;
             _alignmentSequenceViewModel.PropertyChanged += (sender, e) => OnPropertyChanged(e.ToString());
 
             AlignCommand = new CommandBase
@@ -92,12 +96,10 @@ namespace BioinformaticsKKR.ViewModel
 
         private void ExecuteAlign(object obj)
         {
-            var list = new List<Exception>();
-            
-                try
+            try
                 {
                     _currentAligner.GapPenalty = GapPenalty;
-                    _currentAligner.SimilarityMatrix = new SimilarityMatrix(_currentSimilarityMatrix);
+                    _currentAligner.SimilarityMatrix = new SimilarityMatrix(_currentSimilarityMatrix.Matrix);
                     var sequence = _currentAligner.Align(FirstSequenceSelected, SecondSequenceSelected);
 
                     // WTF!!!!!!
@@ -132,12 +134,17 @@ namespace BioinformaticsKKR.ViewModel
             return true;
         }
 
-        public Array SimilarityMatrices
+        public IEnumerable<IAmSimilarityMatrix> SimilarityMatrices
         {
-            get { return Enum.GetValues(typeof (SimilarityMatrix.StandardSimilarityMatrix)); }
+            get { return _availableSimilarityMatrices; }
+            set
+            {
+                _availableSimilarityMatrices = value;
+                OnPropertyChanged("SimilarityMatrices");
+            }
         }
 
-        public SimilarityMatrix.StandardSimilarityMatrix CurrentSimilarityMatrix
+        public IAmSimilarityMatrix CurrentSimilarityMatrix
         {
             get { return _currentSimilarityMatrix; }
             set
@@ -186,6 +193,7 @@ namespace BioinformaticsKKR.ViewModel
                 AlignCommand.UpdateCanExecuteState();
                 _alignmentSequenceViewModel.SequenceA = value;
                 UpdateAlignersState();
+                UpdateMatricesState();
                 OnPropertyChanged("FirstSequenceSelected");
             }
         }
@@ -194,6 +202,12 @@ namespace BioinformaticsKKR.ViewModel
         {
             SequencesAligners =
                     _sequencesAligners.Where(x => x.CanAlignSequences(_firstSequenceSelected, _secondSequenceSelected)).ToList();
+        }
+
+        private void UpdateMatricesState()
+        {
+            SimilarityMatrices =
+                _similarityMatrices.Where(x => x.CanAlign(FirstSequenceSelected, SecondSequenceSelected));
         }
 
         public IEnumerable<ISequence> SecondSequencesList
@@ -215,6 +229,7 @@ namespace BioinformaticsKKR.ViewModel
                 _secondSequenceSelected = value;
                 AlignCommand.UpdateCanExecuteState();
                 UpdateAlignersState();
+                UpdateMatricesState();
                 OnPropertyChanged("SecondSequenceSelected");
             }
         }

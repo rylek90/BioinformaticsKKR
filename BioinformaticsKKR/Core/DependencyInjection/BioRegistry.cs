@@ -1,4 +1,5 @@
-﻿using BioinformaticsKKR.Core.IO;
+﻿using BioinformaticsKKR.Core.Definitions.SimilarityMatrices;
+using BioinformaticsKKR.Core.IO;
 using BioinformaticsKKR.Service.Alignement;
 using BioinformaticsKKR.Service.Assembly;
 using BioinformaticsKKR.Service.Converter;
@@ -12,6 +13,19 @@ namespace BioinformaticsKKR.Core.DependencyInjection
     {
         public BioRegistry()
         {
+            For<IAmSimilarityMatrix>().Use<AmbiguousDna>();
+            For<IAmSimilarityMatrix>().Use<AmbiguousRna>();
+            For<IAmSimilarityMatrix>().Use<Blosum45>();
+            For<IAmSimilarityMatrix>().Use<Blosum50>();
+            For<IAmSimilarityMatrix>().Use<Blosum62>();
+            For<IAmSimilarityMatrix>().Use<Blosum80>();
+            For<IAmSimilarityMatrix>().Use<Blosum90>();
+            For<IAmSimilarityMatrix>().Use<DiagonalScoreMatrix>();
+            For<IAmSimilarityMatrix>().Use<EDnaFull>();
+            For<IAmSimilarityMatrix>().Use<Pam250>();
+            For<IAmSimilarityMatrix>().Use<Pam30>();
+            For<IAmSimilarityMatrix>().Use<Pam70>();
+
             For<ISequenceFileReader>().Use<SequenceFileReader>();
             For<ISequenceFileWriter>().Use<SequenceFileWriter>();
 
