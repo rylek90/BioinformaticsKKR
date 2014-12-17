@@ -3,6 +3,9 @@ using System.IO;
 using System.Linq;
 using Bio;
 using Bio.IO.FastA;
+using System.Reflection;
+using Bio.IO;
+using System;
 
 namespace BioinformaticsKKR.Core.IO
 {
@@ -25,7 +28,11 @@ namespace BioinformaticsKKR.Core.IO
             
             using (var inputFile = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-                var parser = Bio.IO.SequenceParsers.FindParserByFileName(path);
+                var type = Bio.IO.SequenceParsers.FindParserByFileName(path).GetType();
+                var parser = (ISequenceParser)Activator.CreateInstance(type);
+                
+                //var parser = new FastAParser();
+
                 sequences = parser.Parse(inputFile).ToList();
             }
             
