@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using Bio;
+using Bio.Algorithms.Alignment;
 using Bio.SimilarityMatrices;
 using BioinformaticsKKR.Core.ViewModel;
 using BioinformaticsKKR.Service.Alignement;
+using FirstFloor.ModernUI.Windows.Controls;
 
 namespace BioinformaticsKKR.ViewModel
 {
@@ -18,6 +21,7 @@ namespace BioinformaticsKKR.ViewModel
         IAlignSequences CurrentAligner { get; set; }
         ISequence FirstSequenceSelected { get; set; }
         ISequence SecondSequenceSelected { get; set; }
+        ISequence Aligned { get; set; }
         void OnPropertyChanged(string propertyName);
         event PropertyChangedEventHandler PropertyChanged;
 
@@ -37,6 +41,7 @@ namespace BioinformaticsKKR.ViewModel
         private ISequence _secondSequenceSelected;
         private ISequence _firstSequenceSelected;
         private int _gapPenalty;
+        private ISequence _aligned;
 
         public string Status
         {
@@ -51,6 +56,16 @@ namespace BioinformaticsKKR.ViewModel
         public IAlignmentSequenceViewModel AlignmentSequenceViewModel
         {
             get { return _alignmentSequenceViewModel; }
+        }
+
+        public ISequence Aligned
+        {
+            get { return _aligned; }
+            set
+            {
+                _aligned = value;
+                OnPropertyChanged("Aligned");
+            }
         }
 
         public AlignViewModel(IEnumerable<IAlignSequences> sequencesAligners,
@@ -76,9 +91,21 @@ namespace BioinformaticsKKR.ViewModel
 
         private void ExecuteAlign(object obj)
         {
-            _currentAligner.GapPenalty = GapPenalty;
-            _currentAligner.SimilarityMatrix = new SimilarityMatrix(_currentSimilarityMatrix);
-            var _alignedMatrix = _currentAligner.Align(FirstSequenceSelected, SecondSequenceSelected);
+            var list = new List<Exception>();
+            
+                try
+                {
+                    _currentAligner.GapPenalty = GapPenalty;
+                    _currentAligner.SimilarityMatrix = new SimilarityMatrix(_currentSimilarityMatrix);
+                    var _sequence = _currentAligner.Align(FirstSequenceSelected, SecondSequenceSelected);
+
+                    // WTF!!!!!!
+                    Aligned = _sequence.First().PairwiseAlignedSequences.First().Consensus;
+                }
+                catch (Exception ex)
+                {
+                    ModernDialog.ShowMessage(ex.Message, "Warning!", MessageBoxButton.OK);
+                }
         }
 
         public int GapPenalty

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Controls;
 using BioinformaticsKKR.Core.DependencyInjection;
 using BioinformaticsKKR.Provider;
@@ -20,7 +21,19 @@ namespace BioinformaticsKKR.View
             InitializeComponent();
             MainGrid.DataContext = ContainerBootstrap.Container.GetInstance<IAlignViewModel>();
             _viewModel = MainGrid.DataContext as IAlignViewModel;
+
+            if (_viewModel != null)
+                _viewModel.PropertyChanged += OnPropChanged;
         }
+
+        private void OnPropChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Aligned")
+            {
+                AlignmentControl.Update(_viewModel.FirstSequenceSelected, _viewModel.SecondSequenceSelected, _viewModel.Aligned);
+            }
+        }
+
 
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)
         {
