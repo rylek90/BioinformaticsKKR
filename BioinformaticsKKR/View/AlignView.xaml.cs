@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Controls;
 using BioinformaticsKKR.Core.DependencyInjection;
 using BioinformaticsKKR.Provider;
 using BioinformaticsKKR.ViewModel;
@@ -38,6 +39,11 @@ namespace BioinformaticsKKR.View
 
         public void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
+        }
+
+        private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AlignmentControl.Update(_viewModel.FirstSequenceSelected, _viewModel.SecondSequenceSelected);
         }
     }
 }

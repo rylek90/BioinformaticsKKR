@@ -1,36 +1,62 @@
-﻿using BioinformaticsKKR.Core.ViewModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using Bio;
+using BioinformaticsKKR.Core.Extensions;
+using BioinformaticsKKR.Core.ViewModel;
 
 namespace BioinformaticsKKR.ViewModel
 {
-    
-    public class AlignmentSequenceViewModel : ViewModelBase
+    public interface IAlignmentSequenceViewModel
     {
-        private char[] _firstSequence;
-        private char[] _secondSequence;
-        private char[] _thirdSequence;
+        ISequence SequenceA { get; set; }
+        ObservableCollection<char> FirstSequence { get; set; }
+        ObservableCollection<char> SecondSequence { get; set; }
+        ObservableCollection<char> ThirdSequence { get; set; }
+        void OnPropertyChanged(string propertyName);
+        event PropertyChangedEventHandler PropertyChanged;
+    }
+
+    public class AlignmentSequenceViewModel : ViewModelBase, IAlignmentSequenceViewModel
+    {
+        private ObservableCollection<char> _firstSequence;
+        private ObservableCollection<char> _secondSequence;
+        private ObservableCollection<char> _thirdSequence;
+        private ISequence _sequenceA;
 
 
         public AlignmentSequenceViewModel()
         {
-            FirstSequence = "AGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTU".ToCharArray();
-            SecondSequence = "AGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTU".ToCharArray();
-            ThirdSequence = "AGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTU".ToCharArray();
+            /*SecondSequence = "AGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTU".ToCharArray();*/
+            /*ThirdSequence = "AGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTUAGCTU".ToCharArray();*/
         }
 
+        public ISequence SequenceA
+        {
+            get { return _sequenceA; }
+            set
+            {
+                if(value == null)
+                    return;
 
-        public char[] FirstSequence
+                _sequenceA = value;
+                FirstSequence = new ObservableCollection<char>(value.ToCharArray());
+                OnPropertyChanged("SequenceA");
+            }
+        }
+
+        public ObservableCollection<char> FirstSequence
         {
             get { return _firstSequence; }
             set { _firstSequence = value; OnPropertyChanged("FirstSequence"); }
         }
 
-        public char[] SecondSequence
+        public ObservableCollection<char> SecondSequence
         {
             get { return _secondSequence; }
             set { _secondSequence = value; OnPropertyChanged("SecondSequence"); }
         }
 
-        public char[] ThirdSequence
+        public ObservableCollection<char> ThirdSequence
         {
             get { return _thirdSequence; }
             set { _thirdSequence = value; OnPropertyChanged("ThirdSequence"); }

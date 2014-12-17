@@ -6,17 +6,15 @@
              mc:Ignorable="d" 
              xmlns:scrollHelper="clr-namespace:BioinformaticsKKR.Core.ViewModel.Tools"
              xmlns:converters="clr-namespace:BioinformaticsKKR.Core.ViewModel.Converters"
-             xmlns:viewModel="clr-namespace:BioinformaticsKKR.ViewModel"
              d:DesignHeight="150" d:DesignWidth="300">
     
     <UserControl.Resources>
         <converters:SequenceColorConverter x:Key="ColorConverter"/>
-        <viewModel:AlignmentSequenceViewModel x:Key="ViewModel"/>
     </UserControl.Resources>
-    <Grid DataContext="{StaticResource ViewModel}">
+    <Grid Name="MainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 <Grid.Resources>
@@ -24,23 +22,22 @@
                 <Setter Property="scrollHelper:ScrollSynchronizer.ScrollGroup" Value="Group1" />
             </Style>
         </Grid.Resources>
-        <ListBox Grid.Row="0" scrollHelper:ScrollSynchronizer.ScrollGroup="Group1" ItemsSource="{Binding FirstSequence}" 
-                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListBox.ItemsPanel>
+        <ListView Grid.Row="0" scrollHelper:ScrollSynchronizer.ScrollGroup="Group1" ItemsSource="{Binding FirstSequence, Mode=TwoWay}" 
+                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
                 <DataTemplate>
                     <Label Background="{Binding Converter={StaticResource ColorConverter}}" Content="{Binding}" ></Label>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ListView.ItemTemplate>
+        </ListView>
 
         <ListBox Grid.Row="1" scrollHelper:ScrollSynchronizer.ScrollGroup="Group1" ItemsSource="{Binding SecondSequence}" ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                 >
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>
@@ -52,7 +49,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
         <ListBox Grid.Row="2" scrollHelper:ScrollSynchronizer.ScrollGroup="Group1" ItemsSource="{Binding ThirdSequence}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>

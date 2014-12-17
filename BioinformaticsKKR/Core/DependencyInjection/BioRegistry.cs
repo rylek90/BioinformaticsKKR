@@ -47,6 +47,8 @@ namespace BioinformaticsKKR.Core.DependencyInjection
                 .Ctor<ISequenceFileReader>()
                 .Is<SequenceFileReader>();
 
+            For<IAlignmentSequenceViewModel>().Use<AlignmentSequenceViewModel>();
+
             For<IAssembleSequences>().Use<OverlapDeNovoAssemblerService>();
 
             For<IAlignSequences>().Use<MuMmerSequenceAligner>();
