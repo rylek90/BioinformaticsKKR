@@ -121,7 +121,7 @@
     <Compile Include="Service\Converter\ISequenceConverter.cs" />
     <Compile Include="ViewModel\AlignmentSequenceViewModel.cs" />
     <Compile Include="ViewModel\AlignViewModel.cs" />
-    <Compile Include="ViewModel\AssembleViewModel.cs" />
+    <Compile Include="ViewModel\ManipulationViewModel.cs" />
     <Compile Include="ViewModel\SequencesStatisticsLinksViewModel.cs" />
     <Compile Include="ViewModel\StatusViewModel.cs" />
     <Compile Include="ViewModel\CurrentSequenceViewModel.cs" />
@@ -149,9 +149,6 @@
     <Compile Include="View\AlignView.xaml.cs">
       <DependentUpon>AlignView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AssembleView.xaml.cs">
-      <DependentUpon>AssembleView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\ConvertView.xaml.cs">
       <DependentUpon>ConvertView.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -167,6 +164,9 @@
     </Compile>
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ManipulationView.xaml.cs">
+      <DependentUpon>ManipulationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StatisticsView.xaml.cs">
       <DependentUpon>StatisticsView.xaml</DependentUpon>
@@ -218,10 +218,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AssembleView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\ConvertView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -239,6 +235,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ManipulationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

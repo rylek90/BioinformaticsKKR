@@ -12,7 +12,7 @@
            <mui:LinkGroup.Links>
                <mui:Link DisplayName="File" Source="/View/MainView.xaml" />
                <mui:Link DisplayName="Align" Source="/View/AlignView.xaml"/>
-               <mui:Link DisplayName="Assemble" Source="/View/AssembleView.xaml"/>
+               <mui:Link DisplayName="Manipulation" Source="/View/ManipulationView.xaml"/>
                <mui:Link DisplayName="Statistics" Source="/View/StatisticsView.xaml"/>
                <mui:Link DisplayName="About" Source="/View/AboutView.xaml"/>
            </mui:LinkGroup.Links>
