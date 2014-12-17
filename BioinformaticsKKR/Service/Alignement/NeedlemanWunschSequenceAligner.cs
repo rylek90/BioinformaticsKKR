@@ -31,7 +31,7 @@ namespace BioinformaticsKKR.Service.Alignement
 
         public override string ToString()
         {
-            return "NeedlemanWunschSequenceAligner";
+            return "Needleman-Wunsch Aligner";
         }
     }
 }

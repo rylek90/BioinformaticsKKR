@@ -132,6 +132,10 @@
     <Compile Include="Service\Converter\RnaToDnaSequenceConverter.cs" />
     <Compile Include="Service\Converter\RnaToProteinSequenceConverter.cs" />
     <Compile Include="Service\Converter\ISequenceConverter.cs" />
+    <Compile Include="Service\Modification\ComplementedModificatorSequences.cs" />
+    <Compile Include="Service\Modification\ReverseModificatorSequences.cs" />
+    <Compile Include="Service\Modification\ReverseComplementedModificatorSequences.cs" />
+    <Compile Include="Service\Modification\IModificatorSequences.cs" />
     <Compile Include="ViewModel\AlignmentSequenceViewModel.cs" />
     <Compile Include="ViewModel\AlignViewModel.cs" />
     <Compile Include="ViewModel\ManipulationSequenceViewModel.cs" />

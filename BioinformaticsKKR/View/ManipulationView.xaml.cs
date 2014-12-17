@@ -14,8 +14,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FirstFloor.ModernUI.Windows;
+using FirstFloor.ModernUI.Windows.Navigation;
 
 namespace BioinformaticsKKR.View
 {
@@ -24,7 +25,7 @@ namespace BioinformaticsKKR.View
     /// </summary>
     /// 
     
-    public partial class ManipulationView : Page
+    public partial class ManipulationView : Page, IContent
     {
         private IManipulationViewModel _viewModel;
         public ManipulationView()
@@ -34,20 +35,21 @@ namespace BioinformaticsKKR.View
             _viewModel = MainGrid.DataContext as IManipulationViewModel;
             if (_viewModel != null)
                 _viewModel.PropertyChanged += OnPropChanged;
+           // _viewModel.SequencesList = SequencesRepository.Instance.Sequences;
         }
 
         private void OnPropChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "Aligned")
+            if (e.PropertyName == "ModificatedSequence")
             {
-                AlignmentControl.Update(_viewModel.FirstSequenceSelected, _viewModel.SecondSequenceSelected, _viewModel.Aligned);
+                ManipulationControl.Update(_viewModel.SequenceSelected, _viewModel.ModificatedSequence);
             }
         }
 
 
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)
         {
-
+            _viewModel.SequencesList = SequencesRepository.Instance.Sequences;
         }
 
         public void OnNavigatedFrom(NavigationEventArgs e)
@@ -56,8 +58,7 @@ namespace BioinformaticsKKR.View
 
         public void OnNavigatedTo(NavigationEventArgs e)
         {
-            _viewModel.FirstSequencesList = SequencesRepository.Instance.Sequences;
-            _viewModel.SecondSequencesList = SequencesRepository.Instance.Sequences;
+           _viewModel.SequencesList = SequencesRepository.Instance.Sequences;
         }
 
         public void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -66,7 +67,7 @@ namespace BioinformaticsKKR.View
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            AlignmentControl.Update(_viewModel.FirstSequenceSelected, _viewModel.SecondSequenceSelected);
+            ManipulationControl.Update(_viewModel.SequenceSelected);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace BioinformaticsKKR.Service.Alignement
 
         public override string ToString()
         {
-            return "MuMmerSequenceAligner";
+            return "MuMmer Aligner";
         }
     }
 }

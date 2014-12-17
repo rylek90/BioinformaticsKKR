@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using Bio;
 using Bio.IO.FastA;
+using BioinformaticsKKR.Provider;
 
 namespace BioinformaticsKKR.Core.IO
 {
@@ -23,6 +24,10 @@ namespace BioinformaticsKKR.Core.IO
             //    var formater = new FastAFormatter();
                 var formater = Bio.IO.SequenceFormatters.FindFormatterByFileName(path);
                 formater.Format(outputFile, new List<ISequence> { sequence });
+            }
+            var repo = SequencesRepository.Instance.Sequences;
+            if (!repo.Contains(sequence)) {
+                repo.Add(sequence);
             }
 
             return true;

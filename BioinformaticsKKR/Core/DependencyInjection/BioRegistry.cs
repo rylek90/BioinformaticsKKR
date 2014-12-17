@@ -3,6 +3,7 @@ using BioinformaticsKKR.Core.IO;
 using BioinformaticsKKR.Service.Alignement;
 using BioinformaticsKKR.Service.Assembly;
 using BioinformaticsKKR.Service.Converter;
+using BioinformaticsKKR.Service.Modification;
 using BioinformaticsKKR.ViewModel;
 using StructureMap.Configuration.DSL;
 
@@ -36,6 +37,7 @@ namespace BioinformaticsKKR.Core.DependencyInjection
 
             For<IAlignViewModel>().Use<AlignViewModel>();
             For<IManipulationViewModel>().Use<ManipulationViewModel>();
+
             For<ISequencesStatisticsLinksViewModel>().Use<SequencesStatisticsLinksViewModel>();
             For<ISequencesLinksViewModel>().Use<SequencesLinksViewModel>();
             For<IStatusViewModel>().Use<StatusViewModel>();
@@ -46,8 +48,6 @@ namespace BioinformaticsKKR.Core.DependencyInjection
 
             For<ISequencesLinksViewModel>().Use<SequencesLinksViewModel>();
 
-
-            For<IAlignViewModel>().Use<AlignViewModel>();
             For<IStatusViewModel>().Use<StatusViewModel>();
 
             For<IReadFileViewModel>()
@@ -72,6 +72,11 @@ namespace BioinformaticsKKR.Core.DependencyInjection
             For<IAlignSequences>().Use<NeedlemanWunschSequenceAligner>();
             For<IAlignSequences>().Use<SmithWatermanSequenceAligner>();
             For<IAlignSequences>().Use<PairwiseOverlapSequenceAligner>();
+
+            For<IModificatorSequences>().Use<ComplementedModificatorSequences>();
+            For<IModificatorSequences>().Use<ReverseComplementedModificatorSequences>();
+            For<IModificatorSequences>().Use<ReverseModificatorSequences>();
+
         }
     }
 }

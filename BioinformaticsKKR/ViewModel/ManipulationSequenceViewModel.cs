@@ -10,8 +10,7 @@ namespace BioinformaticsKKR.ViewModel
     {
         ISequence SequenceA { get; set; }
         ObservableCollection<char> FirstSequence { get; set; }
-        ObservableCollection<char> SecondSequence { get; set; }
-        ObservableCollection<char> ThirdSequence { get; set; }
+        ObservableCollection<char> ModificatedSequence { get; set; }
         void OnPropertyChanged(string propertyName);
         event PropertyChangedEventHandler PropertyChanged;
     }
@@ -19,8 +18,7 @@ namespace BioinformaticsKKR.ViewModel
     public class ManipulationSequenceViewModel : ViewModelBase, IManipulationSequenceViewModel
     {
         private ObservableCollection<char> _firstSequence;
-        private ObservableCollection<char> _secondSequence;
-        private ObservableCollection<char> _thirdSequence;
+        private ObservableCollection<char> _modificatedSequence;
         private ISequence _sequenceA;
 
 
@@ -45,16 +43,11 @@ namespace BioinformaticsKKR.ViewModel
             set { _firstSequence = value; OnPropertyChanged("FirstSequence"); }
         }
 
-        public ObservableCollection<char> SecondSequence
+        public ObservableCollection<char> ModificatedSequence
         {
-            get { return _secondSequence; }
-            set { _secondSequence = value; OnPropertyChanged("SecondSequence"); }
+            get { return _modificatedSequence; }
+            set { _modificatedSequence = value; OnPropertyChanged("ModificatedSequence"); }
         }
 
-        public ObservableCollection<char> ThirdSequence
-        {
-            get { return _thirdSequence; }
-            set { _thirdSequence = value; OnPropertyChanged("ThirdSequence"); }
-        }
     }
 }

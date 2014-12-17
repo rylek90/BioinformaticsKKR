@@ -10,42 +10,35 @@ using Bio.SimilarityMatrices;
 using FirstFloor.ModernUI.Windows.Controls;
 using System;
 using System.Windows;
+using BioinformaticsKKR.Service.Modification;
+using BioinformaticsKKR.Provider;
 
 namespace BioinformaticsKKR.ViewModel
 {
     public interface IManipulationViewModel
     {
         string Status { get; set; }
-        IEnumerable<IAmSimilarityMatrix> SimilarityMatrices { get; }
-        IAmSimilarityMatrix CurrentSimilarityMatrix { get; set; }
-        List<IAlignSequences> SequencesAligners { get; }
-        IAlignSequences CurrentAligner { get; set; }
-        ISequence FirstSequenceSelected { get; set; }
-        ISequence SecondSequenceSelected { get; set; }
-        ISequence Aligned { get; set; }
+        IEnumerable<IModificatorSequences> SequencesModificators { get; }
+        IModificatorSequences CurrentModificator { get; set; }
+        ISequence SequenceSelected { get; set; }
+        ISequence ModificatedSequence { get; set; }
         void OnPropertyChanged(string propertyName);
         event PropertyChangedEventHandler PropertyChanged;
-
-        IEnumerable<ISequence> FirstSequencesList { get; set; }
-        IEnumerable<ISequence> SecondSequencesList { get; set; }
+        IEnumerable<ISequence> SequencesList { get; set; }
+        CommandBase ManipulateCommand { get; set; }
     }
 
     public class ManipulationViewModel : ViewModelBase, IManipulationViewModel
     {
-        private readonly IEnumerable<IAlignSequences> _sequencesAligners;
-        private IAlignSequences _currentAligner;
-        private IAmSimilarityMatrix _currentSimilarityMatrix;
+        private readonly IEnumerable<IModificatorSequences> _sequencesModificators;
+        private IModificatorSequences _currentModificator;
         private readonly IStatusViewModel _statusService;
-        private readonly IManipulationSequenceViewModel _alignmentSequenceViewModel;
-        private IEnumerable<ISequence> _secondSequencesList;
-        private IEnumerable<ISequence> _firstSequencesList;
-        private ISequence _secondSequenceSelected;
-        private ISequence _firstSequenceSelected;
-        private int _gapPenalty;
-        private ISequence _aligned;
-        private List<IAlignSequences> _availableSequenceAligners;
-        private IEnumerable<IAmSimilarityMatrix> _availableSimilarityMatrices;
-        private readonly IEnumerable<IAmSimilarityMatrix> _similarityMatrices;
+        private readonly IManipulationSequenceViewModel _manipulationSequenceViewModel;
+        private IEnumerable<ISequence> _sequencesList;
+        private ISequence _sequenceSelected;
+        private ISequence _modified;
+        public CommandBase ManipulateCommand { get; set; }
+        public CommandBase SaveCommand { get; set; }
 
         public string Status
         {
@@ -59,51 +52,59 @@ namespace BioinformaticsKKR.ViewModel
 
         public IManipulationSequenceViewModel ManipulationSequenceViewModel
         {
-            get { return _alignmentSequenceViewModel; }
+            get { return _manipulationSequenceViewModel; }
         }
 
-        public ISequence Aligned
-        {
-            get { return _aligned; }
-            set
-            {
-                _aligned = value;
-                OnPropertyChanged("Aligned");
-            }
-        }
-
-        public ManipulationViewModel(IEnumerable<IAlignSequences> sequencesAligners,
+        public ManipulationViewModel(IEnumerable<IModificatorSequences> sequencesModificators,
             IStatusViewModel statusService,
-            IManipulationSequenceViewModel alignmentSequenceViewModel,
+            IManipulationSequenceViewModel manipulationSequenceViewModel,
             IEnumerable<IAmSimilarityMatrix> similarityMatrices
             )
         {
             _statusService = statusService;
-            _alignmentSequenceViewModel = alignmentSequenceViewModel;
+            _manipulationSequenceViewModel = manipulationSequenceViewModel;
             _statusService.PropertyChanged += (sender, e) => OnPropertyChanged(e.ToString());
-            _sequencesAligners = sequencesAligners;
-            _similarityMatrices = similarityMatrices;
-            _alignmentSequenceViewModel.PropertyChanged += (sender, e) => OnPropertyChanged(e.ToString());
+            _sequencesModificators = sequencesModificators;
+            _manipulationSequenceViewModel.PropertyChanged += (sender, e) => OnPropertyChanged(e.ToString());
 
-            AlignCommand = new CommandBase
+            ManipulateCommand = new CommandBase
             {
-                CanExecuteMethod = CanAlign,
-                ExecuteMethod = ExecuteAlign
+                CanExecuteMethod = CanManipulate,
+                ExecuteMethod = ExecuteManipulate
+            };
+
+            SaveCommand = new CommandBase
+            {
+                CanExecuteMethod = CanSave,
+                ExecuteMethod = ExecuteSave
             };
         }
 
-        public CommandBase AlignCommand { get; set; }
+        private bool CanSave(object obj) {
+            if (ModificatedSequence == null)
+                return false;
+            return true;
+        }
 
-        private void ExecuteAlign(object obj)
+        private void ExecuteSave(object obj) 
+        {
+            if (ModificatedSequence == null) return;
+            ModificatedSequence.ID += "__modified";
+            SequencesRepository.Instance.Sequences.Add(ModificatedSequence);
+            //save
+
+        }
+
+        private void ExecuteManipulate(object obj)
         {
             try
                 {
-                    _currentAligner.GapPenalty = GapPenalty;
-                    _currentAligner.SimilarityMatrix = new SimilarityMatrix(_currentSimilarityMatrix.Matrix);
-                    var sequence = _currentAligner.Align(FirstSequenceSelected, SecondSequenceSelected);
 
-                    // WTF!!!!!!
-                    Aligned = sequence.First().PairwiseAlignedSequences.First().Consensus;
+                //LOGIKA MANIPULACJI
+                    var sequence = _currentModificator.Modify(SequenceSelected);
+                    ModificatedSequence = sequence;
+                    SaveCommand.UpdateCanExecuteState();
+                    
                 }
                 catch (Exception ex)
                 {
@@ -111,126 +112,76 @@ namespace BioinformaticsKKR.ViewModel
                 }
         }
 
-        public int GapPenalty
-        {
-            get { return _gapPenalty; }
-            set
-            {
-                _gapPenalty = value;
-                OnPropertyChanged("GapPenalty");
-            }
-        }
 
-        private bool CanAlign(object obj)
+        private bool CanManipulate(object obj)
         {
-            if (_currentAligner == null
-                || _firstSequenceSelected == null
-                || _secondSequenceSelected == null)
+            if (_currentModificator == null
+                || _sequenceSelected == null)
                 return false;
 
-            if (_currentAligner.CanAlignSequences(_firstSequenceSelected, _secondSequenceSelected))
-                return true;
+          /*  if (_currentAligner.CanAlignSequences(_firstSequenceSelected, _secondSequenceSelected))
+                return true;*/
 
             return true;
         }
 
-        public IEnumerable<IAmSimilarityMatrix> SimilarityMatrices
+        public IEnumerable<IModificatorSequences> SequencesModificators
         {
-            get { return _availableSimilarityMatrices; }
-            set
-            {
-                _availableSimilarityMatrices = value;
-                OnPropertyChanged("SimilarityMatrices");
+            get { return _sequencesModificators; }
+        }
+
+        public IModificatorSequences CurrentModificator
+        {
+            get { return _currentModificator; }
+            set { 
+                _currentModificator = value; 
+                ManipulateCommand.UpdateCanExecuteState(); 
+                OnPropertyChanged("CurrentModificator"); 
             }
         }
 
-        public IAmSimilarityMatrix CurrentSimilarityMatrix
+        public IEnumerable<ISequence> SequencesList
         {
-            get { return _currentSimilarityMatrix; }
+            get { return _sequencesList; }
             set
             {
-                _currentSimilarityMatrix = value;
-                AlignCommand.UpdateCanExecuteState();
-                OnPropertyChanged("CurrentSimilarityMatrix");
+                _sequencesList = value;
+                ManipulateCommand.UpdateCanExecuteState();
+                OnPropertyChanged("SequenceList");
             }
         }
 
-        
-
-        public List<IAlignSequences> SequencesAligners
+        public ISequence SequenceSelected
         {
-            get { return _availableSequenceAligners; }
+            get { return _sequenceSelected; }
             set
             {
-                _availableSequenceAligners = value;
-                OnPropertyChanged("SequencesAligners");
-            }
-        }
-
-        public IAlignSequences CurrentAligner
-        {
-            get { return _currentAligner; }
-            set { _currentAligner = value; AlignCommand.UpdateCanExecuteState(); OnPropertyChanged("CurrentAligner"); }
-        }
-
-        public IEnumerable<ISequence> FirstSequencesList
-        {
-            get { return _firstSequencesList; }
-            set
-            {
-                _firstSequencesList = value;
-                AlignCommand.UpdateCanExecuteState();
-                OnPropertyChanged("FirstSequenceList");
-            }
-        }
-
-        public ISequence FirstSequenceSelected
-        {
-            get { return _firstSequenceSelected; }
-            set
-            {
-                _firstSequenceSelected = value;
-                AlignCommand.UpdateCanExecuteState();
-                _alignmentSequenceViewModel.SequenceA = value;
-                UpdateAlignersState();
-                UpdateMatricesState();
+                _sequenceSelected = value;
+                ManipulateCommand.UpdateCanExecuteState();
+                _manipulationSequenceViewModel.SequenceA = value;
+                UpdateModificatorsState();
                 OnPropertyChanged("FirstSequenceSelected");
             }
         }
 
-        private void UpdateAlignersState()
+        private void UpdateModificatorsState()
         {
-            SequencesAligners =
-                    _sequencesAligners.Where(x => x.CanAlignSequences(_firstSequenceSelected, _secondSequenceSelected)).ToList();
+           // SequencesAligners =
+           //         _sequencesAligners.Where(x => x.CanAlignSequences(_firstSequenceSelected, _secondSequenceSelected)).ToList();
         }
 
-        private void UpdateMatricesState()
+       
+        public ISequence ModificatedSequence
         {
-            SimilarityMatrices =
-                _similarityMatrices.Where(x => x.CanAlign(FirstSequenceSelected, SecondSequenceSelected));
-        }
-
-        public IEnumerable<ISequence> SecondSequencesList
-        {
-            get { return _secondSequencesList; }
-            set
+            get
             {
-                _secondSequencesList = value;
-                AlignCommand.UpdateCanExecuteState();
-                OnPropertyChanged("SecondSequenceList");
+                return _modified;
             }
-        }
-
-        public ISequence SecondSequenceSelected
-        {
-            get { return _secondSequenceSelected; }
             set
             {
-                _secondSequenceSelected = value;
-                AlignCommand.UpdateCanExecuteState();
-                UpdateAlignersState();
-                UpdateMatricesState();
-                OnPropertyChanged("SecondSequenceSelected");
+                //set
+                _modified = value;
+                OnPropertyChanged("ModificatedSequence");
             }
         }
     }

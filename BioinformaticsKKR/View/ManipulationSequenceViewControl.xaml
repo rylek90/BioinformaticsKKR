@@ -36,7 +36,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <ListView Grid.Row="1" scrollHelper:ScrollSynchronizer.ScrollGroup="Group1"  ItemsSource="{Binding SecondSequence, Mode=TwoWay}" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+        <ListView Grid.Row="1" scrollHelper:ScrollSynchronizer.ScrollGroup="Group1"  ItemsSource="{Binding ModificatedSequence, Mode=TwoWay}" ScrollViewer.VerticalScrollBarVisibility="Disabled"
                  >
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -50,18 +50,5 @@
             </ListView.ItemTemplate>
         </ListView>
         
-        <ListView Grid.Row="2" scrollHelper:ScrollSynchronizer.ScrollGroup="Group1" ItemsSource="{Binding ThirdSequence}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Label Background="{Binding Converter={StaticResource ColorConverter}}" Content="{Binding}" ></Label>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListView>
-
     </Grid>
 </UserControl>
