@@ -13,7 +13,7 @@ namespace BioinformaticsKKR.Core.IO
             _saveFileDialog = new SaveFileDialog
             {
                 AddExtension = true,
-                Filter = IOResources.ExtensionFilter
+                Filter = IoResources.ExtensionFilter
             };
         }
 

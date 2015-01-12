@@ -2,15 +2,15 @@ using Microsoft.Win32;
 
 namespace BioinformaticsKKR.Core.IO
 {
-    public class ReadFileDialog : IAmFileDialog
+    public class ReadTreeDialog : IAmFileDialog
     {
         private readonly OpenFileDialog _openFileDialog;
 
-        public ReadFileDialog()
+        public ReadTreeDialog()
         {
             _openFileDialog = new OpenFileDialog()
             {
-                Filter = IoResources.ExtensionFilter
+                Filter = IoResources.TreeFilter
             };
         }
 
@@ -26,7 +26,6 @@ namespace BioinformaticsKKR.Core.IO
                 }
 
                 return string.Empty;
-                
             }
         }
     }

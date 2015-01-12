@@ -111,16 +111,20 @@
     <Compile Include="Core\DependencyInjection\ContainerBootstrap.cs" />
     <Compile Include="Core\Extensions\SequenceExtensions.cs" />
     <Compile Include="Core\IO\IOResources.cs" />
+    <Compile Include="Core\IO\ReadTreeDialog.cs" />
     <Compile Include="Core\IO\SequenceFileReader.cs" />
     <Compile Include="Core\IO\ReadFileDialog.cs" />
     <Compile Include="Core\IO\IAmFileDialog.cs" />
     <Compile Include="Core\IO\SequenceFileWriter.cs" />
+    <Compile Include="Core\IO\TreeFileReader.cs" />
     <Compile Include="Core\IO\WriteFileDialog.cs" />
+    <Compile Include="Core\ViewModel\Converters\TreeConverter.cs" />
     <Compile Include="Navigator\Loader\CurrentSequenceStatisticsLoader.cs" />
     <Compile Include="Core\ViewModel\Converters\SequenceColorConverter.cs" />
     <Compile Include="Core\ViewModel\Tools\ScrollSynchronizer.cs" />
     <Compile Include="Navigator\Loader\CurrentSequenceLoader.cs" />
     <Compile Include="Provider\SequencesRepository.cs" />
+    <None Include="SampleTrees\sample.newick" />
     <Compile Include="Service\Alignement\PairwiseOverlapSequenceAligner.cs" />
     <Compile Include="Service\Alignement\IAlignSequences.cs" />
     <Compile Include="Service\Alignement\MuMmerSequenceAligner.cs" />
@@ -137,10 +141,12 @@
     <Compile Include="Service\Modification\ReverseModificatorSequences.cs" />
     <Compile Include="Service\Modification\ReverseComplementedModificatorSequences.cs" />
     <Compile Include="Service\Modification\IModificatorSequences.cs" />
+    <Compile Include="Service\PhylogeneticTree\IBuildTrees.cs" />
     <Compile Include="ViewModel\AlignmentSequenceViewModel.cs" />
     <Compile Include="ViewModel\AlignViewModel.cs" />
     <Compile Include="ViewModel\ManipulationSequenceViewModel.cs" />
     <Compile Include="ViewModel\ManipulationViewModel.cs" />
+    <Compile Include="ViewModel\ReadTreeViewModel.cs" />
     <Compile Include="ViewModel\SequencesStatisticsLinksViewModel.cs" />
     <Compile Include="ViewModel\StatusViewModel.cs" />
     <Compile Include="ViewModel\CurrentSequenceViewModel.cs" />
@@ -189,6 +195,9 @@
     </Compile>
     <Compile Include="View\ManipulationView.xaml.cs">
       <DependentUpon>ManipulationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ReadTreeView.xaml.cs">
+      <DependentUpon>ReadTreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StatisticsView.xaml.cs">
       <DependentUpon>StatisticsView.xaml</DependentUpon>
@@ -265,6 +274,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ManipulationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ReadTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

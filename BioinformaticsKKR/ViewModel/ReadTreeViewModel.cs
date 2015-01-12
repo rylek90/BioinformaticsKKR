@@ -1,16 +1,14 @@
 using System.ComponentModel;
+using Bio.Phylogenetics;
 using BioinformaticsKKR.Core.IO;
 using BioinformaticsKKR.Core.ViewModel;
-using BioinformaticsKKR.Provider;
 
 namespace BioinformaticsKKR.ViewModel
 {
-    public interface IReadFileViewModel
+    public interface IReadTreeViewModel
     {
         string Status { get; set; }
         string FilePath { get; set; }
-        bool AppendToCollection { get; set; }
-        bool OverwriteCollection { get; set; }
         CommandBase ReadFile { get; set; }
         CommandBase Browse { get; set; }
         void BrowseExecuteMethod(object obj);
@@ -18,7 +16,7 @@ namespace BioinformaticsKKR.ViewModel
         event PropertyChangedEventHandler PropertyChanged;
     }
 
-    public class ReadFileViewModel : ViewModelBase, IReadFileViewModel
+    public class ReadTreeViewModel : ViewModelBase, IReadTreeViewModel
     {
         private readonly IStatusViewModel _statusService;
 
@@ -33,13 +31,12 @@ namespace BioinformaticsKKR.ViewModel
         }
 
 
-        public ReadFileViewModel(ISequenceFileReader fastaFileReader, 
-            IAmFileDialog readFileDialog, 
+        public ReadTreeViewModel(ITreeFileReader treeFileReader,
+            IAmFileDialog readTreeDialog,
             IStatusViewModel statusViewModel)
         {
-
-            _fastaFileReader = fastaFileReader;
-            _readFileDialog = readFileDialog;
+            _treeFileReader = treeFileReader;
+            _readFileDialog = readTreeDialog;
             _statusService = statusViewModel;
             _statusService.PropertyChanged += (sender, e) => OnPropertyChanged(e.ToString());
             Status = "Status";
@@ -55,15 +52,13 @@ namespace BioinformaticsKKR.ViewModel
                 CanExecuteMethod = CanReadFile,
                 ExecuteMethod = ReadFileExecuteMethod
             };
-            AppendToCollection = true;
         }
-        
+
         #region Fields
-        private readonly ISequenceFileReader _fastaFileReader;
+        private readonly ITreeFileReader _treeFileReader;
         private readonly IAmFileDialog _readFileDialog;
-        private bool _appendToCollection;
-        private bool _overwriteCollection;
         private string _filePath;
+        private Tree _tree;
 
         #endregion
 
@@ -83,30 +78,6 @@ namespace BioinformaticsKKR.ViewModel
             }
         }
 
-
-        public bool AppendToCollection
-        {
-            get { return _appendToCollection; }
-            set
-            {
-                _appendToCollection = value;
-                OnPropertyChanged("AppendToCollection");
-            }
-        }
-
-        public bool OverwriteCollection
-        {
-            get
-            {
-                return _overwriteCollection;
-            }
-            set
-            {
-                _overwriteCollection = value;
-                OnPropertyChanged("OverwriteCollection");
-            }
-        }
-
         #endregion
 
         #region Commands
@@ -114,18 +85,7 @@ namespace BioinformaticsKKR.ViewModel
 
         private void ReadFileExecuteMethod(object obj)
         {
-            if (OverwriteCollection)
-            {
-                SequencesRepository.Instance.Sequences.Clear();
-            }
-
-            var sequence = _fastaFileReader.ReadSequence(FilePath);
-            foreach (var s in sequence)
-            {
-                SequencesRepository.Instance.Sequences.Add(s);
-            }
-
-            Status = string.Format("Read file. {0} collection", OverwriteCollection ? "Replaced" : "Append to");
+            TreeViewModel = _treeFileReader.ReadTree(FilePath);
         }
 
         private bool CanReadFile(object obj)
@@ -142,5 +102,18 @@ namespace BioinformaticsKKR.ViewModel
         }
 
         #endregion
+
+        public Tree TreeViewModel
+        {
+            get
+            {
+                return _tree;
+            }
+            set
+            {
+                _tree = value;
+                OnPropertyChanged("TreeViewModel");
+            }
+        }
     }
 }
