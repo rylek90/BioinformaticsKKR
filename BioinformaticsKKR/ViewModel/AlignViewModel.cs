@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using Bio;
-using Bio.Algorithms.Alignment;
 using Bio.SimilarityMatrices;
 using BioinformaticsKKR.Core.Definitions.SimilarityMatrices;
 using BioinformaticsKKR.Core.ViewModel;

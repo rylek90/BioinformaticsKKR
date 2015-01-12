@@ -1,12 +1,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using BioinformaticsKKR.Core.ViewModel;
-using BioinformaticsKKR.Service.Assembly;
 using Bio;
 using BioinformaticsKKR.Core.Definitions.SimilarityMatrices;
-using BioinformaticsKKR.Service.Alignement;
-using Bio.SimilarityMatrices;
 using FirstFloor.ModernUI.Windows.Controls;
 using System;
 using System.Windows;

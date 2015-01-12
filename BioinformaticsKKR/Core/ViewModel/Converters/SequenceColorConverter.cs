@@ -8,7 +8,7 @@ namespace BioinformaticsKKR.Core.ViewModel.Converters
 {
     public class SequenceColorConverter : IValueConverter
     {
-        public static Dictionary<char, Brush> BrushesDictionary = new Dictionary<char, Brush>()
+        public static Dictionary<char, Brush> BrushesDictionary = new Dictionary<char, Brush>
         {
             {'A', Brushes.Red},
             {'G', Brushes.Green},

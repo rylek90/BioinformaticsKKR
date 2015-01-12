@@ -9,13 +9,13 @@ namespace BioinformaticsKKR.Core.ViewModel.Tools
     {
         public static readonly DependencyProperty ScrollGroupProperty =
             DependencyProperty.RegisterAttached("ScrollGroup", typeof (string), typeof (ScrollSynchronizer),
-                new PropertyMetadata(new PropertyChangedCallback(OnScrollGroupChanged)));
+                new PropertyMetadata(OnScrollGroupChanged));
 
-        private static readonly Dictionary<ScrollViewer, string> scrollViewers = new Dictionary<ScrollViewer, string>();
+        private static readonly Dictionary<ScrollViewer, string> ScrollViewers = new Dictionary<ScrollViewer, string>();
 
-        private static readonly Dictionary<string, double> horizontalScrollOffsets = new Dictionary<string, double>();
+        private static readonly Dictionary<string, double> HorizontalScrollOffsets = new Dictionary<string, double>();
 
-        private static readonly Dictionary<string, double> verticalScrollOffsets = new Dictionary<string, double>();
+        private static readonly Dictionary<string, double> VerticalScrollOffsets = new Dictionary<string, double>();
 
         public static void SetScrollGroup(DependencyObject obj, string scrollGroup)
         {
@@ -34,34 +34,34 @@ namespace BioinformaticsKKR.Core.ViewModel.Tools
             {
                 if (!string.IsNullOrEmpty((string) e.OldValue))
                 {
-                    if (scrollViewers.ContainsKey(scrollViewer))
+                    if (ScrollViewers.ContainsKey(scrollViewer))
                     {
-                        scrollViewers.Remove(scrollViewer);
+                        ScrollViewers.Remove(scrollViewer);
                     }
                 }
 
                 if (!string.IsNullOrEmpty((string) e.NewValue))
                 {
-                    if (horizontalScrollOffsets.ContainsKey((string) e.NewValue))
+                    if (HorizontalScrollOffsets.ContainsKey((string) e.NewValue))
                     {
-                        scrollViewer.ScrollToHorizontalOffset(horizontalScrollOffsets[(string) e.NewValue]);
+                        scrollViewer.ScrollToHorizontalOffset(HorizontalScrollOffsets[(string) e.NewValue]);
                     }
                     else
                     {
-                        horizontalScrollOffsets.Add((string) e.NewValue, scrollViewer.HorizontalOffset);
+                        HorizontalScrollOffsets.Add((string) e.NewValue, scrollViewer.HorizontalOffset);
                     }
 
-                    if (verticalScrollOffsets.ContainsKey((string) e.NewValue))
+                    if (VerticalScrollOffsets.ContainsKey((string) e.NewValue))
                     {
-                        scrollViewer.ScrollToVerticalOffset(verticalScrollOffsets[(string) e.NewValue]);
+                        scrollViewer.ScrollToVerticalOffset(VerticalScrollOffsets[(string) e.NewValue]);
                     }
                     else
                     {
-                        verticalScrollOffsets.Add((string) e.NewValue, scrollViewer.VerticalOffset);
+                        VerticalScrollOffsets.Add((string) e.NewValue, scrollViewer.VerticalOffset);
                     }
 
-                    scrollViewers.Add(scrollViewer, (string) e.NewValue);
-                    scrollViewer.ScrollChanged += new ScrollChangedEventHandler(ScrollViewer_ScrollChanged);
+                    ScrollViewers.Add(scrollViewer, (string) e.NewValue);
+                    scrollViewer.ScrollChanged += ScrollViewer_ScrollChanged;
                 }
             }
         }
@@ -79,11 +79,11 @@ namespace BioinformaticsKKR.Core.ViewModel.Tools
 
         private static void Scroll(ScrollViewer changedScrollViewer)
         {
-            var group = scrollViewers[changedScrollViewer];
-            verticalScrollOffsets[group] = changedScrollViewer.VerticalOffset;
-            horizontalScrollOffsets[group] = changedScrollViewer.HorizontalOffset;
+            var group = ScrollViewers[changedScrollViewer];
+            VerticalScrollOffsets[group] = changedScrollViewer.VerticalOffset;
+            HorizontalScrollOffsets[group] = changedScrollViewer.HorizontalOffset;
 
-            foreach (var scrollViewer in scrollViewers.Where((s) => s.Value == group && s.Key != changedScrollViewer))
+            foreach (var scrollViewer in ScrollViewers.Where(s => s.Value == group && s.Key != changedScrollViewer))
             {
                 if (scrollViewer.Key.VerticalOffset != changedScrollViewer.VerticalOffset)
                 {

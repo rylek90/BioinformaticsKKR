@@ -3,7 +3,6 @@ using Bio;
 using Bio.Algorithms.Alignment;
 using Bio.Algorithms.MUMmer;
 using Bio.SimilarityMatrices;
-using StructureMap;
 
 namespace BioinformaticsKKR.Service.Alignement
 {

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
 using Bio;
-using Bio.IO.FastA;
 using BioinformaticsKKR.Provider;
 
 namespace BioinformaticsKKR.Core.IO

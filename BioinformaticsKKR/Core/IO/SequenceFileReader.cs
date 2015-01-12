@@ -16,7 +16,7 @@ namespace BioinformaticsKKR.Core.IO
     {
         public IEnumerable<ISequence> ReadSequence(string path)
         {
-            var sequences = new List<ISequence>();
+            List<ISequence> sequences;
 
             using (var inputFile = new FileStream(path, FileMode.Open, FileAccess.Read))
             {

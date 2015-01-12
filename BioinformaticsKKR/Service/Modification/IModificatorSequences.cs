@@ -1,7 +1,4 @@
-using System.Collections.Generic;
 using Bio;
-using Bio.Algorithms.Alignment;
-using Bio.SimilarityMatrices;
 
 namespace BioinformaticsKKR.Service.Modification
 {

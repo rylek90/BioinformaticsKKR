@@ -8,7 +8,7 @@ namespace BioinformaticsKKR.Core.IO
 
         public ReadTreeDialog()
         {
-            _openFileDialog = new OpenFileDialog()
+            _openFileDialog = new OpenFileDialog
             {
                 Filter = IoResources.TreeFilter
             };

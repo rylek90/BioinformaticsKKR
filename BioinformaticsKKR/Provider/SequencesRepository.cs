@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Bio;
 using System.Collections.ObjectModel;
 
