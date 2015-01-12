@@ -14,7 +14,7 @@ namespace BioinformaticsKKR.View
     /// 
     public partial class ManipulationView : Page, IContent
     {
-        private IManipulationViewModel _viewModel;
+        private readonly IManipulationViewModel _viewModel;
 
         public ManipulationView()
         {

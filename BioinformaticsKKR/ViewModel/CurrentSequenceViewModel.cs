@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using Bio;
 using BioinformaticsKKR.Core.Definitions;
@@ -27,7 +28,6 @@ namespace BioinformaticsKKR.ViewModel
     public class CurrentSequenceViewModel : ViewModelBase, ICurrentSequenceViewModel
     {
         private ISequence _sequence;
-        private SequenceType _currentAlphabet;
         private readonly ISequenceFileWriter _sequenceFileWriter;
         private readonly IEnumerable<ISequenceConverter> _sequenceConverters;
         private readonly IAmFileDialog _writeFileDialog;
@@ -35,14 +35,14 @@ namespace BioinformaticsKKR.ViewModel
         private string _filePath;
         private readonly IStatusViewModel _statusService;
 
-        public IEnumerable<ISequenceConverter> _currentConverters;
+        public IEnumerable<ISequenceConverter> CurrentConverters;
 
         public IEnumerable<ISequenceConverter> Alphabets
         {
-            get { return _currentConverters; }
+            get { return CurrentConverters; }
             set
             {
-                _currentConverters = value;
+                CurrentConverters = value;
                 OnPropertyChanged("Alphabets");
             }
         }
@@ -91,12 +91,11 @@ namespace BioinformaticsKKR.ViewModel
                 var list = new List<KeyValuePair<string, int>>();
 
                 var mySequence = Sequence;
-                SequenceStatistics seqStat = new SequenceStatistics(mySequence);
+                var seqStat = new SequenceStatistics(mySequence);
                 foreach (var letter in mySequence.Alphabet)
                 {
-                    //Console.WriteLine("{0} = {1}", (char)item,
-                    int count = (int) seqStat.GetCount(letter);
-                    list.Add(new KeyValuePair<string, int>(Convert.ToChar(letter).ToString(), count));
+                    var count = (int) seqStat.GetCount(letter);
+                    list.Add(new KeyValuePair<string, int>(Convert.ToChar(letter).ToString(CultureInfo.InvariantCulture), count));
                 }
                 StatisticsValues = list;
 
@@ -124,7 +123,7 @@ namespace BioinformaticsKKR.ViewModel
             _writeFileDialog = writeFileDialog;
             _sequenceFileWriter = sequenceFileWriter;
             _statusService = statusService;
-            _statusService.PropertyChanged += (sender, e) => { OnPropertyChanged(e.ToString()); };
+            _statusService.PropertyChanged += (sender, e) => OnPropertyChanged(e.ToString());
 
             ConvertSequence = new CommandBase
             {

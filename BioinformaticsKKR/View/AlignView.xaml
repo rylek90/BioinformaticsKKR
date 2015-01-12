@@ -77,9 +77,9 @@
 
             <Label Content="Gap Penalty" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2"
                    Grid.Row="3" />
-            <Slider Value="{Binding GapPenalty, Mode=TwoWay}" Name="gapSlider" Grid.Column="3" Grid.Row="3"
+            <Slider Value="{Binding GapPenalty, Mode=TwoWay}" Name="GapSlider" Grid.Column="3" Grid.Row="3"
                     Minimum="-100" Maximum="0" VerticalAlignment="Center" />
-            <Label Content="{Binding ElementName=gapSlider, Path=Value}"
+            <Label Content="{Binding ElementName=GapSlider, Path=Value}"
                    ContentStringFormat="{}{0:F2}" HorizontalAlignment="Center"
                    Grid.Row="2" Grid.Column="3"
                    HorizontalContentAlignment="Center" VerticalAlignment="Center" />

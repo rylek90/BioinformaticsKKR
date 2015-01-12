@@ -13,7 +13,7 @@ namespace BioinformaticsKKR.Service.Converter
 
         public bool CanConvertFrom(SequenceType baseType)
         {
-            return baseType == SequenceType.RNA;
+            return baseType == SequenceType.Rna;
         }
 
         public SequenceType DestinationSequenceType

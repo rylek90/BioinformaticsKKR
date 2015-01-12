@@ -12,7 +12,7 @@ namespace BioinformaticsKKR.View
     /// </summary>
     public partial class ManipulationSequenceViewControl : UserControl
     {
-        private IManipulationSequenceViewModel _viewModel;
+        private readonly IManipulationSequenceViewModel _viewModel;
 
         public ManipulationSequenceViewControl()
         {

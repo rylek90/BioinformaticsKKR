@@ -12,7 +12,7 @@ namespace BioinformaticsKKR.View
     /// </summary>
     public partial class AlignmentSequenceViewControl : UserControl
     {
-        private IAlignmentSequenceViewModel _viewModel;
+        private readonly IAlignmentSequenceViewModel _viewModel;
 
         public AlignmentSequenceViewControl()
         {

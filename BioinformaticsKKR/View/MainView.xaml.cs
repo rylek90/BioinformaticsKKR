@@ -11,7 +11,6 @@ namespace BioinformaticsKKR.View
     /// </summary>
     public partial class ReadFileView : Page, IContent
     {
-        private readonly IReadFileViewModel _viewModel;
         private readonly ISequencesLinksViewModel _sequencesViewModel;
 
         public ReadFileView()
@@ -19,7 +18,6 @@ namespace BioinformaticsKKR.View
             InitializeComponent();
 
             MainGrid.DataContext = ContainerBootstrap.Container.GetInstance<IReadFileViewModel>();
-            _viewModel = MainGrid.DataContext as IReadFileViewModel;
             SequencesTab.DataContext = ContainerBootstrap.Container.GetInstance<ISequencesLinksViewModel>();
             _sequencesViewModel = SequencesTab.DataContext as ISequencesLinksViewModel;
         }

@@ -83,7 +83,7 @@ namespace BioinformaticsKKR.Core.ViewModel.Tools
             VerticalScrollOffsets[group] = changedScrollViewer.VerticalOffset;
             HorizontalScrollOffsets[group] = changedScrollViewer.HorizontalOffset;
 
-            foreach (var scrollViewer in ScrollViewers.Where(s => s.Value == group && s.Key != changedScrollViewer))
+            foreach (var scrollViewer in ScrollViewers.Where(s => s.Value == group && !(s.Key == changedScrollViewer)))
             {
                 if (scrollViewer.Key.VerticalOffset != changedScrollViewer.VerticalOffset)
                 {

@@ -21,7 +21,7 @@ namespace BioinformaticsKKR.ViewModel
 
         public SequencesLinksViewModel()
         {
-            SequencesRepository.Instance.Sequences.CollectionChanged += (s, e) => { InitializeCollection(); };
+            SequencesRepository.Instance.Sequences.CollectionChanged += (s, e) => InitializeCollection();
         }
 
         public void InitializeCollection()

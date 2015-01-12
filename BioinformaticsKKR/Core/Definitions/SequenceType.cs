@@ -2,8 +2,8 @@
 {
     public enum SequenceType
     {
-        DNA,
-        RNA,
+        Dna,
+        Rna,
         Protein
     }
 }
