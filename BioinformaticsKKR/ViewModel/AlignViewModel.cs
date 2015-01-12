@@ -97,18 +97,18 @@ namespace BioinformaticsKKR.ViewModel
         private void ExecuteAlign(object obj)
         {
             try
-                {
-                    _currentAligner.GapPenalty = GapPenalty;
-                    _currentAligner.SimilarityMatrix = new SimilarityMatrix(_currentSimilarityMatrix.Matrix);
-                    var sequence = _currentAligner.Align(FirstSequenceSelected, SecondSequenceSelected);
+            {
+                _currentAligner.GapPenalty = GapPenalty;
+                _currentAligner.SimilarityMatrix = new SimilarityMatrix(_currentSimilarityMatrix.Matrix);
+                var sequence = _currentAligner.Align(FirstSequenceSelected, SecondSequenceSelected);
 
-                    // WTF!!!!!!
-                    Aligned = sequence.First().PairwiseAlignedSequences.First().Consensus;
-                }
-                catch (Exception ex)
-                {
-                    ModernDialog.ShowMessage(ex.Message, "Warning!", MessageBoxButton.OK);
-                }
+                // WTF!!!!!!
+                Aligned = sequence.First().PairwiseAlignedSequences.First().Consensus;
+            }
+            catch (Exception ex)
+            {
+                ModernDialog.ShowMessage(ex.Message, "Warning!", MessageBoxButton.OK);
+            }
         }
 
         public int GapPenalty
@@ -155,7 +155,6 @@ namespace BioinformaticsKKR.ViewModel
             }
         }
 
-        
 
         public List<IAlignSequences> SequencesAligners
         {
@@ -170,7 +169,12 @@ namespace BioinformaticsKKR.ViewModel
         public IAlignSequences CurrentAligner
         {
             get { return _currentAligner; }
-            set { _currentAligner = value; AlignCommand.UpdateCanExecuteState(); OnPropertyChanged("CurrentAligner"); }
+            set
+            {
+                _currentAligner = value;
+                AlignCommand.UpdateCanExecuteState();
+                OnPropertyChanged("CurrentAligner");
+            }
         }
 
         public IEnumerable<ISequence> FirstSequencesList
@@ -201,7 +205,8 @@ namespace BioinformaticsKKR.ViewModel
         private void UpdateAlignersState()
         {
             SequencesAligners =
-                    _sequencesAligners.Where(x => x.CanAlignSequences(_firstSequenceSelected, _secondSequenceSelected)).ToList();
+                _sequencesAligners.Where(x => x.CanAlignSequences(_firstSequenceSelected, _secondSequenceSelected))
+                    .ToList();
         }
 
         private void UpdateMatricesState()

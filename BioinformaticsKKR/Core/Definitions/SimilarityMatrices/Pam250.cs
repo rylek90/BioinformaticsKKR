@@ -9,8 +9,9 @@ namespace BioinformaticsKKR.Core.Definitions.SimilarityMatrices
 
         public Pam250()
         {
-            Matrix=SimilarityMatrix.StandardSimilarityMatrix.Pam250;
+            Matrix = SimilarityMatrix.StandardSimilarityMatrix.Pam250;
         }
+
         public bool CanAlign(ISequence sequenceA, ISequence sequenceB)
         {
             if (sequenceA == null || sequenceB == null)

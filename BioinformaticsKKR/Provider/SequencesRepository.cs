@@ -17,7 +17,7 @@ namespace BioinformaticsKKR.Provider
             get { return Sequences[CurrentSequenceId]; }
             set { CurrentSequenceId = Sequences.IndexOf(value); }
         }
-        
+
         private SequencesRepository()
         {
             Sequences = new ObservableCollection<ISequence>();
@@ -27,6 +27,5 @@ namespace BioinformaticsKKR.Provider
         {
             get { return _instance ?? (_instance = new SequencesRepository()); }
         }
-
     }
 }

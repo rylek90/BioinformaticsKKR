@@ -24,10 +24,10 @@ namespace BioinformaticsKKR.View
     /// Interaction logic for ManipulationView.xaml
     /// </summary>
     /// 
-    
     public partial class ManipulationView : Page, IContent
     {
         private IManipulationViewModel _viewModel;
+
         public ManipulationView()
         {
             InitializeComponent();
@@ -35,7 +35,7 @@ namespace BioinformaticsKKR.View
             _viewModel = MainGrid.DataContext as IManipulationViewModel;
             if (_viewModel != null)
                 _viewModel.PropertyChanged += OnPropChanged;
-           // _viewModel.SequencesList = SequencesRepository.Instance.Sequences;
+            // _viewModel.SequencesList = SequencesRepository.Instance.Sequences;
         }
 
         private void OnPropChanged(object sender, PropertyChangedEventArgs e)
@@ -58,7 +58,7 @@ namespace BioinformaticsKKR.View
 
         public void OnNavigatedTo(NavigationEventArgs e)
         {
-           _viewModel.SequencesList = SequencesRepository.Instance.Sequences;
+            _viewModel.SequencesList = SequencesRepository.Instance.Sequences;
         }
 
         public void OnNavigatingFrom(NavigatingCancelEventArgs e)

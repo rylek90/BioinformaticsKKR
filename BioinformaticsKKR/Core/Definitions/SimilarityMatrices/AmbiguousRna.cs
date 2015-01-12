@@ -9,7 +9,7 @@ namespace BioinformaticsKKR.Core.Definitions.SimilarityMatrices
 
         public AmbiguousRna()
         {
-            Matrix=SimilarityMatrix.StandardSimilarityMatrix.AmbiguousRna;
+            Matrix = SimilarityMatrix.StandardSimilarityMatrix.AmbiguousRna;
         }
 
         public bool CanAlign(ISequence sequenceA, ISequence sequenceB)

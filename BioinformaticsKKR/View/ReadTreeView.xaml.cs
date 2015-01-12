@@ -19,7 +19,6 @@ namespace BioinformaticsKKR.View
 
             MainGrid.DataContext = ContainerBootstrap.Container.GetInstance<IReadTreeViewModel>();
             _viewModel = MainGrid.DataContext as IReadTreeViewModel;
-            
         }
 
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)

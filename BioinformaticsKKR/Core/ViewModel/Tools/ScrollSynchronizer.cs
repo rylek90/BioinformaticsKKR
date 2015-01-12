@@ -8,7 +8,8 @@ namespace BioinformaticsKKR.Core.ViewModel.Tools
     public class ScrollSynchronizer : DependencyObject
     {
         public static readonly DependencyProperty ScrollGroupProperty =
-            DependencyProperty.RegisterAttached("ScrollGroup", typeof(string), typeof(ScrollSynchronizer), new PropertyMetadata(new PropertyChangedCallback(OnScrollGroupChanged)));
+            DependencyProperty.RegisterAttached("ScrollGroup", typeof (string), typeof (ScrollSynchronizer),
+                new PropertyMetadata(new PropertyChangedCallback(OnScrollGroupChanged)));
 
         private static readonly Dictionary<ScrollViewer, string> scrollViewers = new Dictionary<ScrollViewer, string>();
 
@@ -23,7 +24,7 @@ namespace BioinformaticsKKR.Core.ViewModel.Tools
 
         public static string GetScrollGroup(DependencyObject obj)
         {
-            return (string)obj.GetValue(ScrollGroupProperty);
+            return (string) obj.GetValue(ScrollGroupProperty);
         }
 
         private static void OnScrollGroupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -31,7 +32,7 @@ namespace BioinformaticsKKR.Core.ViewModel.Tools
             var scrollViewer = d as ScrollViewer;
             if (scrollViewer != null)
             {
-                if (!string.IsNullOrEmpty((string)e.OldValue))
+                if (!string.IsNullOrEmpty((string) e.OldValue))
                 {
                     if (scrollViewers.ContainsKey(scrollViewer))
                     {
@@ -39,27 +40,27 @@ namespace BioinformaticsKKR.Core.ViewModel.Tools
                     }
                 }
 
-                if (!string.IsNullOrEmpty((string)e.NewValue))
+                if (!string.IsNullOrEmpty((string) e.NewValue))
                 {
-                    if (horizontalScrollOffsets.ContainsKey((string)e.NewValue))
+                    if (horizontalScrollOffsets.ContainsKey((string) e.NewValue))
                     {
-                        scrollViewer.ScrollToHorizontalOffset(horizontalScrollOffsets[(string)e.NewValue]);
+                        scrollViewer.ScrollToHorizontalOffset(horizontalScrollOffsets[(string) e.NewValue]);
                     }
                     else
                     {
-                        horizontalScrollOffsets.Add((string)e.NewValue, scrollViewer.HorizontalOffset);
+                        horizontalScrollOffsets.Add((string) e.NewValue, scrollViewer.HorizontalOffset);
                     }
 
-                    if (verticalScrollOffsets.ContainsKey((string)e.NewValue))
+                    if (verticalScrollOffsets.ContainsKey((string) e.NewValue))
                     {
-                        scrollViewer.ScrollToVerticalOffset(verticalScrollOffsets[(string)e.NewValue]);
+                        scrollViewer.ScrollToVerticalOffset(verticalScrollOffsets[(string) e.NewValue]);
                     }
                     else
                     {
-                        verticalScrollOffsets.Add((string)e.NewValue, scrollViewer.VerticalOffset);
+                        verticalScrollOffsets.Add((string) e.NewValue, scrollViewer.VerticalOffset);
                     }
 
-                    scrollViewers.Add(scrollViewer, (string)e.NewValue);
+                    scrollViewers.Add(scrollViewer, (string) e.NewValue);
                     scrollViewer.ScrollChanged += new ScrollChangedEventHandler(ScrollViewer_ScrollChanged);
                 }
             }
@@ -74,7 +75,6 @@ namespace BioinformaticsKKR.Core.ViewModel.Tools
                 Scroll(changedScrollViewer);
             }
         }
-
 
 
         private static void Scroll(ScrollViewer changedScrollViewer)

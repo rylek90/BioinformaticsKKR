@@ -11,6 +11,7 @@ namespace BioinformaticsKKR.Core.Definitions.SimilarityMatrices
         {
             Matrix = SimilarityMatrix.StandardSimilarityMatrix.DiagonalScoreMatrix;
         }
+
         public bool CanAlign(ISequence sequenceA, ISequence sequenceB)
         {
             if (sequenceA == null || sequenceB == null)

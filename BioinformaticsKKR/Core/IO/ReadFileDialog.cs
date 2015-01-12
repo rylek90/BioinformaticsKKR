@@ -26,7 +26,6 @@ namespace BioinformaticsKKR.Core.IO
                 }
 
                 return string.Empty;
-                
             }
         }
     }

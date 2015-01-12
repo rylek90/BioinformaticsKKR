@@ -25,10 +25,7 @@ namespace BioinformaticsKKR.Service.Converter
 
         public SequenceType DestinationSequenceType
         {
-            get
-            {
-                return SequenceType.Protein;
-            }
+            get { return SequenceType.Protein; }
         }
     }
 }

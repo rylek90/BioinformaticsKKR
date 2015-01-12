@@ -20,13 +20,13 @@ namespace BioinformaticsKKR.Core.IO
 
             using (var outputFile = new FileStream(path, FileMode.Create, FileAccess.Write))
             {
-             
-            //    var formater = new FastAFormatter();
+                //    var formater = new FastAFormatter();
                 var formater = Bio.IO.SequenceFormatters.FindFormatterByFileName(path);
-                formater.Format(outputFile, new List<ISequence> { sequence });
+                formater.Format(outputFile, new List<ISequence> {sequence});
             }
             var repo = SequencesRepository.Instance.Sequences;
-            if (!repo.Contains(sequence)) {
+            if (!repo.Contains(sequence))
+            {
                 repo.Add(sequence);
             }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BioinformaticsKKR.Service.PhylogeneticTree
 {
-    interface IBuildTrees
+    internal interface IBuildTrees
     {
     }
 

@@ -12,7 +12,7 @@ namespace BioinformaticsKKR.Core.Extensions
         {
             var linkCollection = new LinkCollection();
             var index = 0;
-            
+
             foreach (var sequence in sequences)
             {
                 linkCollection.Add(

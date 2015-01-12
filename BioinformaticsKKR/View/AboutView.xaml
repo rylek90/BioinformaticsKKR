@@ -10,13 +10,16 @@
 
     <StackPanel Margin="0,0,30,0">
         <Label FontSize="50" HorizontalAlignment="Center">NET Bio Overview Application</Label>
-        <Separator Visibility="Hidden"/>
+        <Separator Visibility="Hidden" />
         <Label FontSize="40" HorizontalAlignment="Center">Sequence Manipulator</Label>
-        <Separator Visibility="Hidden"/>
-        <TextBlock FontSize="28" TextAlignment="Justify" TextWrapping="WrapWithOverflow">Sequence Manipulator The application is designed to process amino acids, DNA and RNA sequences. Main goals were to perform translations and sequences alignments without implementing algorithms themselves, but make use of functions delivered by ready-made solution. <LineBreak/><LineBreak/> Authors:</TextBlock>
-        <Separator Visibility="Hidden"/>
-        
-        
+        <Separator Visibility="Hidden" />
+        <TextBlock FontSize="28" TextAlignment="Justify" TextWrapping="WrapWithOverflow">
+            Sequence Manipulator The application is designed to process amino acids, DNA and RNA sequences. Main goals were to perform translations and sequences alignments without implementing algorithms themselves, but make use of functions delivered by ready-made solution.
+            <LineBreak /><LineBreak /> Authors:
+        </TextBlock>
+        <Separator Visibility="Hidden" />
+
+
         <BulletDecorator>
             <BulletDecorator.Bullet>
                 <Ellipse Height="10" Width="10" Fill="Gray" />

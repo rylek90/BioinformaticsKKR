@@ -9,7 +9,6 @@ namespace BioinformaticsKKR.Core.DependencyInjection
 
         private ContainerBootstrap(Registry registry) : base(registry)
         {
-            
         }
 
         public static ContainerBootstrap Container

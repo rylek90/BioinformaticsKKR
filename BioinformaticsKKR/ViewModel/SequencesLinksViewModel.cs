@@ -18,6 +18,7 @@ namespace BioinformaticsKKR.ViewModel
     public class SequencesLinksViewModel : ViewModelBase, ISequencesLinksViewModel
     {
         #region Ctor
+
         public SequencesLinksViewModel()
         {
             SequencesRepository.Instance.Sequences.CollectionChanged += (s, e) => { InitializeCollection(); };
@@ -25,24 +26,26 @@ namespace BioinformaticsKKR.ViewModel
 
         public void InitializeCollection()
         {
-            SequencesLinkCollection = SequencesRepository.Instance.Sequences.CreateLinks("/View/CurrentSequence.xaml", UriKind.Relative);
-            
+            SequencesLinkCollection = SequencesRepository.Instance.Sequences.CreateLinks("/View/CurrentSequence.xaml",
+                UriKind.Relative);
         }
 
         #endregion
 
         #region Private Fields
-        
+
         private LinkCollection _sequencesLinkCollection;
 
         #endregion
 
-
-
         public LinkCollection SequencesLinkCollection
         {
             get { return _sequencesLinkCollection; }
-            set { _sequencesLinkCollection = value; OnPropertyChanged("SequencesLinkCollection"); }
+            set
+            {
+                _sequencesLinkCollection = value;
+                OnPropertyChanged("SequencesLinkCollection");
+            }
         }
     }
 }

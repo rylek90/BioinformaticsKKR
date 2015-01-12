@@ -7,11 +7,11 @@
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
+
         <Grid Name="MainGrid">
             <!--inne-->
         </Grid>
-        
+
         <TextBlock Grid.Row="1" Text="my status message" Margin="{StaticResource StatusMargin}" />
     </Grid>
 </Window>

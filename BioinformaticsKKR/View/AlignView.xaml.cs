@@ -30,14 +30,14 @@ namespace BioinformaticsKKR.View
         {
             if (e.PropertyName == "Aligned")
             {
-                AlignmentControl.Update(_viewModel.FirstSequenceSelected, _viewModel.SecondSequenceSelected, _viewModel.Aligned);
+                AlignmentControl.Update(_viewModel.FirstSequenceSelected, _viewModel.SecondSequenceSelected,
+                    _viewModel.Aligned);
             }
         }
 
 
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)
         {
-            
         }
 
         public void OnNavigatedFrom(NavigationEventArgs e)

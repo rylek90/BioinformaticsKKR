@@ -55,6 +55,7 @@ namespace BioinformaticsKKR.ViewModel
         }
 
         #region Fields
+
         private readonly ITreeFileReader _treeFileReader;
         private readonly IAmFileDialog _readFileDialog;
         private string _filePath;
@@ -81,6 +82,7 @@ namespace BioinformaticsKKR.ViewModel
         #endregion
 
         #region Commands
+
         public CommandBase ReadFile { get; set; }
 
         private void ReadFileExecuteMethod(object obj)
@@ -105,10 +107,7 @@ namespace BioinformaticsKKR.ViewModel
 
         public Tree TreeViewModel
         {
-            get
-            {
-                return _tree;
-            }
+            get { return _tree; }
             set
             {
                 _tree = value;

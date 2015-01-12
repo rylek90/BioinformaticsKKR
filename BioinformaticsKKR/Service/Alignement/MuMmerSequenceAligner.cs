@@ -22,6 +22,7 @@ namespace BioinformaticsKKR.Service.Alignement
         public SimilarityMatrix SimilarityMatrix { get; set; }
 
         public int GapPenalty { get; set; }
+
         public bool CanAlignSequences(ISequence sequenceA, ISequence sequenceB)
         {
             if (sequenceA == null || sequenceB == null)

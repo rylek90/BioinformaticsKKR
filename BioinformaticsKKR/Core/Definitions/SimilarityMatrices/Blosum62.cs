@@ -9,7 +9,7 @@ namespace BioinformaticsKKR.Core.Definitions.SimilarityMatrices
 
         public Blosum62()
         {
-            Matrix=SimilarityMatrix.StandardSimilarityMatrix.Blosum62;
+            Matrix = SimilarityMatrix.StandardSimilarityMatrix.Blosum62;
         }
 
         public bool CanAlign(ISequence sequenceA, ISequence sequenceB)

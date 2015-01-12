@@ -20,10 +20,10 @@ namespace BioinformaticsKKR.Core.ViewModel.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is char) || !BrushesDictionary.ContainsKey((char)value))
+            if (!(value is char) || !BrushesDictionary.ContainsKey((char) value))
                 return BrushesDictionary['*'];
 
-            return BrushesDictionary[(char)value];
+            return BrushesDictionary[(char) value];
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

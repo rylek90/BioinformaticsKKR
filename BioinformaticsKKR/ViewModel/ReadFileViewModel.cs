@@ -33,11 +33,10 @@ namespace BioinformaticsKKR.ViewModel
         }
 
 
-        public ReadFileViewModel(ISequenceFileReader fastaFileReader, 
-            IAmFileDialog readFileDialog, 
+        public ReadFileViewModel(ISequenceFileReader fastaFileReader,
+            IAmFileDialog readFileDialog,
             IStatusViewModel statusViewModel)
         {
-
             _fastaFileReader = fastaFileReader;
             _readFileDialog = readFileDialog;
             _statusService = statusViewModel;
@@ -57,8 +56,9 @@ namespace BioinformaticsKKR.ViewModel
             };
             AppendToCollection = true;
         }
-        
+
         #region Fields
+
         private readonly ISequenceFileReader _fastaFileReader;
         private readonly IAmFileDialog _readFileDialog;
         private bool _appendToCollection;
@@ -96,10 +96,7 @@ namespace BioinformaticsKKR.ViewModel
 
         public bool OverwriteCollection
         {
-            get
-            {
-                return _overwriteCollection;
-            }
+            get { return _overwriteCollection; }
             set
             {
                 _overwriteCollection = value;
@@ -110,6 +107,7 @@ namespace BioinformaticsKKR.ViewModel
         #endregion
 
         #region Commands
+
         public CommandBase ReadFile { get; set; }
 
         private void ReadFileExecuteMethod(object obj)

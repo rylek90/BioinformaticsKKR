@@ -37,7 +37,7 @@ namespace BioinformaticsKKR.View
 
         public void Update(ISequence first, ISequence third = null)
         {
-            if (first !=null)
+            if (first != null)
                 _viewModel.FirstSequence = new ObservableCollection<char>(first.ToCharArray());
 
             _viewModel.ModificatedSequence = third == null ? null : new ObservableCollection<char>(third.ToCharArray());

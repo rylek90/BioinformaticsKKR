@@ -50,14 +50,14 @@ namespace BioinformaticsKKR.Core.DependencyInjection
             For<ISequencesStatisticsLinksViewModel>().Use<SequencesStatisticsLinksViewModel>();
             For<ISequencesLinksViewModel>().Use<SequencesLinksViewModel>();
             For<IStatusViewModel>().Use<StatusViewModel>();
-            
+
             For<IReadTreeViewModel>()
                 .Use<ReadTreeViewModel>()
                 .Ctor<IAmFileDialog>()
                 .Is<ReadTreeDialog>()
                 .Ctor<ITreeFileReader>()
                 .Is<TreeFileReader>();
-            
+
             For<IStatusViewModel>().Use<StatusViewModel>();
 
             For<IReadFileViewModel>()

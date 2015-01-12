@@ -9,7 +9,7 @@ namespace BioinformaticsKKR.Core.Definitions.SimilarityMatrices
 
         public Pam70()
         {
-            Matrix=SimilarityMatrix.StandardSimilarityMatrix.Pam70;
+            Matrix = SimilarityMatrix.StandardSimilarityMatrix.Pam70;
         }
 
         public bool CanAlign(ISequence sequenceA, ISequence sequenceB)

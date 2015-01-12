@@ -11,6 +11,7 @@ namespace BioinformaticsKKR.Core.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

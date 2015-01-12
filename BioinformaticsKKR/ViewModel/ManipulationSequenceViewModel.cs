@@ -22,13 +22,12 @@ namespace BioinformaticsKKR.ViewModel
         private ISequence _sequenceA;
 
 
-
         public ISequence SequenceA
         {
             get { return _sequenceA; }
             set
             {
-                if(value == null)
+                if (value == null)
                     return;
 
                 _sequenceA = value;
@@ -40,14 +39,21 @@ namespace BioinformaticsKKR.ViewModel
         public ObservableCollection<char> FirstSequence
         {
             get { return _firstSequence; }
-            set { _firstSequence = value; OnPropertyChanged("FirstSequence"); }
+            set
+            {
+                _firstSequence = value;
+                OnPropertyChanged("FirstSequence");
+            }
         }
 
         public ObservableCollection<char> ModificatedSequence
         {
             get { return _modificatedSequence; }
-            set { _modificatedSequence = value; OnPropertyChanged("ModificatedSequence"); }
+            set
+            {
+                _modificatedSequence = value;
+                OnPropertyChanged("ModificatedSequence");
+            }
         }
-
     }
 }

@@ -11,6 +11,7 @@ namespace BioinformaticsKKR.Core.Definitions.SimilarityMatrices
         {
             Matrix = SimilarityMatrix.StandardSimilarityMatrix.EDnaFull;
         }
+
         public bool CanAlign(ISequence sequenceA, ISequence sequenceB)
         {
             if (sequenceA == null || sequenceB == null)

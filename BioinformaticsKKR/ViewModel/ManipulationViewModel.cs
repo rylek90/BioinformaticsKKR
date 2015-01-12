@@ -80,36 +80,34 @@ namespace BioinformaticsKKR.ViewModel
             };
         }
 
-        private bool CanSave(object obj) {
+        private bool CanSave(object obj)
+        {
             if (ModificatedSequence == null)
                 return false;
             return true;
         }
 
-        private void ExecuteSave(object obj) 
+        private void ExecuteSave(object obj)
         {
             if (ModificatedSequence == null) return;
             ModificatedSequence.ID += "__modified";
             SequencesRepository.Instance.Sequences.Add(ModificatedSequence);
             //save
-
         }
 
         private void ExecuteManipulate(object obj)
         {
             try
-                {
-
+            {
                 //LOGIKA MANIPULACJI
-                    var sequence = _currentModificator.Modify(SequenceSelected);
-                    ModificatedSequence = sequence;
-                    SaveCommand.UpdateCanExecuteState();
-                    
-                }
-                catch (Exception ex)
-                {
-                    ModernDialog.ShowMessage(ex.Message, "Warning!", MessageBoxButton.OK);
-                }
+                var sequence = _currentModificator.Modify(SequenceSelected);
+                ModificatedSequence = sequence;
+                SaveCommand.UpdateCanExecuteState();
+            }
+            catch (Exception ex)
+            {
+                ModernDialog.ShowMessage(ex.Message, "Warning!", MessageBoxButton.OK);
+            }
         }
 
 
@@ -119,7 +117,7 @@ namespace BioinformaticsKKR.ViewModel
                 || _sequenceSelected == null)
                 return false;
 
-          /*  if (_currentAligner.CanAlignSequences(_firstSequenceSelected, _secondSequenceSelected))
+            /*  if (_currentAligner.CanAlignSequences(_firstSequenceSelected, _secondSequenceSelected))
                 return true;*/
 
             return true;
@@ -133,10 +131,11 @@ namespace BioinformaticsKKR.ViewModel
         public IModificatorSequences CurrentModificator
         {
             get { return _currentModificator; }
-            set { 
-                _currentModificator = value; 
-                ManipulateCommand.UpdateCanExecuteState(); 
-                OnPropertyChanged("CurrentModificator"); 
+            set
+            {
+                _currentModificator = value;
+                ManipulateCommand.UpdateCanExecuteState();
+                OnPropertyChanged("CurrentModificator");
             }
         }
 
@@ -166,17 +165,14 @@ namespace BioinformaticsKKR.ViewModel
 
         private void UpdateModificatorsState()
         {
-           // SequencesAligners =
-           //         _sequencesAligners.Where(x => x.CanAlignSequences(_firstSequenceSelected, _secondSequenceSelected)).ToList();
+            // SequencesAligners =
+            //         _sequencesAligners.Where(x => x.CanAlignSequences(_firstSequenceSelected, _secondSequenceSelected)).ToList();
         }
 
-       
+
         public ISequence ModificatedSequence
         {
-            get
-            {
-                return _modified;
-            }
+            get { return _modified; }
             set
             {
                 //set

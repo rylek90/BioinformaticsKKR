@@ -9,7 +9,7 @@ namespace BioinformaticsKKR.Service.Modification
     {
         public ISequence Modify(ISequence sequence)
         {
- 	       return sequence.GetComplementedSequence();
+            return sequence.GetComplementedSequence();
         }
 
         public override string ToString()

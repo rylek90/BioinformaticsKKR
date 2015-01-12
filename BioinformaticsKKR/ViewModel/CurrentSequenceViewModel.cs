@@ -41,7 +41,11 @@ namespace BioinformaticsKKR.ViewModel
         public IEnumerable<ISequenceConverter> Alphabets
         {
             get { return _currentConverters; }
-            set { _currentConverters = value; OnPropertyChanged("Alphabets"); }
+            set
+            {
+                _currentConverters = value;
+                OnPropertyChanged("Alphabets");
+            }
         }
 
         public ISequenceConverter CurrentAlphabet
@@ -56,17 +60,15 @@ namespace BioinformaticsKKR.ViewModel
         }
 
         private List<KeyValuePair<string, int>> _statisticsValues;
+
         public List<KeyValuePair<string, int>> StatisticsValues
         {
-            get
+            get { return _statisticsValues; }
+            set
             {
-                return _statisticsValues;
-            }
-            set {
                 _statisticsValues = value;
                 OnPropertyChanged("StatisticsValues");
             }
-
         }
 
         public ISequence Sequence
@@ -94,9 +96,8 @@ namespace BioinformaticsKKR.ViewModel
                 foreach (var letter in mySequence.Alphabet)
                 {
                     //Console.WriteLine("{0} = {1}", (char)item,
-                    int count = (int)seqStat.GetCount(letter);
+                    int count = (int) seqStat.GetCount(letter);
                     list.Add(new KeyValuePair<string, int>(Convert.ToChar(letter).ToString(), count));
-
                 }
                 StatisticsValues = list;
 
@@ -115,7 +116,7 @@ namespace BioinformaticsKKR.ViewModel
         }
 
         public CurrentSequenceViewModel(
-            ISequenceFileWriter sequenceFileWriter, 
+            ISequenceFileWriter sequenceFileWriter,
             IEnumerable<ISequenceConverter> sequenceConverters,
             IAmFileDialog writeFileDialog,
             IStatusViewModel statusService)
@@ -137,7 +138,6 @@ namespace BioinformaticsKKR.ViewModel
                 CanExecuteMethod = o => true,
                 ExecuteMethod = BrowseExecuteMethod
             };
-         
         }
 
         public CommandBase Browse { get; set; }
@@ -171,7 +171,7 @@ namespace BioinformaticsKKR.ViewModel
 
         private bool CanConvertSequence(object obj)
         {
-            if (Sequence == null 
+            if (Sequence == null
                 || _currentSequenceConverter == null
                 || string.IsNullOrEmpty(FilePath))
             {

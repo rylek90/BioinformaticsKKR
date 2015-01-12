@@ -19,11 +19,12 @@ namespace BioinformaticsKKR.Service.Alignement
         }
 
         public int GapPenalty { get; set; }
+
         public bool CanAlignSequences(ISequence sequenceA, ISequence sequenceB)
         {
             if (sequenceA == null || sequenceB == null)
                 return false;
-            
+
             return true;
         }
 

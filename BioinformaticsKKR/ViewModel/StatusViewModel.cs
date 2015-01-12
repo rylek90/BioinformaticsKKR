@@ -17,8 +17,8 @@ namespace BioinformaticsKKR.ViewModel
 
     public class StatusViewModel : ViewModelBase, IStatusViewModel
     {
-
-        public StatusViewModel() {
+        public StatusViewModel()
+        {
             LastStatus = "Status";
         }
 
@@ -27,7 +27,11 @@ namespace BioinformaticsKKR.ViewModel
         public string LastStatus
         {
             get { return _lastStatus; }
-            set { _lastStatus = value; OnPropertyChanged("LastStatus"); }
+            set
+            {
+                _lastStatus = value;
+                OnPropertyChanged("LastStatus");
+            }
         }
     }
 }

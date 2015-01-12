@@ -24,6 +24,7 @@ namespace BioinformaticsKKR.View
     public partial class StatisticsView : Page, IContent
     {
         private readonly ISequencesStatisticsLinksViewModel _sequencesViewModel;
+
         public StatisticsView()
         {
             InitializeComponent();
@@ -48,6 +49,5 @@ namespace BioinformaticsKKR.View
         public void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
         }
-
     }
 }
