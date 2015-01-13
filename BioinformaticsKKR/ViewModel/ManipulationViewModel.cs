@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using BioinformaticsKKR.Core.ViewModel;
 using Bio;
 using BioinformaticsKKR.Core.Definitions.SimilarityMatrices;
@@ -85,19 +86,24 @@ namespace BioinformaticsKKR.ViewModel
 
         private void ExecuteSave(object obj)
         {
-            if (ModificatedSequence == null) return;
+            if (ModificatedSequence == null)
+            {
+                return;
+            }
             ModificatedSequence.ID += "__modified";
             SequencesRepository.Instance.Sequences.Add(ModificatedSequence);
-            //save
         }
 
-        private void ExecuteManipulate(object obj)
+        private async void ExecuteManipulate(object obj)
         {
             try
             {
-                //LOGIKA MANIPULACJI
-                var sequence = _currentModificator.Modify(SequenceSelected);
-                ModificatedSequence = sequence;
+                await Task.Run(() =>
+                {
+                    var sequence = _currentModificator.Modify(SequenceSelected);
+                    ModificatedSequence = sequence;
+                    
+                });
                 SaveCommand.UpdateCanExecuteState();
             }
             catch (Exception ex)
@@ -171,7 +177,6 @@ namespace BioinformaticsKKR.ViewModel
             get { return _modified; }
             set
             {
-                //set
                 _modified = value;
                 OnPropertyChanged("ModificatedSequence");
             }

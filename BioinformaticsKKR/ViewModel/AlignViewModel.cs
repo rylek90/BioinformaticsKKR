@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using Bio;
 using Bio.SimilarityMatrices;
@@ -93,16 +94,19 @@ namespace BioinformaticsKKR.ViewModel
 
         public CommandBase AlignCommand { get; set; }
 
-        private void ExecuteAlign(object obj)
+        private async void ExecuteAlign(object obj)
         {
             try
             {
-                _currentAligner.GapPenalty = GapPenalty;
-                _currentAligner.SimilarityMatrix = new SimilarityMatrix(_currentSimilarityMatrix.Matrix);
-                var sequence = _currentAligner.Align(FirstSequenceSelected, SecondSequenceSelected);
+                await Task.Run(() =>
+                {
+                    _currentAligner.GapPenalty = GapPenalty;
+                    _currentAligner.SimilarityMatrix = new SimilarityMatrix(_currentSimilarityMatrix.Matrix);
+                    var sequence = _currentAligner.Align(FirstSequenceSelected, SecondSequenceSelected);
 
-                // WTF!!!!!!
-                Aligned = sequence.First().PairwiseAlignedSequences.First().Consensus;
+                    // WTF!!!!!!
+                    Aligned = sequence.First().PairwiseAlignedSequences.First().Consensus;
+                });
             }
             catch (Exception ex)
             {

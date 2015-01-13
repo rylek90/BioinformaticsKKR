@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
 using Bio;
 using BioinformaticsKKR.Core.Definitions;
 using BioinformaticsKKR.Core.IO;
 using BioinformaticsKKR.Core.ViewModel;
 using BioinformaticsKKR.Service.Converter;
+using FirstFloor.ModernUI.Windows.Controls;
 
 namespace BioinformaticsKKR.ViewModel
 {
@@ -140,9 +143,16 @@ namespace BioinformaticsKKR.ViewModel
 
         public CommandBase Browse { get; set; }
 
-        public void BrowseExecuteMethod(object obj)
+        public async void BrowseExecuteMethod(object obj)
         {
-            FilePath = _writeFileDialog.FileName;
+            try
+            {
+                await Task.Run(() => { FilePath = _writeFileDialog.FileName; });
+            }
+            catch (Exception ex)
+            {
+                ModernDialog.ShowMessage(ex.Message, "Warning!", MessageBoxButton.OK);
+            }
         }
 
         public string FilePath
@@ -159,12 +169,22 @@ namespace BioinformaticsKKR.ViewModel
             }
         }
 
-        private void ConvertMethod(object obj)
+        private async void ConvertMethod(object obj)
         {
-            var sequence = _currentSequenceConverter.Convert(Sequence);
-            _sequenceFileWriter.WriteSequence(sequence, FilePath);
-            Status = string.Format("Converted {0} to {1}. Written to file.", Sequence.Alphabet.Name,
-                _currentSequenceConverter.DestinationSequenceType);
+            try
+            {
+                await Task.Run(() =>
+                {
+                    var sequence = _currentSequenceConverter.Convert(Sequence);
+                    _sequenceFileWriter.WriteSequence(sequence, FilePath);
+                    Status = string.Format("Converted {0} to {1}. Written to file.", Sequence.Alphabet.Name,
+                        _currentSequenceConverter.DestinationSequenceType);
+                });
+            }
+            catch (Exception ex)
+            {
+                ModernDialog.ShowMessage(ex.Message, "Warning!", MessageBoxButton.OK);
+            }
         }
 
         private bool CanConvertSequence(object obj)
