@@ -23,19 +23,20 @@
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="50" />
-                <RowDefinition Height="150" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="450" />
+                <ColumnDefinition Width="225" />
+                <ColumnDefinition Width="225" />
+                <ColumnDefinition Width="125" />
+                <ColumnDefinition Width="425" />
             </Grid.ColumnDefinitions>
 
             <ListBox
                 SelectionChanged="Selector_OnSelectionChanged"
-                Grid.Row="0" ItemsSource="{Binding FirstSequencesList}"
+                Grid.Row="0" ItemsSource="{Binding AvailableSequencesList}"
                 SelectedItem="{Binding FirstSequenceSelected, Mode=TwoWay}"
                 Grid.Column="0"
                 Grid.RowSpan="5">
@@ -47,7 +48,7 @@
             </ListBox>
 
             <ListBox SelectionChanged="Selector_OnSelectionChanged" Grid.Row="0"
-                     ItemsSource="{Binding SecondSequencesList}"
+                     ItemsSource="{Binding SelectedSequencesList}"
                      SelectedItem="{Binding SecondSequenceSelected, Mode=TwoWay}"
                      Grid.Column="1"
                      Grid.RowSpan="5">
@@ -57,6 +58,9 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            
+            <Button Grid.Column="0" Content="--&gt;" Margin="5" Grid.Row="5" Command="{Binding AddToSelected}"/>
+            <Button Grid.Column="1" Content="&lt;--" Margin="5" Grid.Row="5" Command="{Binding RemoveFromSelected}"/>
 
             <Label VerticalAlignment="Center" HorizontalAlignment="Center" Content="Algorithm" Grid.Column="2"
                    Grid.Row="0" />
@@ -87,9 +91,9 @@
             <Button Content="Align" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="4" Command="{Binding AlignCommand}" />
 
 
-            <view:AlignmentSequenceViewControl DataContext="{Binding AlignmentSequenceViewModel}"
-                                               x:Name="AlignmentControl" Grid.Column="2" Grid.ColumnSpan="2"
-                                               Grid.Row="5" />
+            <view:SingleSequenceViewControl DataContext="{Binding SingleSequenceViewModel}"
+                                               x:Name="AlignmentControl" Grid.Column="0" Grid.ColumnSpan="2"
+                                               Grid.Row="6" />
 
         </Grid>
 

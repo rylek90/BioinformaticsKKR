@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Controls;
+using Bio;
 using BioinformaticsKKR.Core.DependencyInjection;
 using BioinformaticsKKR.Provider;
 using BioinformaticsKKR.ViewModel;
@@ -27,10 +29,9 @@ namespace BioinformaticsKKR.View
 
         private void OnPropChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "Aligned")
+            if (e.PropertyName == "SecondSequenceSelected")
             {
-                AlignmentControl.Update(_viewModel.FirstSequenceSelected, _viewModel.SecondSequenceSelected,
-                    _viewModel.Aligned);
+                AlignmentControl.Update(_viewModel.SecondSequenceSelected);
             }
         }
 
@@ -45,8 +46,16 @@ namespace BioinformaticsKKR.View
 
         public void OnNavigatedTo(NavigationEventArgs e)
         {
-            _viewModel.FirstSequencesList = SequencesRepository.Instance.Sequences;
-            _viewModel.SecondSequencesList = SequencesRepository.Instance.Sequences;
+            _viewModel.AvailableSequencesList = new ObservableCollection<ISequence>(SequencesRepository.Instance.Sequences);
+            if (_viewModel.SelectedSequencesList != null)
+            {
+                _viewModel.SelectedSequencesList.Clear();
+            }
+            else
+            {
+                _viewModel.SelectedSequencesList=new ObservableCollection<ISequence>();
+            }
+            _viewModel.SecondSequenceSelected = null;
         }
 
         public void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -55,7 +64,7 @@ namespace BioinformaticsKKR.View
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            AlignmentControl.Update(_viewModel.FirstSequenceSelected, _viewModel.SecondSequenceSelected);
+            AlignmentControl.Update(_viewModel.SecondSequenceSelected);
         }
     }
 }

@@ -2,7 +2,13 @@ using System.ComponentModel;
 
 namespace BioinformaticsKKR.Core.ViewModel
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public interface IViewModelBase
+    {
+        void OnPropertyChanged(string propertyName);
+        event PropertyChangedEventHandler PropertyChanged;
+    }
+
+    public class ViewModelBase : INotifyPropertyChanged, IViewModelBase
     {
         public void OnPropertyChanged(string propertyName)
         {

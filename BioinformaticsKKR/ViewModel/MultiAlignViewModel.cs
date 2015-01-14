@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,18 +17,19 @@ namespace BioinformaticsKKR.ViewModel
     public interface IMultiAlignViewModel
     {
         string Status { get; set; }
-        IEnumerable<IAmSimilarityMatrix> SimilarityMatrices { get; }
+        CommandBase AlignCommand { get; set; }
+        int GapPenalty { get; set; }
+        IEnumerable<IAmSimilarityMatrix> SimilarityMatrices { get; set; }
         IAmSimilarityMatrix CurrentSimilarityMatrix { get; set; }
-        List<IAlignSequences> SequencesAligners { get; }
+        List<IAlignSequences> SequencesAligners { get; set; }
         IAlignSequences CurrentAligner { get; set; }
+        ISingleSequenceViewModel SingleSequenceViewModel { get; set; }
+        ObservableCollection<ISequence> AvailableSequencesList { get; set; }
         ISequence FirstSequenceSelected { get; set; }
+        ObservableCollection<ISequence> SelectedSequencesList { get; set; }
         ISequence SecondSequenceSelected { get; set; }
-        ISequence Aligned { get; set; }
         void OnPropertyChanged(string propertyName);
         event PropertyChangedEventHandler PropertyChanged;
-
-        IEnumerable<ISequence> FirstSequencesList { get; set; }
-        IEnumerable<ISequence> SecondSequencesList { get; set; }
     }
 
     public class MultiAlignViewModel : ViewModelBase, IMultiAlignViewModel
@@ -36,16 +38,16 @@ namespace BioinformaticsKKR.ViewModel
         private IAlignSequences _currentAligner;
         private IAmSimilarityMatrix _currentSimilarityMatrix;
         private readonly IStatusViewModel _statusService;
-        private readonly IAlignmentSequenceViewModel _alignmentSequenceViewModel;
-        private IEnumerable<ISequence> _secondSequencesList;
-        private IEnumerable<ISequence> _firstSequencesList;
+        private ObservableCollection<ISequence> _selectedSequencesList;
+        private ObservableCollection<ISequence> _availableSequencesList;
         private ISequence _secondSequenceSelected;
         private ISequence _firstSequenceSelected;
         private int _gapPenalty;
-        private ISequence _aligned;
+        private ISequence _chosen;
         private List<IAlignSequences> _availableSequenceAligners;
         private IEnumerable<IAmSimilarityMatrix> _availableSimilarityMatrices;
         private readonly IEnumerable<IAmSimilarityMatrix> _similarityMatrices;
+        private ISingleSequenceViewModel _singleSequenceViewModel;
 
         public string Status
         {
@@ -57,39 +59,68 @@ namespace BioinformaticsKKR.ViewModel
             }
         }
 
-        public IAlignmentSequenceViewModel AlignmentSequenceViewModel
-        {
-            get { return _alignmentSequenceViewModel; }
-        }
-
-        public ISequence Aligned
-        {
-            get { return _aligned; }
-            set
-            {
-                _aligned = value;
-                OnPropertyChanged("Aligned");
-            }
-        }
-
         public MultiAlignViewModel(IEnumerable<IAlignSequences> sequencesAligners,
             IStatusViewModel statusService,
-            IAlignmentSequenceViewModel alignmentSequenceViewModel,
-            IEnumerable<IAmSimilarityMatrix> similarityMatrices
+            IEnumerable<IAmSimilarityMatrix> similarityMatrices,
+            ISingleSequenceViewModel singleSequenceViewModel
             )
         {
             _statusService = statusService;
-            _alignmentSequenceViewModel = alignmentSequenceViewModel;
             _statusService.PropertyChanged += (sender, e) => OnPropertyChanged(e.ToString());
             _sequencesAligners = sequencesAligners;
             _similarityMatrices = similarityMatrices;
-            _alignmentSequenceViewModel.PropertyChanged += (sender, e) => OnPropertyChanged(e.ToString());
+            SingleSequenceViewModel = singleSequenceViewModel;
+            SingleSequenceViewModel.PropertyChanged += (sender, e) => OnPropertyChanged(e.ToString());
+
+            AddToSelected = new CommandBase
+            {
+                CanExecuteMethod = CanAddToSelected,
+                ExecuteMethod = ExecuteAddToSelected,
+            };
 
             AlignCommand = new CommandBase
             {
                 CanExecuteMethod = CanAlign,
                 ExecuteMethod = ExecuteAlign
             };
+
+            RemoveFromSelected = new CommandBase
+            {
+                CanExecuteMethod = CanRemoveFromSelected,
+                ExecuteMethod = ExecuteRemoveFromSelected,
+            };
+        }
+
+        public CommandBase RemoveFromSelected { get; set; }
+
+        private void ExecuteRemoveFromSelected(object obj)
+        {
+            var sequenceToRemove = SecondSequenceSelected;
+            SelectedSequencesList.Remove(SecondSequenceSelected);
+            SecondSequenceSelected = null;
+            FirstSequenceSelected = sequenceToRemove;
+            AvailableSequencesList.Add(sequenceToRemove);
+        }
+
+        private bool CanRemoveFromSelected(object obj)
+        {
+            return _secondSequenceSelected != null;
+        }
+
+        public CommandBase AddToSelected { get; set; }
+
+        private void ExecuteAddToSelected(object obj)
+        {
+            var sequenceToAdd = FirstSequenceSelected;
+            AvailableSequencesList.Remove(FirstSequenceSelected);
+            FirstSequenceSelected = null;
+            SelectedSequencesList.Add(sequenceToAdd);
+        }
+
+        private bool CanAddToSelected(object obj)
+        {
+            return AvailableSequencesList != null
+                   && AvailableSequencesList.Any();
         }
 
         public CommandBase AlignCommand { get; set; }
@@ -105,7 +136,7 @@ namespace BioinformaticsKKR.ViewModel
                     var sequence = _currentAligner.Align(FirstSequenceSelected, SecondSequenceSelected);
 
                     // WTF!!!!!!
-                    Aligned = sequence.First().PairwiseAlignedSequences.First().Consensus;
+                    //Chosen = sequence.First().PairwiseAlignedSequences.First().Consensus;
                 });
             }
             catch (Exception ex)
@@ -126,15 +157,8 @@ namespace BioinformaticsKKR.ViewModel
 
         private bool CanAlign(object obj)
         {
-            if (_currentAligner == null
-                || _firstSequenceSelected == null
-                || _secondSequenceSelected == null)
-                return false;
-
-            if (_currentAligner.CanAlignSequences(_firstSequenceSelected, _secondSequenceSelected))
-                return true;
-
-            return true;
+            return SelectedSequencesList != null 
+                && SelectedSequencesList.Any();
         }
 
         public IEnumerable<IAmSimilarityMatrix> SimilarityMatrices
@@ -180,14 +204,26 @@ namespace BioinformaticsKKR.ViewModel
             }
         }
 
-        public IEnumerable<ISequence> FirstSequencesList
+        public ISingleSequenceViewModel SingleSequenceViewModel
         {
-            get { return _firstSequencesList; }
+            get { return _singleSequenceViewModel; }
             set
             {
-                _firstSequencesList = value;
-                AlignCommand.UpdateCanExecuteState();
-                OnPropertyChanged("FirstSequenceList");
+                if (value != null)
+                {
+                    _singleSequenceViewModel = value;
+                    OnPropertyChanged("SingleSequenceViewModel");
+                }
+            }
+        }
+
+        public ObservableCollection<ISequence> AvailableSequencesList
+        {
+            get { return _availableSequencesList; }
+            set
+            {
+                _availableSequencesList = value;
+                OnPropertyChanged("AvailableSequencesList");
             }
         }
 
@@ -197,33 +233,17 @@ namespace BioinformaticsKKR.ViewModel
             set
             {
                 _firstSequenceSelected = value;
-                AlignCommand.UpdateCanExecuteState();
-                _alignmentSequenceViewModel.SequenceA = value;
-                UpdateAlignersState();
-                UpdateMatricesState();
+                AddToSelected.UpdateCanExecuteState();
                 OnPropertyChanged("FirstSequenceSelected");
             }
         }
 
-        private void UpdateAlignersState()
+        public ObservableCollection<ISequence> SelectedSequencesList
         {
-            SequencesAligners =
-                _sequencesAligners.Where(x => x.CanAlignSequences(_firstSequenceSelected, _secondSequenceSelected))
-                    .ToList();
-        }
-
-        private void UpdateMatricesState()
-        {
-            SimilarityMatrices =
-                _similarityMatrices.Where(x => x.CanAlign(FirstSequenceSelected, SecondSequenceSelected));
-        }
-
-        public IEnumerable<ISequence> SecondSequencesList
-        {
-            get { return _secondSequencesList; }
+            get { return _selectedSequencesList; }
             set
             {
-                _secondSequencesList = value;
+                _selectedSequencesList = value;
                 AlignCommand.UpdateCanExecuteState();
                 OnPropertyChanged("SecondSequenceList");
             }
@@ -236,8 +256,7 @@ namespace BioinformaticsKKR.ViewModel
             {
                 _secondSequenceSelected = value;
                 AlignCommand.UpdateCanExecuteState();
-                UpdateAlignersState();
-                UpdateMatricesState();
+                RemoveFromSelected.UpdateCanExecuteState();
                 OnPropertyChanged("SecondSequenceSelected");
             }
         }
