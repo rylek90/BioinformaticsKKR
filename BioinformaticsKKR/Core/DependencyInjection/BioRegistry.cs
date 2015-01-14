@@ -25,12 +25,10 @@ namespace BioinformaticsKKR.Core.DependencyInjection
 
         private void RegisterIoProviders()
         {
-            For<ITreeFileReader>().Use<TreeFileReader>();
             For<ISequenceFileReader>().Use<SequenceFileReader>();
             For<ISequenceFileWriter>().Use<SequenceFileWriter>();
             For<IAmFileDialog>().Use<ReadFileDialog>();
             For<IAmFileDialog>().Use<WriteFileDialog>();
-            For<IAmFileDialog>().Use<ReadTreeDialog>();
         }
 
         private void RegisterConverters()
