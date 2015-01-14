@@ -7,7 +7,7 @@ namespace BioinformaticsKKR.Service.Alignement
 {
     public interface IAlignSequences
     {
-        IEnumerable<IPairwiseSequenceAlignment> Align(ISequence sequenceA, ISequence sequenceB);
+        IEnumerable<IPairwiseSequenceAlignment> Align(params ISequence[] sequences);
         SimilarityMatrix SimilarityMatrix { get; set; }
         int GapPenalty { get; set; }
         bool CanAlignSequences(ISequence sequenceA, ISequence sequenceB);

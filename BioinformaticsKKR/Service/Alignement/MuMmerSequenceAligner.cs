@@ -8,14 +8,14 @@ namespace BioinformaticsKKR.Service.Alignement
 {
     public class MuMmerSequenceAligner : IAlignSequences
     {
-        public IEnumerable<IPairwiseSequenceAlignment> Align(ISequence sequenceA, ISequence sequenceB)
+        public IEnumerable<IPairwiseSequenceAlignment> Align(params ISequence[] sequences)
         {
             var aligner = new MUMmerAligner
             {
                 GapOpenCost = GapPenalty,
                 SimilarityMatrix = SimilarityMatrix,
             };
-            return aligner.Align(new List<ISequence> {sequenceA, sequenceB});
+            return aligner.Align(sequences);
         }
 
         public SimilarityMatrix SimilarityMatrix { get; set; }

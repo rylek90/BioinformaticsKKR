@@ -7,7 +7,7 @@ namespace BioinformaticsKKR.Service.Alignement
 {
     public class SmithWatermanSequenceAligner : IAlignSequences
     {
-        public IEnumerable<IPairwiseSequenceAlignment> Align(ISequence sequenceA, ISequence sequenceB)
+        public IEnumerable<IPairwiseSequenceAlignment> Align(ISequence[] sequences)
         {
             var aligner = new SmithWatermanAligner
             {
@@ -15,7 +15,7 @@ namespace BioinformaticsKKR.Service.Alignement
                 GapOpenCost = GapPenalty,
             };
 
-            return aligner.Align(sequenceA, sequenceB);
+            return aligner.Align(sequences);
         }
 
         public int GapPenalty { get; set; }
