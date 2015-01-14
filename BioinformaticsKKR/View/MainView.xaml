@@ -37,6 +37,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
+                        <RowDefinition Height="50" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
@@ -44,10 +45,31 @@
                              Text="{Binding FilePath,Mode=TwoWay}" />
                     <Button Margin="2.5" Grid.Column="1" Grid.Row="1" Content="Read File" Command="{Binding ReadFile}" />
                     <Button Grid.Row="1" Margin="2.5" Grid.Column="0" Content="Browse" Command="{Binding Browse}" />
-                    <StackPanel Grid.Row="2" Margin="5" Grid.Column="0" Orientation="Vertical">
+                    <StackPanel Grid.Row="2" Margin="5" Grid.Column="0" Orientation="Vertical" Grid.ColumnSpan="3">
                         <RadioButton IsChecked="{Binding AppendToCollection, Mode=TwoWay}" Content="Append" />
                         <RadioButton IsChecked="{Binding OverwriteCollection, Mode=TwoWay}" Content="Overwrite" />
                     </StackPanel>
+
+                    <Grid Name="SaveCollectionGrid" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                        </Grid.RowDefinitions>
+                        <Separator Grid.Row="0" Grid.ColumnSpan="3"/>
+                        <Label Grid.Row="1" Grid.Column="0" Content="SAVE COLLECTION" />
+                        <TextBox Margin="2.5" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3"
+                             Text="{Binding FilePath,Mode=TwoWay}" />
+                        <Button Margin="2.5" Grid.Column="1" Grid.Row="3" Content="Write file" Command="{Binding WriteFile}" />
+                        <Button Grid.Row="3" Margin="2.5" Grid.Column="0" Content="Browse" Command="{Binding Browse}" />
+                    </Grid>
+                    
                 </Grid>
                 <mui:ModernTab Name="SequencesTab" Layout="List"
                                Links="{Binding SequencesLinkCollection, Mode=TwoWay}" Width="800">

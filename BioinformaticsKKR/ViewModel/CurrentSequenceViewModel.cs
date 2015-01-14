@@ -98,7 +98,8 @@ namespace BioinformaticsKKR.ViewModel
                 foreach (var letter in mySequence.Alphabet)
                 {
                     var count = (int) seqStat.GetCount(letter);
-                    list.Add(new KeyValuePair<string, int>(Convert.ToChar(letter).ToString(CultureInfo.InvariantCulture), count));
+                    list.Add(new KeyValuePair<string, int>(
+                        Convert.ToChar(letter).ToString(CultureInfo.InvariantCulture), count));
                 }
                 StatisticsValues = list;
 
@@ -145,14 +146,7 @@ namespace BioinformaticsKKR.ViewModel
 
         public async void BrowseExecuteMethod(object obj)
         {
-            try
-            {
-                await Task.Run(() => { FilePath = _writeFileDialog.FileName; });
-            }
-            catch (Exception ex)
-            {
-                ModernDialog.ShowMessage(ex.Message, "Warning!", MessageBoxButton.OK);
-            }
+            FilePath = _writeFileDialog.FileName;
         }
 
         public string FilePath
@@ -176,7 +170,7 @@ namespace BioinformaticsKKR.ViewModel
                 await Task.Run(() =>
                 {
                     var sequence = _currentSequenceConverter.Convert(Sequence);
-                    _sequenceFileWriter.WriteSequence(sequence, FilePath);
+                    _sequenceFileWriter.WriteSequence(FilePath, sequence);
                     Status = string.Format("Converted {0} to {1}. Written to file.", Sequence.Alphabet.Name,
                         _currentSequenceConverter.DestinationSequenceType);
                 });

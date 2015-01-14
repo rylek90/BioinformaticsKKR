@@ -19,6 +19,7 @@ namespace BioinformaticsKKR.View
 
             MainGrid.DataContext = ContainerBootstrap.Container.GetInstance<IReadFileViewModel>();
             SequencesTab.DataContext = ContainerBootstrap.Container.GetInstance<ISequencesLinksViewModel>();
+            SaveCollectionGrid.DataContext = ContainerBootstrap.Container.GetInstance<IWriteCollectionViewModel>();
             _sequencesViewModel = SequencesTab.DataContext as ISequencesLinksViewModel;
         }
 

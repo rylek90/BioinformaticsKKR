@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Bio;
 using BioinformaticsKKR.Provider;
 
@@ -7,12 +8,12 @@ namespace BioinformaticsKKR.Core.IO
 {
     public interface ISequenceFileWriter
     {
-        bool WriteSequence(ISequence sequence, string path);
+        bool WriteSequence(string path, params ISequence[] sequence);
     }
 
     public class SequenceFileWriter : ISequenceFileWriter
     {
-        public bool WriteSequence(ISequence sequence, string path)
+        public bool WriteSequence(string path, params ISequence[] sequences)
         {
             if (string.IsNullOrEmpty(path))
                 return false;
@@ -21,10 +22,12 @@ namespace BioinformaticsKKR.Core.IO
             {
                 //    var formater = new FastAFormatter();
                 var formater = Bio.IO.SequenceFormatters.FindFormatterByFileName(path);
-                formater.Format(outputFile, new List<ISequence> {sequence});
+                formater.Format(outputFile, sequences);
             }
             var repo = SequencesRepository.Instance.Sequences;
-            if (!repo.Contains(sequence))
+
+            foreach (var sequence in 
+                sequences.Where(sequence => !repo.Contains(sequence)))
             {
                 repo.Add(sequence);
             }

@@ -59,6 +59,12 @@ namespace BioinformaticsKKR.Core.DependencyInjection
                 .Ctor<IAmFileDialog>()
                 .Is<ReadFileDialog>();
 
+            For<IWriteCollectionViewModel>()
+                .Use<WriteCollectionViewModel>()
+                .Ctor<ISequenceFileWriter>()
+                .Is<SequenceFileWriter>()
+                .Ctor<IAmFileDialog>()
+                .Is<WriteFileDialog>();
 
             For<ICurrentSequenceViewModel>()
                 .Use<CurrentSequenceViewModel>()
