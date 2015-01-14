@@ -43,6 +43,7 @@ namespace BioinformaticsKKR.Core.DependencyInjection
         {
             For<ISequencesLinksViewModel>().Use<SequencesLinksViewModel>();
             For<IAlignViewModel>().Use<AlignViewModel>();
+            For<IMultiAlignViewModel>().Use<MultiAlignViewModel>();
             For<IManipulationViewModel>().Use<ManipulationViewModel>();
 
             For<ISequencesStatisticsLinksViewModel>().Use<SequencesStatisticsLinksViewModel>();

@@ -138,6 +138,7 @@
     <Compile Include="Service\Modification\ReverseComplementedModificatorSequences.cs" />
     <Compile Include="Service\Modification\IModificatorSequences.cs" />
     <Compile Include="ViewModel\AlignmentSequenceViewModel.cs" />
+    <Compile Include="ViewModel\MultiAlignViewModel.cs" />
     <Compile Include="ViewModel\AlignViewModel.cs" />
     <Compile Include="ViewModel\ManipulationSequenceViewModel.cs" />
     <Compile Include="ViewModel\ManipulationViewModel.cs" />
@@ -164,6 +165,9 @@
     </Compile>
     <Compile Include="View\AlignmentSequenceViewControl.xaml.cs">
       <DependentUpon>AlignmentSequenceViewControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MultiAlignView.xaml.cs">
+      <DependentUpon>MultiAlignView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AlignView.xaml.cs">
       <DependentUpon>AlignView.xaml</DependentUpon>
@@ -235,6 +239,10 @@
     <Page Include="View\AlignmentSequenceViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MultiAlignView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\AlignView.xaml">
       <SubType>Designer</SubType>
