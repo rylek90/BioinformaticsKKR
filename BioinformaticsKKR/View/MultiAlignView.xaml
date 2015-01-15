@@ -24,14 +24,15 @@
                 <RowDefinition Height="30" />
                 <RowDefinition Height="50" />
                 <RowDefinition Height="50" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="100" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="225" />
                 <ColumnDefinition Width="225" />
                 <ColumnDefinition Width="125" />
-                <ColumnDefinition Width="425" />
+                <ColumnDefinition Width="125" />
+                <ColumnDefinition Width="300" />
             </Grid.ColumnDefinitions>
 
             <ListBox
@@ -68,6 +69,7 @@
                       HorizontalContentAlignment="Center"
                       VerticalContentAlignment="Center"
                       Grid.Column="3"
+                      Grid.ColumnSpan="2"
                       SelectedItem="{Binding CurrentAligner, Mode=TwoWay}" />
 
             <Label VerticalAlignment="Center" HorizontalAlignment="Center" Content="Similarity Matrix Type"
@@ -75,25 +77,43 @@
             <ComboBox ItemsSource="{Binding SimilarityMatrices}"
                       Grid.Column="3"
                       Grid.Row="1"
+                      Grid.ColumnSpan="2"
                       HorizontalContentAlignment="Center"
                       VerticalContentAlignment="Center"
                       SelectedItem="{Binding CurrentSimilarityMatrix, Mode=TwoWay}" />
 
             <Label Content="Gap Penalty" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2"
                    Grid.Row="3" />
-            <Slider Value="{Binding GapPenalty, Mode=TwoWay}" Name="GapSlider" Grid.Column="3" Grid.Row="3"
+            <Slider Value="{Binding GapPenalty, Mode=TwoWay}" Name="GapSlider" Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="2"
                     Minimum="-100" Maximum="0" VerticalAlignment="Center" />
             <Label Content="{Binding ElementName=GapSlider, Path=Value}"
+                   Grid.ColumnSpan="2"
                    ContentStringFormat="{}{0:F2}" HorizontalAlignment="Center"
                    Grid.Row="2" Grid.Column="3"
                    HorizontalContentAlignment="Center" VerticalAlignment="Center" />
 
-            <Button Content="Align" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="4" Command="{Binding AlignCommand}" />
+            <Button Content="Align" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="4" Command="{Binding AlignCommand}"  />
 
 
             <view:SingleSequenceViewControl DataContext="{Binding SingleSequenceViewModel}"
-                                               x:Name="AlignmentControl" Grid.Column="0" Grid.ColumnSpan="2"
+                                               x:Name="OverviewControl" Grid.Column="0" Grid.ColumnSpan="2"
                                                Grid.Row="6" />
+            
+            <StackPanel Grid.Column="2" Grid.Row="6">
+                <Label Content="Consensus Alphabet"/>
+                <Label Content="Consensus Count"/>
+                <Label Content="First Offset"/>
+                <Label Content="Second Offset"/>
+                <Label Content="Score"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="3" Grid.Row="6">
+                <Label Content="{Binding Aligned.Consensus.Alphabet}"/>
+                <Label Content="{Binding Aligned.Consensus.Count}"/>
+                <Label Content="{Binding Aligned.FirstOffset}"/>
+                <Label Content="{Binding Aligned.SecondOffset}"/>
+                <Label Content="{Binding Aligned.Score}"/>
+            </StackPanel>
 
         </Grid>
 

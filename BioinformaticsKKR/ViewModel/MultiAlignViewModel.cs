@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Bio;
+using Bio.Algorithms.Alignment;
 using Bio.SimilarityMatrices;
 using BioinformaticsKKR.Core.Definitions.SimilarityMatrices;
 using BioinformaticsKKR.Core.ViewModel;
@@ -17,6 +18,8 @@ namespace BioinformaticsKKR.ViewModel
     public interface IMultiAlignViewModel
     {
         string Status { get; set; }
+        CommandBase RemoveFromSelected { get; set; }
+        CommandBase AddToSelected { get; set; }
         CommandBase AlignCommand { get; set; }
         int GapPenalty { get; set; }
         IEnumerable<IAmSimilarityMatrix> SimilarityMatrices { get; set; }
@@ -34,7 +37,6 @@ namespace BioinformaticsKKR.ViewModel
 
     public class MultiAlignViewModel : ViewModelBase, IMultiAlignViewModel
     {
-        private readonly IEnumerable<IAlignSequences> _sequencesAligners;
         private IAlignSequences _currentAligner;
         private IAmSimilarityMatrix _currentSimilarityMatrix;
         private readonly IStatusViewModel _statusService;
@@ -43,11 +45,10 @@ namespace BioinformaticsKKR.ViewModel
         private ISequence _secondSequenceSelected;
         private ISequence _firstSequenceSelected;
         private int _gapPenalty;
-        private ISequence _chosen;
         private List<IAlignSequences> _availableSequenceAligners;
         private IEnumerable<IAmSimilarityMatrix> _availableSimilarityMatrices;
-        private readonly IEnumerable<IAmSimilarityMatrix> _similarityMatrices;
         private ISingleSequenceViewModel _singleSequenceViewModel;
+        private PairwiseAlignedSequence _aligned;
 
         public string Status
         {
@@ -67,8 +68,8 @@ namespace BioinformaticsKKR.ViewModel
         {
             _statusService = statusService;
             _statusService.PropertyChanged += (sender, e) => OnPropertyChanged(e.ToString());
-            _sequencesAligners = sequencesAligners;
-            _similarityMatrices = similarityMatrices;
+            SequencesAligners = sequencesAligners.ToList();
+            SimilarityMatrices = similarityMatrices;
             SingleSequenceViewModel = singleSequenceViewModel;
             SingleSequenceViewModel.PropertyChanged += (sender, e) => OnPropertyChanged(e.ToString());
 
@@ -100,6 +101,7 @@ namespace BioinformaticsKKR.ViewModel
             SecondSequenceSelected = null;
             FirstSequenceSelected = sequenceToRemove;
             AvailableSequencesList.Add(sequenceToRemove);
+            AlignCommand.UpdateCanExecuteState();
         }
 
         private bool CanRemoveFromSelected(object obj)
@@ -115,6 +117,7 @@ namespace BioinformaticsKKR.ViewModel
             AvailableSequencesList.Remove(FirstSequenceSelected);
             FirstSequenceSelected = null;
             SelectedSequencesList.Add(sequenceToAdd);
+            AlignCommand.UpdateCanExecuteState();
         }
 
         private bool CanAddToSelected(object obj)
@@ -133,15 +136,25 @@ namespace BioinformaticsKKR.ViewModel
                 {
                     _currentAligner.GapPenalty = GapPenalty;
                     _currentAligner.SimilarityMatrix = new SimilarityMatrix(_currentSimilarityMatrix.Matrix);
-                    var sequence = _currentAligner.Align(FirstSequenceSelected, SecondSequenceSelected);
+                    var sequence = _currentAligner.Align(SelectedSequencesList.ToArray());
 
-                    // WTF!!!!!!
-                    //Chosen = sequence.First().PairwiseAlignedSequences.First().Consensus;
+                    var aligned = sequence.First().PairwiseAlignedSequences.First();
+                    Aligned = aligned;
                 });
             }
             catch (Exception ex)
             {
                 ModernDialog.ShowMessage(ex.Message, "Warning!", MessageBoxButton.OK);
+            }
+        }
+
+        public PairwiseAlignedSequence Aligned
+        {
+            get { return _aligned; }
+            set
+            {
+                _aligned = value;
+                OnPropertyChanged("Aligned");
             }
         }
 

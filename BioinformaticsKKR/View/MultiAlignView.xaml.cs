@@ -31,7 +31,7 @@ namespace BioinformaticsKKR.View
         {
             if (e.PropertyName == "SecondSequenceSelected")
             {
-                AlignmentControl.Update(_viewModel.SecondSequenceSelected);
+                OverviewControl.Update(_viewModel.SecondSequenceSelected);
             }
         }
 
@@ -64,7 +64,7 @@ namespace BioinformaticsKKR.View
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            AlignmentControl.Update(_viewModel.SecondSequenceSelected);
+            OverviewControl.Update(_viewModel.SecondSequenceSelected);
         }
     }
 }
