@@ -6,7 +6,7 @@
       xmlns:view="clr-namespace:BioinformaticsKKR.View"
       mc:Ignorable="d"
 
-      d:DesignHeight="400" d:DesignWidth="1000"
+      d:DesignHeight="500" d:DesignWidth="1000"
       Title="AlignView">
 
 
@@ -24,6 +24,7 @@
                 <RowDefinition Height="30" />
                 <RowDefinition Height="50" />
                 <RowDefinition Height="50" />
+                <RowDefinition Height="100" />
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
 
@@ -114,6 +115,10 @@
                 <Label Content="{Binding Aligned.SecondOffset}"/>
                 <Label Content="{Binding Aligned.Score}"/>
             </StackPanel>
+
+            <view:SingleSequenceViewControl DataContext="{Binding AlignedSequenceViewModel}"
+                                               x:Name="AlignedControl" Grid.Column="2" Grid.ColumnSpan="3"
+                                               Grid.Row="7" />
 
         </Grid>
 

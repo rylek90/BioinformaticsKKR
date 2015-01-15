@@ -18,9 +18,11 @@ namespace BioinformaticsKKR.ViewModel
     public interface IMultiAlignViewModel
     {
         string Status { get; set; }
+        ISingleSequenceViewModel AlignedSequenceViewModel { get; set; }
         CommandBase RemoveFromSelected { get; set; }
         CommandBase AddToSelected { get; set; }
         CommandBase AlignCommand { get; set; }
+        PairwiseAlignedSequence Aligned { get; set; }
         int GapPenalty { get; set; }
         IEnumerable<IAmSimilarityMatrix> SimilarityMatrices { get; set; }
         IAmSimilarityMatrix CurrentSimilarityMatrix { get; set; }
@@ -40,6 +42,7 @@ namespace BioinformaticsKKR.ViewModel
         private IAlignSequences _currentAligner;
         private IAmSimilarityMatrix _currentSimilarityMatrix;
         private readonly IStatusViewModel _statusService;
+        private ISingleSequenceViewModel _alignedSequenceViewModel;
         private ObservableCollection<ISequence> _selectedSequencesList;
         private ObservableCollection<ISequence> _availableSequencesList;
         private ISequence _secondSequenceSelected;
@@ -63,10 +66,12 @@ namespace BioinformaticsKKR.ViewModel
         public MultiAlignViewModel(IEnumerable<IAlignSequences> sequencesAligners,
             IStatusViewModel statusService,
             IEnumerable<IAmSimilarityMatrix> similarityMatrices,
-            ISingleSequenceViewModel singleSequenceViewModel
+            ISingleSequenceViewModel singleSequenceViewModel,
+            ISingleSequenceViewModel alignedSequenceViewModel
             )
         {
             _statusService = statusService;
+            AlignedSequenceViewModel = alignedSequenceViewModel;
             _statusService.PropertyChanged += (sender, e) => OnPropertyChanged(e.ToString());
             SequencesAligners = sequencesAligners.ToList();
             SimilarityMatrices = similarityMatrices;
@@ -90,6 +95,16 @@ namespace BioinformaticsKKR.ViewModel
                 CanExecuteMethod = CanRemoveFromSelected,
                 ExecuteMethod = ExecuteRemoveFromSelected,
             };
+        }
+
+        public ISingleSequenceViewModel AlignedSequenceViewModel
+        {
+            get { return _alignedSequenceViewModel; }
+            set
+            {
+                _alignedSequenceViewModel = value;
+                OnPropertyChanged("AlignedSequenceViewModel");
+            }
         }
 
         public CommandBase RemoveFromSelected { get; set; }

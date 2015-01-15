@@ -16,11 +16,6 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-        <Grid.Resources>
-            <Style TargetType="ScrollViewer">
-                <Setter Property="scrollHelper:ScrollSynchronizer.ScrollGroup" Value="Group1" />
-            </Style>
-        </Grid.Resources>
         <Label Content="{Binding Name}"/>
         <ListView Grid.Row="1" scrollHelper:ScrollSynchronizer.ScrollGroup="Group1"
                   ItemsSource="{Binding SequenceCollection, Mode=TwoWay}"

@@ -33,6 +33,11 @@ namespace BioinformaticsKKR.View
             {
                 OverviewControl.Update(_viewModel.SecondSequenceSelected);
             }
+            else if (e.PropertyName == "Aligned")
+            {
+                var consensus = _viewModel.Aligned != null ? _viewModel.Aligned.Consensus : null;
+                AlignedControl.Update(consensus);
+            }
         }
 
 
