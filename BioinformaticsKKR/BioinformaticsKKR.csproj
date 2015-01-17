@@ -148,6 +148,7 @@
     <Compile Include="ViewModel\AlignViewModel.cs" />
     <Compile Include="ViewModel\ManipulationSequenceViewModel.cs" />
     <Compile Include="ViewModel\ManipulationViewModel.cs" />
+    <Compile Include="ViewModel\PamsamAlignerViewModel.cs" />
     <Compile Include="ViewModel\SequencesStatisticsLinksViewModel.cs" />
     <Compile Include="ViewModel\SingleSequenceViewModel.cs" />
     <Compile Include="ViewModel\StatusViewModel.cs" />
@@ -170,6 +171,9 @@
     </Compile>
     <Compile Include="View\Alignment.xaml.cs">
       <DependentUpon>Alignment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PamsamAlignView.xaml.cs">
+      <DependentUpon>PamsamAlignView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SingleSequenceViewControl.xaml.cs">
       <DependentUpon>SingleSequenceViewControl.xaml</DependentUpon>
@@ -246,6 +250,10 @@
     <Page Include="View\Alignment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PamsamAlignView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\SingleSequenceViewControl.xaml">
       <Generator>MSBuild:Compile</Generator>

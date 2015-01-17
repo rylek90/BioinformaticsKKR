@@ -15,6 +15,7 @@
                 <mui:Link DisplayName="Manipulation" Source="/View/ManipulationView.xaml" />
                 <mui:Link DisplayName="Statistics" Source="/View/StatisticsView.xaml" />
                 <mui:Link DisplayName="Multi-align" Source="/View/MultiAlignView.xaml" />
+                <mui:Link DisplayName="PAMSAM" Source="/View/PamsamAlignView.xaml" />
                 <mui:Link DisplayName="About" Source="/View/AboutView.xaml" />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>

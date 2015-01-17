@@ -74,6 +74,7 @@ namespace BioinformaticsKKR.Core.DependencyInjection
             For<IManipulationSequenceViewModel>().Use<ManipulationSequenceViewModel>();
             For<IAlignmentSequenceViewModel>().Use<AlignmentSequenceViewModel>();
             For<ISingleSequenceViewModel>().Use<SingleSequenceViewModel>();
+            For<IPamsamAlignerViewModel>().Use<PamsamAlignerViewModel>();
         }
 
         private void RegisterAssemblers()
@@ -95,7 +96,7 @@ namespace BioinformaticsKKR.Core.DependencyInjection
             For<IAlignSequences>().Use<SmithWatermanSequenceAligner>();
             For<IAlignSequences>().Use<PairwiseOverlapSequenceAligner>();
 
-            For<IAlignMultiSequences>().Use<PamsamMultipleSequenceAligner>();
+            For<IPamsamMultipleSequenceAligner>().Use<PamsamMultipleSequenceAligner>();
         }
 
         private void RegisterSimilarityMatrices()
