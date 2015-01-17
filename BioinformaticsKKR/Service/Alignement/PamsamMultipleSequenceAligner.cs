@@ -29,6 +29,20 @@ namespace BioinformaticsKKR.Service.Alignement
 
     public class PamsamMultipleSequenceAligner : IPamsamMultipleSequenceAligner
     {
+
+        private void DefaultValues()
+        {
+            KmerLength = 3;
+            DistanceFunctionTypes = DistanceFunctionTypes.EuclideanDistance;
+            UpdateDistanceMethodsTypes=UpdateDistanceMethodsTypes.Average;
+            ProfileAlignerNames = ProfileAlignerNames.NeedlemanWunschProfileAligner;
+            ProfileScoreFunctionNames = ProfileScoreFunctionNames.WeightedEuclideanDistance;
+            GapPenalty = -4;
+            GapExtendPenalty =- 1;
+            NumberOfParitions = 8;
+            DegreeOfParallelism = 4;
+        }
+
         public IList<ISequenceAlignment> Align(IAlphabet alphabet, params ISequence[] sequences)
         {
             var aligner = new PAMSAMMultipleSequenceAligner(
@@ -78,6 +92,7 @@ namespace BioinformaticsKKR.Service.Alignement
 
         public PamsamMultipleSequenceAligner()
         {
+            DefaultValues();
             AlignmentType = AlignmentType.Multi;
         }
 

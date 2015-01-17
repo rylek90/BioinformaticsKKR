@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using Bio.Algorithms.Alignment;
 using Bio.Algorithms.Alignment.MultipleSequenceAlignment;
-using Bio.SimilarityMatrices;
 using BioinformaticsKKR.Core.Definitions.SimilarityMatrices;
 using BioinformaticsKKR.Core.ViewModel;
+using BioinformaticsKKR.Provider;
 using BioinformaticsKKR.Service.Alignement;
 
 namespace BioinformaticsKKR.ViewModel
@@ -26,7 +28,8 @@ namespace BioinformaticsKKR.ViewModel
         Array DistanceFunctionTypes { get; }
         IAmSimilarityMatrix CurrentSimilarityMatrix { get; set; }
         CommandBase Align { get; set; }
-        IEnumerable<IAmSimilarityMatrix> SimilarityMatrices { get; }
+        IAlignedSequence AlignedSequences { get; set; }
+        IEnumerable<IAmSimilarityMatrix> SimilarityMatrices { get; set; }
         IPamsamMultipleSequenceAligner PamsamMultipleSequenceAligner { get; set; }
         void OnPropertyChanged(string propertyName);
         event PropertyChangedEventHandler PropertyChanged;
@@ -34,7 +37,9 @@ namespace BioinformaticsKKR.ViewModel
 
     public class PamsamAlignerViewModel : ViewModelBase, IPamsamAlignerViewModel
     {
+        private readonly IAlignmentSequenceViewModel _alignmentSequenceViewModel;
         private IAmSimilarityMatrix _currentSimilarityMatrix;
+        private IAlignedSequence _alignedSequences;
 
         public Array AllProfileScoreFunctionNames
         {
@@ -152,32 +157,61 @@ namespace BioinformaticsKKR.ViewModel
 
         public IAmSimilarityMatrix CurrentSimilarityMatrix
         {
-            get { return _currentSimilarityMatrix; }
+            get { return PamsamMultipleSequenceAligner.SimilarityMatrix; }
             set
             {
-                _currentSimilarityMatrix = value;
+                PamsamMultipleSequenceAligner.SimilarityMatrix = value;
                 OnPropertyChanged("CurrentSimilarityMatrix");
             }
         }
 
 
         public PamsamAlignerViewModel(IEnumerable<IAmSimilarityMatrix> similarityMatrices,
+            IAlignmentSequenceViewModel alignmentSequenceViewModel,
             IPamsamMultipleSequenceAligner pamsamMultipleSequenceAligner)
         {
+            _alignmentSequenceViewModel = alignmentSequenceViewModel;
             PamsamMultipleSequenceAligner = pamsamMultipleSequenceAligner;
             SimilarityMatrices = similarityMatrices;
+
+            _alignmentSequenceViewModel.PropertyChanged += (sender, e) => OnPropertyChanged(e.ToString());
             Align = new CommandBase
             {
-                CanExecuteMethod = o => true,
+                CanExecuteMethod = CanExecuteAlign,
                 ExecuteMethod = ExecuteAlign
             };
+        }
+
+        public IAlignmentSequenceViewModel AlignmentSequenceViewModel
+        {
+            get { return _alignmentSequenceViewModel; }
+        }
+
+        private bool CanExecuteAlign(object obj)
+        {
+            return CurrentSimilarityMatrix != null;
         }
 
         public CommandBase Align { get; set; }
 
         private void ExecuteAlign(object obj)
         {
-            PamsamMultipleSequenceAligner.Align(null, null);
+            var alp = SequencesRepository.Instance.Sequences.First().Alphabet;
+            var result = PamsamMultipleSequenceAligner.Align(alp, SequencesRepository.Instance.Sequences.ToArray());
+
+            
+            var sequencess = result.First().AlignedSequences.First();
+            AlignedSequences = sequencess;
+        }
+
+        public IAlignedSequence AlignedSequences
+        {
+            get { return _alignedSequences; }
+            set
+            {
+                _alignedSequences = value; 
+                OnPropertyChanged("AlignedSequences"); 
+            }
         }
 
         public IEnumerable<IAmSimilarityMatrix> SimilarityMatrices { get; set; }

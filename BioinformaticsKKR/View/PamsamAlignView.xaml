@@ -18,6 +18,7 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
+            <RowDefinition Height="200" />
         </Grid.RowDefinitions>
         
         <Grid.ColumnDefinitions>
@@ -57,7 +58,11 @@
         
         <Label HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2" Grid.Row="4" Content="Similarity Matrix" />
         <ComboBox Margin="2.5" ItemsSource="{Binding SimilarityMatrices}" SelectedItem="{Binding CurrentSimilarityMatrix, Mode=TwoWay}" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-        <Button Margin="2.5" Grid.Row="5" Grid.Column="0" Content="Align" Command="{Binding Align}"></Button>
+        <Button Margin="2.5" Grid.Row="5" Grid.Column="0" Content="Align" Command="{Binding Align}" />
+
+        <view:AlignmentSequenceViewControl DataContext="{Binding AlignmentSequenceViewModel}"
+                                               x:Name="AlignmentControl" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4"/>
+
     </Grid>
     
     

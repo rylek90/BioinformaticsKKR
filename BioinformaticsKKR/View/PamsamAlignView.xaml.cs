@@ -29,15 +29,15 @@ namespace BioinformaticsKKR.View
 
         private void OnPropChanged(object sender, PropertyChangedEventArgs e)
         {
-           /* if (e.PropertyName == "SecondSequenceSelected")
+
+            if (e.PropertyName == "AlignedSequences")
             {
-                OverviewControl.Update(_viewModel.SecondSequenceSelected);
+                //var consensus = _viewModel.AlignedSequences != null ? _viewModel.AlignedSequences.Consensus : null;
+                AlignmentControl.Update(_viewModel.AlignedSequences.Sequences[0],
+                    _viewModel.AlignedSequences.Sequences[1],
+                    _viewModel.AlignedSequences.Sequences[2]
+                    );
             }
-            else if (e.PropertyName == "Aligned")
-            {
-                var consensus = _viewModel.Aligned != null ? _viewModel.Aligned.Consensus : null;
-                AlignedControl.Update(consensus);
-            }*/
         }
 
 
