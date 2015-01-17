@@ -30,6 +30,13 @@ namespace BioinformaticsKKR.Service.Alignement
             return true;
         }
 
+        public AlignmentType AlignmentType { get; private set; }
+
+        public MuMmerSequenceAligner()
+        {
+            AlignmentType = AlignmentType.Both;
+        }
+
         public override string ToString()
         {
             return "MuMmer Aligner";

@@ -28,6 +28,13 @@ namespace BioinformaticsKKR.Service.Alignement
             return true;
         }
 
+        public NeedlemanWunschSequenceAligner()
+        {
+            AlignmentType = AlignmentType.Pair;
+        }
+
+        public AlignmentType AlignmentType { get; private set; }
+
         public SimilarityMatrix SimilarityMatrix { get; set; }
 
         public override string ToString()

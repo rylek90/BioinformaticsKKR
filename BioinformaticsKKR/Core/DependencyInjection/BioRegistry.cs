@@ -94,6 +94,8 @@ namespace BioinformaticsKKR.Core.DependencyInjection
             For<IAlignSequences>().Use<NeedlemanWunschSequenceAligner>();
             For<IAlignSequences>().Use<SmithWatermanSequenceAligner>();
             For<IAlignSequences>().Use<PairwiseOverlapSequenceAligner>();
+
+            For<IAlignMultiSequences>().Use<PamsamMultipleSequenceAligner>();
         }
 
         private void RegisterSimilarityMatrices()

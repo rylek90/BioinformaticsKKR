@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Bio;
+using Bio.IO.FastA;
+using Bio.Util;
 using BioinformaticsKKR.Provider;
 
 namespace BioinformaticsKKR.Core.IO
@@ -18,11 +20,14 @@ namespace BioinformaticsKKR.Core.IO
             if (string.IsNullOrEmpty(path))
                 return false;
 
-            using (var outputFile = new FileStream(path, FileMode.Create, FileAccess.Write))
+            var tmpFormatter = Bio.IO.SequenceFormatters.FindFormatterByFileName(path);
+            tmpFormatter.Close();
+
+            using (var outputFile = new StreamWriter(path))
             {
-                //    var formater = new FastAFormatter();
-                var formater = Bio.IO.SequenceFormatters.FindFormatterByFileName(path);
-                formater.Format(outputFile, sequences);
+                tmpFormatter.Open(outputFile);
+                sequences.ForEach(tmpFormatter.Write);
+                tmpFormatter.Close();
             }
             var repo = SequencesRepository.Instance.Sequences;
 

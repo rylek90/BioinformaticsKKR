@@ -73,7 +73,7 @@ namespace BioinformaticsKKR.ViewModel
             _statusService = statusService;
             AlignedSequenceViewModel = alignedSequenceViewModel;
             _statusService.PropertyChanged += (sender, e) => OnPropertyChanged(e.ToString());
-            SequencesAligners = sequencesAligners.ToList();
+            SequencesAligners = sequencesAligners.Where(x => x.AlignmentType == AlignmentType.Both).ToList();
             SimilarityMatrices = similarityMatrices;
             SingleSequenceViewModel = singleSequenceViewModel;
             SingleSequenceViewModel.PropertyChanged += (sender, e) => OnPropertyChanged(e.ToString());

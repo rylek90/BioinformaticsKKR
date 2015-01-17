@@ -208,7 +208,7 @@ namespace BioinformaticsKKR.ViewModel
         private void UpdateAlignersState()
         {
             SequencesAligners =
-                _sequencesAligners.Where(x => x.CanAlignSequences(_firstSequenceSelected, _secondSequenceSelected))
+                _sequencesAligners.Where(x => x.AlignmentType == AlignmentType.Both || x.AlignmentType == AlignmentType.Pair)
                     .ToList();
         }
 

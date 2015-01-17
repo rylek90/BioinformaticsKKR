@@ -18,7 +18,7 @@ namespace BioinformaticsKKR.Core.IO
         {
             List<ISequence> sequences;
 
-            using (var inputFile = new FileStream(path, FileMode.Open, FileAccess.Read))
+            using (var inputFile = new StreamReader(path))
             {
                 var type = SequenceParsers.FindParserByFileName(path).GetType();
                 var parser = (ISequenceParser) Activator.CreateInstance(type);

@@ -28,6 +28,13 @@ namespace BioinformaticsKKR.Service.Alignement
             return true;
         }
 
+        public AlignmentType AlignmentType { get; private set; }
+
+        public PairwiseOverlapSequenceAligner()
+        {
+            AlignmentType = AlignmentType.Pair;
+        }
+
         public SimilarityMatrix SimilarityMatrix { get; set; }
 
         public override string ToString()

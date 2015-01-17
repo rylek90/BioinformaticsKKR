@@ -40,21 +40,25 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bio.Core">
-      <HintPath>..\packages\NetBioCore.PCL.2.0.141118\lib\net45\Bio.Core.dll</HintPath>
+    <Reference Include="Bio, Version=1.1.4947.14606, Culture=neutral, PublicKeyToken=13335e9abfbf69d0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NETBio.1.1.0.0\lib\net40-full\Bio.dll</HintPath>
     </Reference>
-    <Reference Include="Bio.Desktop">
-      <HintPath>..\packages\NetBioCore.PCL.2.0.141118\lib\net45\Bio.Desktop.dll</HintPath>
+    <Reference Include="Bio.Comparative">
+      <HintPath>..\packages\NETBio.1.1.0.0\lib\net40-full\Bio.Comparative.dll</HintPath>
     </Reference>
-    <Reference Include="Bio.Platform.Helpers">
-      <HintPath>..\packages\NetBioCore.PCL.2.0.141118\lib\net45\Bio.Platform.Helpers.dll</HintPath>
+    <Reference Include="Bio.Padena">
+      <HintPath>..\packages\NETBio.1.1.0.0\lib\net40-full\Bio.Padena.dll</HintPath>
+    </Reference>
+    <Reference Include="Bio.Pamsam, Version=1.1.4947.14631, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NETBio.1.1.0.0\lib\net40-full\Bio.Pamsam.dll</HintPath>
+    </Reference>
+    <Reference Include="Bio.WebServiceHandlers">
+      <HintPath>..\packages\NETBio.1.1.0.0\lib\net40-full\Bio.WebServiceHandlers.dll</HintPath>
     </Reference>
     <Reference Include="FirstFloor.ModernUI">
       <HintPath>..\packages\ModernUI.WPF.1.0.6\lib\net45\FirstFloor.ModernUI.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\packages\structuremap.3.1.4.143\lib\net40\StructureMap.dll</HintPath>
@@ -121,10 +125,12 @@
     <Compile Include="Core\ViewModel\Tools\ScrollSynchronizer.cs" />
     <Compile Include="Navigator\Loader\CurrentSequenceLoader.cs" />
     <Compile Include="Provider\SequencesRepository.cs" />
+    <Compile Include="Service\Alignement\AlignmentType.cs" />
     <Compile Include="Service\Alignement\PairwiseOverlapSequenceAligner.cs" />
     <Compile Include="Service\Alignement\IAlignSequences.cs" />
     <Compile Include="Service\Alignement\MuMmerSequenceAligner.cs" />
     <Compile Include="Service\Alignement\NeedlemanWunschSequenceAligner.cs" />
+    <Compile Include="Service\Alignement\PamsamMultipleSequenceAligner.cs" />
     <Compile Include="Service\Alignement\SmithWatermanSequenceAligner.cs" />
     <Compile Include="Service\Assembly\OverlapDeNovoAssemblerService.cs" />
     <Compile Include="Service\Assembly\IAssembleSequences.cs" />

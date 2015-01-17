@@ -11,5 +11,6 @@ namespace BioinformaticsKKR.Service.Alignement
         SimilarityMatrix SimilarityMatrix { get; set; }
         int GapPenalty { get; set; }
         bool CanAlignSequences(ISequence sequenceA, ISequence sequenceB);
+        AlignmentType AlignmentType { get; }
     }
 }
