@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
 using Bio.Algorithms.Alignment;
 using Bio.Algorithms.Alignment.MultipleSequenceAlignment;
 using BioinformaticsKKR.Core.Definitions.SimilarityMatrices;
 using BioinformaticsKKR.Core.ViewModel;
 using BioinformaticsKKR.Provider;
 using BioinformaticsKKR.Service.Alignement;
+using FirstFloor.ModernUI.Windows.Controls;
 
 namespace BioinformaticsKKR.ViewModel
 {
@@ -194,14 +197,24 @@ namespace BioinformaticsKKR.ViewModel
 
         public CommandBase Align { get; set; }
 
-        private void ExecuteAlign(object obj)
+        private async void ExecuteAlign(object obj)
         {
-            var alp = SequencesRepository.Instance.Sequences.First().Alphabet;
-            var result = PamsamMultipleSequenceAligner.Align(alp, SequencesRepository.Instance.Sequences.ToArray());
+            try
+            {
+                await Task.Run(() =>
+                {
+                    var alp = SequencesRepository.Instance.Sequences.First().Alphabet;
+                    var result = PamsamMultipleSequenceAligner.Align(alp, SequencesRepository.Instance.Sequences.ToArray());
 
-            
-            var sequencess = result.First().AlignedSequences.First();
-            AlignedSequences = sequencess;
+
+                    var sequencess = result.First().AlignedSequences.First();
+                    AlignedSequences = sequencess;
+                });
+            }
+            catch (Exception ex)
+            {
+                ModernDialog.ShowMessage(ex.Message, "Warning!", MessageBoxButton.OK);
+            }
         }
 
         public IAlignedSequence AlignedSequences
